@@ -2,7 +2,7 @@ package com.ldl.lotteryodds;
 
 /**
  * 作者: LDL
- * 说明:
+ * 说明: 新浪彩票请求返回值中result实体
  * 时间: 2015/7/23 22:45
  */
 public class ResultEntity {
