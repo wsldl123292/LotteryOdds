@@ -23,11 +23,14 @@ public class LotteryOddsDao {
      * 批量插入
      * @param entity500s
      */
-    public void batchDeleteSourceById(List<Entity500> entity500s){
-        String sql = "insert into ";
+    public void batchInsert(List<Entity500> entity500s){
+        String sql = "insert into lotteryodds(id,content,hwOdd," +
+                "hdOdd,hlOdd,rhwOdd,rhdOdd,rhlOdd)values(?,?,?,?,?,?,?,?)";
         List<Object[]> batchArgs = new ArrayList<>();
-        for (String sourceId : sourceIds) {
-            Object[] args = {sourceId};
+        for (Entity500 entity500 : entity500s) {
+            Object[] args = {entity500.getId(),entity500.getContent(),entity500.getHwOdd(),
+            entity500.getHdOdd(),entity500.getHlOdd(),entity500.getRhwOdd(),entity500.getRhdOdd(),
+            entity500.getRhlOdd()};
             batchArgs.add(args);
         }
         jdbcTemplate.batchUpdate(sql, batchArgs);

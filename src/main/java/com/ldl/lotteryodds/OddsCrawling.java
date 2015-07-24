@@ -11,6 +11,8 @@ import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
 import java.io.IOException;
 import java.nio.charset.Charset;
@@ -27,6 +29,7 @@ import java.util.Map;
 public class OddsCrawling {
 
     public static void main(String[] args) {
+
 
         CloseableHttpClient client = HttpClientBuilder.create().build();
         String url = "http://live.500.com/?e=2014-06-02";
@@ -76,16 +79,16 @@ public class OddsCrawling {
                 String rqhtml = "";
                 if(map.get("sp")!=null){
                     String[] arr = map.get("sp").split(",");
-                    entity500.setHwOdd(Double.parseDouble(arr[0]));
-                    entity500.setHdOdd(Double.parseDouble(arr[1]));
-                    entity500.setHlOdd(Double.parseDouble(arr[2]));
+                    entity500.setHwOdd(arr[0]);
+                    entity500.setHdOdd(arr[1]);
+                    entity500.setHlOdd(arr[2]);
                     rqhtml += "<td align=\"center\" class=\"bf_op\"><span>"+arr[0]+"</span><span>"+arr[1]+"</span><span>"+arr[2]+"</span></td>";
                 }
                 if(map.get("rqsp")!=null){
                     String[] arr = map.get("rqsp").split(",");
-                    entity500.setRhwOdd(Double.parseDouble(arr[0]));
-                    entity500.setRhdOdd(Double.parseDouble(arr[1]));
-                    entity500.setRhlOdd(Double.parseDouble(arr[2]));
+                    entity500.setRhwOdd(arr[0]);
+                    entity500.setRhdOdd(arr[1]);
+                    entity500.setRhlOdd(arr[2]);
                     rqhtml += "<td align=\"center\" class=\"bf_op\"><span>"+arr[0]+"</span><span>"+arr[1]+"</span><span>"+arr[2]+"</span></td>";
                 }
                 element.select(".bf_op").first().after(rqhtml);
@@ -93,6 +96,11 @@ public class OddsCrawling {
                 entity500.setContent(element.outerHtml());
                 entity500s.add(entity500);
             }
+
+            ApplicationContext context =
+                    new AnnotationConfigApplicationContext(OddsCrawling.class);
+            LotteryOddsDao lotteryOddsDao = context.getBean(LotteryOddsDao.class);
+            lotteryOddsDao.batchInsert(entity500s);
         } catch (IOException e) {
             e.printStackTrace();
         }

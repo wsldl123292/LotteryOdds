@@ -12,27 +12,27 @@ public class Entity500 {
     /**
      * 不让球主胜赔率
      */
-    private double hwOdd;
+    private String hwOdd;
     /**
      * 不让球主平赔率
      */
-    private double hdOdd;
+    private String hdOdd;
     /**
      * 不让球主负赔率
      */
-    private double hlOdd;
+    private String hlOdd;
     /**
      * 让球主胜赔率
      */
-    private double rhwOdd;
+    private String rhwOdd;
     /**
      * 让球主平赔率
      */
-    private double rhdOdd;
+    private String rhdOdd;
     /**
      * 让球主负赔率
      */
-    private double rhlOdd;
+    private String rhlOdd;
 
 
     public String getContent() {
@@ -51,51 +51,51 @@ public class Entity500 {
         this.id = id;
     }
 
-    public double getHwOdd() {
+    public String getHwOdd() {
         return hwOdd;
     }
 
-    public void setHwOdd(double hwOdd) {
+    public void setHwOdd(String hwOdd) {
         this.hwOdd = hwOdd;
     }
 
-    public double getHdOdd() {
+    public String getHdOdd() {
         return hdOdd;
     }
 
-    public void setHdOdd(double hdOdd) {
+    public void setHdOdd(String hdOdd) {
         this.hdOdd = hdOdd;
     }
 
-    public double getHlOdd() {
+    public String getHlOdd() {
         return hlOdd;
     }
 
-    public void setHlOdd(double hlOdd) {
+    public void setHlOdd(String hlOdd) {
         this.hlOdd = hlOdd;
     }
 
-    public double getRhwOdd() {
+    public String getRhwOdd() {
         return rhwOdd;
     }
 
-    public void setRhwOdd(double rhwOdd) {
+    public void setRhwOdd(String rhwOdd) {
         this.rhwOdd = rhwOdd;
     }
 
-    public double getRhdOdd() {
+    public String getRhdOdd() {
         return rhdOdd;
     }
 
-    public double getRhlOdd() {
+    public void setRhdOdd(String rhdOdd) {
+        this.rhdOdd = rhdOdd;
+    }
+
+    public String getRhlOdd() {
         return rhlOdd;
     }
 
-    public void setRhlOdd(double rhlOdd) {
+    public void setRhlOdd(String rhlOdd) {
         this.rhlOdd = rhlOdd;
-    }
-
-    public void setRhdOdd(double rhdOdd) {
-        this.rhdOdd = rhdOdd;
     }
 }
