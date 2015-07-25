@@ -44,6 +44,14 @@
     </table>
 </div>
 <script>
+    $(function(){
+        document.onkeydown = function(e){
+            var ev = document.all ? window.event : e;
+            if(ev.keyCode==13) {
+                search();
+            }
+        }
+    });
     function search() {
         $.ajax({
             type: 'POST',
