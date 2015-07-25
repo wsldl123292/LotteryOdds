@@ -7,7 +7,11 @@ package com.ldl.lotteryodds;
  */
 public class Entity500 {
 
-    private String id;
+    private int id;
+    /**
+     * 比赛id
+     */
+    private String matchid;
     private String content;
     /**
      * 不让球主胜赔率
@@ -34,6 +38,11 @@ public class Entity500 {
      */
     private String rhlOdd;
 
+    /**
+     * 比赛日期
+     */
+    private String date;
+
 
     public String getContent() {
         return content;
@@ -41,14 +50,6 @@ public class Entity500 {
 
     public void setContent(String content) {
         this.content = content;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getHwOdd() {
@@ -97,5 +98,29 @@ public class Entity500 {
 
     public void setRhlOdd(String rhlOdd) {
         this.rhlOdd = rhlOdd;
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
+    }
+
+    public String getMatchid() {
+        return matchid;
+    }
+
+    public void setMatchid(String matchid) {
+        this.matchid = matchid;
+    }
+
+    public int getId() {
+        return id;
+    }
+
+    public void setId(int id) {
+        this.id = id;
     }
 }

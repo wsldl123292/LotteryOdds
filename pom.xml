@@ -37,7 +37,11 @@
       <artifactId>mysql-connector-java</artifactId>
       <version>5.1.36</version>
     </dependency>
-
+    <dependency>
+      <groupId>com.alibaba</groupId>
+      <artifactId>fastjson</artifactId>
+      <version>1.2.6</version>
+    </dependency>
     <!-- 连接池开始 -->
     <dependency>
       <groupId>c3p0</groupId>
@@ -61,6 +65,13 @@
       <artifactId>guava</artifactId>
       <version>18.0</version>
     </dependency>
+    <dependency>
+      <groupId>com.github.httl</groupId>
+      <artifactId>httl-springmvc</artifactId>
+      <version>1.0.11</version>
+    </dependency>
+
+
 
   </dependencies>
   <build>
