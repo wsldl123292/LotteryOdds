@@ -77,7 +77,7 @@ public class OddInfo {
     /**
      * 最终主胜凯利指数澳门
      */
-    private double lwClAm;
+    private double lwKlAm;
     /**
      * 最终主平凯利指数澳门
      */
@@ -133,7 +133,7 @@ public class OddInfo {
     /**
      * 最终主胜凯利指数威廉希尔
      */
-    private double lwClWl;
+    private double lwKlWl;
     /**
      * 最终主平凯利指数威廉希尔
      */
@@ -189,7 +189,7 @@ public class OddInfo {
     /**
      * 最终主胜凯利指数立博
      */
-    private double lwClLb;
+    private double lwKlLb;
     /**
      * 最终主平凯利指数立博
      */
@@ -243,7 +243,7 @@ public class OddInfo {
     /**
      * 最终平均主胜凯利指数
      */
-    private double slwCl;
+    private double slwKl;
     /**
      * 最终平均主平凯利指数
      */
@@ -419,14 +419,6 @@ public class OddInfo {
         this.clKlAm = clKlAm;
     }
 
-    public double getLwClAm() {
-        return lwClAm;
-    }
-
-    public void setLwClAm(double lwClAm) {
-        this.lwClAm = lwClAm;
-    }
-
     public double getLdKlAm() {
         return ldKlAm;
     }
@@ -513,14 +505,6 @@ public class OddInfo {
 
     public void setClKlWl(double clKlWl) {
         this.clKlWl = clKlWl;
-    }
-
-    public double getLwClWl() {
-        return lwClWl;
-    }
-
-    public void setLwClWl(double lwClWl) {
-        this.lwClWl = lwClWl;
     }
 
     public double getLdKlWl() {
@@ -611,14 +595,6 @@ public class OddInfo {
         this.clKlLb = clKlLb;
     }
 
-    public double getLwClLb() {
-        return lwClLb;
-    }
-
-    public void setLwClLb(double lwClLb) {
-        this.lwClLb = lwClLb;
-    }
-
     public double getLdKlLb() {
         return ldKlLb;
     }
@@ -705,14 +681,6 @@ public class OddInfo {
 
     public void setSclKl(double sclKl) {
         this.sclKl = sclKl;
-    }
-
-    public double getSlwCl() {
-        return slwCl;
-    }
-
-    public void setSlwCl(double slwCl) {
-        this.slwCl = slwCl;
     }
 
     public double getSldKl() {
@@ -904,5 +872,37 @@ public class OddInfo {
 
     public void setKscore(int kscore) {
         this.kscore = kscore;
+    }
+
+    public double getLwKlAm() {
+        return lwKlAm;
+    }
+
+    public void setLwKlAm(double lwKlAm) {
+        this.lwKlAm = lwKlAm;
+    }
+
+    public double getLwKlLb() {
+        return lwKlLb;
+    }
+
+    public void setLwKlLb(double lwKlLb) {
+        this.lwKlLb = lwKlLb;
+    }
+
+    public double getSlwKl() {
+        return slwKl;
+    }
+
+    public void setSlwKl(double slwKl) {
+        this.slwKl = slwKl;
+    }
+
+    public double getLwKlWl() {
+        return lwKlWl;
+    }
+
+    public void setLwKlWl(double lwKlWl) {
+        this.lwKlWl = lwKlWl;
     }
 }

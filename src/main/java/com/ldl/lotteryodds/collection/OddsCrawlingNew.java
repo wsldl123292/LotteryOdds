@@ -3,7 +3,6 @@ package com.ldl.lotteryodds.collection;
 import com.alibaba.fastjson.JSON;
 import com.google.common.base.Splitter;
 import com.ldl.lotteryodds.dao.LotteryOddsDao;
-import com.ldl.lotteryodds.entity.Entity500;
 import com.ldl.lotteryodds.entity.OddInfo;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
@@ -35,11 +34,12 @@ public class OddsCrawlingNew {
     public static void main(String[] args) {
 
         //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2011, 7, 21);
-        final LocalDate endDate = LocalDate.of(2015, 7, 23);
+        LocalDate beginDate = LocalDate.of(2015, 9, 27);
+        final LocalDate endDate = LocalDate.of(2015, 9, 26);
         int count = 0;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
+        HttpGet get;
 
         /** 列表地址 */
         final String baseurl = "http://live.500.com/?e=";
@@ -65,7 +65,9 @@ public class OddsCrawlingNew {
             url = baseurl + beginDate.toString();
             System.out.println("开始采集" + beginDate.toString() + "的数据");
             try {
-                response = client.execute(new HttpGet(url));
+                get = new HttpGet(url);
+                get.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
+                response = client.execute(get);
                 final String bodyAsString = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
                 final Document document = Jsoup.parse(bodyAsString);
                 //获取比赛表格
@@ -122,7 +124,9 @@ public class OddsCrawlingNew {
 
                     /** 采集亚盘地址 http://odds.500.com/fenxi/yazhi-331954.shtml */
                     url = yapanUrl + fid + ".shtml";
-                    response = client.execute(new HttpGet(url));
+                    get = new HttpGet(url);
+                    get.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
+                    response = client.execute(get);
                     final String yapanBody = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
                     final Document yanpan = Jsoup.parse(yapanBody);
                     //获取亚盘数据表格
@@ -134,9 +138,9 @@ public class OddsCrawlingNew {
                             final Elements pks = yptr.select(".pl_table_data");
                             //最终盘口
                             final Elements lpktds = pks.get(0).select("tbody>tr>td");
-                            oddInfo.setLzWaterAm(Double.parseDouble(lpktds.get(0).text().replace("↑","").replace("↓","")));
+                            oddInfo.setLzWaterAm(Double.parseDouble(lpktds.get(0).text().replace("↑", "").replace("↓", "")));
                             oddInfo.setLpAm(Double.parseDouble(lpktds.get(1).attr("ref")));
-                            oddInfo.setLkWaterAm(Double.parseDouble(lpktds.get(2).text().replace("↑", "").replace("↓","")));
+                            oddInfo.setLkWaterAm(Double.parseDouble(lpktds.get(2).text().replace("↑", "").replace("↓", "")));
 
                             //初始盘口
                             final Elements cpktds = pks.get(1).select("tbody>tr>td");
@@ -160,48 +164,132 @@ public class OddsCrawlingNew {
                         }
                     }
 
-                    final Map<String, String> map = oddMaps.get(fid);
-                    //拼接赔率
-                    String rqhtml = "";
-                    if (map.get("sp") != null) {
-                        final String[] arr = map.get("sp").split(",");
-                        entity500.setHwOdd(arr[0]);
-                        entity500.setHdOdd(arr[1]);
-                        entity500.setHlOdd(arr[2]);
-                        rqhtml += "<td align=\"center\" class=\"bf_op\"><span>" + arr[0] + "</span><span>" + arr[1] + "</span><span>" + arr[2] + "</span></td>";
+
+                    /** 采集欧赔地址 http://odds.500.com/fenxi/ouzhi-331954.shtml */
+                    url = oupeiUrl + fid + ".shtml";
+                    get = new HttpGet(url);
+                    get.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
+                    response = client.execute(get);
+                    final String oupeiBody = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
+                    final Document oupei = Jsoup.parse(oupeiBody);
+                    //获取欧赔数据表格
+                    final Element opDatatb = oupei.getElementById("datatb");
+                    final Elements optrs = opDatatb.select("tbody");
+                    for (Element optr : optrs) {
+                        if (optr.attr("id").equals("5")) {
+                            //澳门欧赔信息
+                            final Elements pks = optr.select(".pl_table_data");
+                            final Elements cpktrs = pks.get(0).select("tbody>tr");
+                            //初始赔率
+                            final Elements cop = cpktrs.get(0).select("td");
+                            oddInfo.setCwOddAm(Double.parseDouble(cop.get(0).text()));
+                            oddInfo.setCdOddAm(Double.parseDouble(cop.get(1).text()));
+                            oddInfo.setClOddAm(Double.parseDouble(cop.get(2).text()));
+
+                            //最终赔率
+                            final Elements lop = cpktrs.get(1).select("td");
+                            oddInfo.setLwOddAm(Double.parseDouble(lop.get(0).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLdOddAm(Double.parseDouble(lop.get(1).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLlOddAm(Double.parseDouble(lop.get(2).text().replace("↑", "").replace("↓", "")));
+
+
+                            //凯利指数
+                            final Elements klktrs = pks.get(3).select("tbody>tr");
+                            //初始凯利指数
+                            final Elements ckl = klktrs.get(0).select("td");
+                            oddInfo.setCwKlAm(Double.parseDouble(ckl.get(0).text()));
+                            oddInfo.setCdKlAm(Double.parseDouble(ckl.get(1).text()));
+                            oddInfo.setClKlAm(Double.parseDouble(ckl.get(2).text()));
+
+                            //最终凯利指数
+                            final Elements lkl = klktrs.get(1).select("td");
+                            oddInfo.setLwKlAm(Double.parseDouble(lkl.get(0).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLdKlAm(Double.parseDouble(lkl.get(1).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLlKlAm(Double.parseDouble(lkl.get(2).text().replace("↑", "").replace("↓", "")));
+                        } else if (optr.attr("id").equals("2")) {
+                            //立博赔率信息
+                            final Elements pks = optr.select(".pl_table_data");
+                            final Elements cpktrs = pks.get(0).select("tbody>tr");
+                            //初始赔率
+                            final Elements cop = cpktrs.get(0).select("td");
+                            oddInfo.setCwOddLb(Double.parseDouble(cop.get(0).text()));
+                            oddInfo.setCdOddLb(Double.parseDouble(cop.get(1).text()));
+                            oddInfo.setClOddLb(Double.parseDouble(cop.get(2).text()));
+
+                            //最终赔率
+                            final Elements lop = cpktrs.get(1).select("td");
+                            oddInfo.setLwOddLb(Double.parseDouble(lop.get(0).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLdOddLb(Double.parseDouble(lop.get(1).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLlOddLb(Double.parseDouble(lop.get(2).text().replace("↑", "").replace("↓", "")));
+
+
+                            //凯利指数
+                            final Elements klktrs = pks.get(3).select("tbody>tr");
+                            //初始凯利指数
+                            final Elements ckl = klktrs.get(0).select("td");
+                            oddInfo.setCwKlLb(Double.parseDouble(ckl.get(0).text()));
+                            oddInfo.setCdKlLb(Double.parseDouble(ckl.get(1).text()));
+                            oddInfo.setClKlLb(Double.parseDouble(ckl.get(2).text()));
+
+                            //最终凯利指数
+                            final Elements lkl = klktrs.get(1).select("td");
+                            oddInfo.setLwKlLb(Double.parseDouble(lkl.get(0).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLdKlLb(Double.parseDouble(lkl.get(1).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLlKlLb(Double.parseDouble(lkl.get(2).text().replace("↑", "").replace("↓", "")));
+                        } else if (optr.attr("id").equals("293")) {
+                            //威廉希尔赔率信息
+                            final Elements pks = optr.select(".pl_table_data");
+                            final Elements cpktrs = pks.get(0).select("tbody>tr");
+                            //初始赔率
+                            final Elements cop = cpktrs.get(0).select("td");
+                            oddInfo.setCwOddWl(Double.parseDouble(cop.get(0).text()));
+                            oddInfo.setCdOddWl(Double.parseDouble(cop.get(1).text()));
+                            oddInfo.setClOddWl(Double.parseDouble(cop.get(2).text()));
+
+                            //最终赔率
+                            final Elements lop = cpktrs.get(1).select("td");
+                            oddInfo.setLwOddWl(Double.parseDouble(lop.get(0).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLdOddWl(Double.parseDouble(lop.get(1).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLlOddWl(Double.parseDouble(lop.get(2).text().replace("↑", "").replace("↓", "")));
+
+
+                            //凯利指数
+                            final Elements klktrs = pks.get(3).select("tbody>tr");
+                            //初始凯利指数
+                            final Elements ckl = klktrs.get(0).select("td");
+                            oddInfo.setCwKlWl(Double.parseDouble(ckl.get(0).text()));
+                            oddInfo.setCdKlWl(Double.parseDouble(ckl.get(1).text()));
+                            oddInfo.setClKlWl(Double.parseDouble(ckl.get(2).text()));
+
+                            //最终凯利指数
+                            final Elements lkl = klktrs.get(1).select("td");
+                            oddInfo.setLwKlWl(Double.parseDouble(lkl.get(0).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLdKlWl(Double.parseDouble(lkl.get(1).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLlKlWl(Double.parseDouble(lkl.get(2).text().replace("↑", "").replace("↓", "")));
+                        }
                     }
-                    if (map.get("rqsp") != null) {
-                        final String[] arr = map.get("rqsp").split(",");
-                        entity500.setRhwOdd(arr[0]);
-                        entity500.setRhdOdd(arr[1]);
-                        entity500.setRhlOdd(arr[2]);
-                        rqhtml += "<td align=\"center\" class=\"bf_op\"><span>" + arr[0] + "</span><span>" + arr[1] + "</span><span>" + arr[2] + "</span></td>";
-                    }
-                    element.select(".bf_op").first().after(rqhtml);
-                    element.select(".bf_op").first().remove();
-                    entity500.setContent(element.outerHtml());
-                    entity500.setDate(beginDate.toString());
-                    entity500s.add(entity500);
+                    oddInfos.add(oddInfo);
                 }
 
-                if (count == 10) {
+                /*if (count == 10) {
                     final int size = lotteryOddsDao.batchInsert(entity500s);
-                    entity500s.clear();
+                    oddInfos.clear();
                     count = 0;
                     System.out.println("保存10天的数据,共" + size + "条");
                 }
 
                 //前一天数据
-                beginDate = beginDate.minusDays(1);
+                beginDate = beginDate.minusDays(1);*/
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        if (entity500s.size() > 0) {
+        System.out.println(oddInfos);
+        /*if (oddInfos.size() > 0) {
             final int size = lotteryOddsDao.batchInsert(entity500s);
             System.out.println("保存剩余数据,共" + size + "条");
-        }
+        }*/
 
     }
 
