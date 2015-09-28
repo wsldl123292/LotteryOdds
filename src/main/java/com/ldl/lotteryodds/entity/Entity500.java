@@ -1,4 +1,4 @@
-package com.ldl.lotteryodds;
+package com.ldl.lotteryodds.entity;
 
 /**
  * 作者: LDL

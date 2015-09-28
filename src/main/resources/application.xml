@@ -24,7 +24,7 @@
               <property name="dataSource" ref="mainDataSource"/>
        </bean>
 
-       <bean id="lotteryOddsDao" class="com.ldl.lotteryodds.LotteryOddsDao">
+       <bean id="lotteryOddsDao" class="com.ldl.lotteryodds.dao.LotteryOddsDao">
               <property name="jdbcTemplate" ref="jdbcTemplate" />
        </bean>
 </beans>
