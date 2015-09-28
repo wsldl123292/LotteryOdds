@@ -128,13 +128,35 @@ public class OddsCrawlingNew {
                     //获取亚盘数据表格
                     final Element ypDatatb = yanpan.getElementById("datatb");
                     final Elements yptrs = ypDatatb.select("tbody>tr");
-                    for (Object yptr : yptrs) {
-                        final Element ypelement = (Element) yptr;
-                        if (ypelement.attr("id").equals("5")) {
-                            //澳门
+                    for (Element yptr : yptrs) {
+                        if (yptr.attr("id").equals("5")) {
+                            //澳门盘口信息
+                            final Elements pks = yptr.select(".pl_table_data");
+                            //最终盘口
+                            final Elements lpktds = pks.get(0).select("tbody>tr>td");
+                            oddInfo.setLzWaterAm(Double.parseDouble(lpktds.get(0).text().replace("↑","").replace("↓","")));
+                            oddInfo.setLpAm(Double.parseDouble(lpktds.get(1).attr("ref")));
+                            oddInfo.setLkWaterAm(Double.parseDouble(lpktds.get(2).text().replace("↑", "").replace("↓","")));
 
-                        } else if (ypelement.attr("id").equals("2")) {
-                            //立博
+                            //初始盘口
+                            final Elements cpktds = pks.get(1).select("tbody>tr>td");
+                            oddInfo.setCzWaterAm(Double.parseDouble(cpktds.get(0).text()));
+                            oddInfo.setCpAm(Double.parseDouble(cpktds.get(1).attr("ref")));
+                            oddInfo.setCkWaterAm(Double.parseDouble(cpktds.get(2).text()));
+                        } else if (yptr.attr("id").equals("2")) {
+                            //立博盘口信息
+                            final Elements pks = yptr.select(".pl_table_data");
+                            //最终盘口
+                            final Elements lpktds = pks.get(0).select("tbody>tr>td");
+                            oddInfo.setLzWaterLb(Double.parseDouble(lpktds.get(0).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLpLb(Double.parseDouble(lpktds.get(1).attr("ref")));
+                            oddInfo.setLkWaterLb(Double.parseDouble(lpktds.get(2).text().replace("↑", "").replace("↓", "")));
+
+                            //初始盘口
+                            final Elements cpktds = pks.get(1).select("tbody>tr>td");
+                            oddInfo.setCzWaterLb(Double.parseDouble(cpktds.get(0).text()));
+                            oddInfo.setCpLb(Double.parseDouble(cpktds.get(1).attr("ref")));
+                            oddInfo.setCkWaterLb(Double.parseDouble(cpktds.get(2).text()));
                         }
                     }
 
