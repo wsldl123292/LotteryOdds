@@ -34,8 +34,8 @@ public class OddsCrawlingNew {
     public static void main(String[] args) {
 
         //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 9, 27);
-        final LocalDate endDate = LocalDate.of(2015, 9, 26);
+        LocalDate beginDate = LocalDate.of(2014, 9, 12);
+        final LocalDate endDate = LocalDate.of(2011, 7, 21);
         int count = 0;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
@@ -59,6 +59,7 @@ public class OddsCrawlingNew {
 
         while (beginDate.isAfter(endDate)) {
             count++;
+            System.out.println(count);
             /**
              * 采集列表页
              */
@@ -66,7 +67,7 @@ public class OddsCrawlingNew {
             System.out.println("开始采集" + beginDate.toString() + "的数据");
             try {
                 get = new HttpGet(url);
-                get.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
+                get.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
                 response = client.execute(get);
                 final String bodyAsString = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
                 final Document document = Jsoup.parse(bodyAsString);
@@ -115,52 +116,56 @@ public class OddsCrawlingNew {
                     /** 比赛id */
                     final String fid = element.attr("fid");
                     final OddInfo oddInfo = new OddInfo(fid);
+                    oddInfo.setDate(beginDate.toString());
 
                     /** 比分 */
                     final Elements socre = element.select(".pk");
-                    oddInfo.setZscore(Integer.parseInt(socre.select(".clt1").text()));
-                    oddInfo.setKscore(Integer.parseInt(socre.select(".clt3").text()));
-                    oddInfo.setResult(oddInfo.getZscore(), oddInfo.getKscore());
+                    /** 避免出现无比分情况 */
+                    if (!socre.select(".clt1").text().trim().equals("")) {
+                        oddInfo.setZscore(Integer.parseInt(socre.select(".clt1").text()));
+                        oddInfo.setKscore(Integer.parseInt(socre.select(".clt3").text()));
+                        oddInfo.setResult(oddInfo.getZscore(), oddInfo.getKscore());
+                    }
 
                     /** 采集亚盘地址 http://odds.500.com/fenxi/yazhi-331954.shtml */
                     url = yapanUrl + fid + ".shtml";
                     get = new HttpGet(url);
-                    get.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
+                    get.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
                     response = client.execute(get);
                     final String yapanBody = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
                     final Document yanpan = Jsoup.parse(yapanBody);
                     //获取亚盘数据表格
                     final Element ypDatatb = yanpan.getElementById("datatb");
-                    final Elements yptrs = ypDatatb.select("tbody>tr");
+                    final Elements yptrs = ypDatatb.select("tbody>tr").select("[xls=row]");
                     for (Element yptr : yptrs) {
                         if (yptr.attr("id").equals("5")) {
                             //澳门盘口信息
                             final Elements pks = yptr.select(".pl_table_data");
                             //最终盘口
                             final Elements lpktds = pks.get(0).select("tbody>tr>td");
-                            oddInfo.setLzWaterAm(Double.parseDouble(lpktds.get(0).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLpAm(Double.parseDouble(lpktds.get(1).attr("ref")));
-                            oddInfo.setLkWaterAm(Double.parseDouble(lpktds.get(2).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLzWaterAm(lpktds.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLpAm(lpktds.get(1).attr("ref"));
+                            oddInfo.setLkWaterAm(lpktds.get(2).text().replace("↑", "").replace("↓", ""));
 
                             //初始盘口
                             final Elements cpktds = pks.get(1).select("tbody>tr>td");
-                            oddInfo.setCzWaterAm(Double.parseDouble(cpktds.get(0).text()));
-                            oddInfo.setCpAm(Double.parseDouble(cpktds.get(1).attr("ref")));
-                            oddInfo.setCkWaterAm(Double.parseDouble(cpktds.get(2).text()));
+                            oddInfo.setCzWaterAm(cpktds.get(0).text());
+                            oddInfo.setCpAm(cpktds.get(1).attr("ref"));
+                            oddInfo.setCkWaterAm(cpktds.get(2).text());
                         } else if (yptr.attr("id").equals("2")) {
                             //立博盘口信息
                             final Elements pks = yptr.select(".pl_table_data");
                             //最终盘口
                             final Elements lpktds = pks.get(0).select("tbody>tr>td");
-                            oddInfo.setLzWaterLb(Double.parseDouble(lpktds.get(0).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLpLb(Double.parseDouble(lpktds.get(1).attr("ref")));
-                            oddInfo.setLkWaterLb(Double.parseDouble(lpktds.get(2).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLzWaterLb(lpktds.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLpLb(lpktds.get(1).attr("ref"));
+                            oddInfo.setLkWaterLb(lpktds.get(2).text().replace("↑", "").replace("↓", ""));
 
                             //初始盘口
                             final Elements cpktds = pks.get(1).select("tbody>tr>td");
-                            oddInfo.setCzWaterLb(Double.parseDouble(cpktds.get(0).text()));
-                            oddInfo.setCpLb(Double.parseDouble(cpktds.get(1).attr("ref")));
-                            oddInfo.setCkWaterLb(Double.parseDouble(cpktds.get(2).text()));
+                            oddInfo.setCzWaterLb(cpktds.get(0).text());
+                            oddInfo.setCpLb(cpktds.get(1).attr("ref"));
+                            oddInfo.setCkWaterLb(cpktds.get(2).text());
                         }
                     }
 
@@ -168,13 +173,13 @@ public class OddsCrawlingNew {
                     /** 采集欧赔地址 http://odds.500.com/fenxi/ouzhi-331954.shtml */
                     url = oupeiUrl + fid + ".shtml";
                     get = new HttpGet(url);
-                    get.setHeader("User-Agent","Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
+                    get.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
                     response = client.execute(get);
                     final String oupeiBody = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
                     final Document oupei = Jsoup.parse(oupeiBody);
                     //获取欧赔数据表格
                     final Element opDatatb = oupei.getElementById("datatb");
-                    final Elements optrs = opDatatb.select("tbody");
+                    final Elements optrs = opDatatb.select("tbody>tr").select("[xls=row]");
                     for (Element optr : optrs) {
                         if (optr.attr("id").equals("5")) {
                             //澳门欧赔信息
@@ -182,114 +187,113 @@ public class OddsCrawlingNew {
                             final Elements cpktrs = pks.get(0).select("tbody>tr");
                             //初始赔率
                             final Elements cop = cpktrs.get(0).select("td");
-                            oddInfo.setCwOddAm(Double.parseDouble(cop.get(0).text()));
-                            oddInfo.setCdOddAm(Double.parseDouble(cop.get(1).text()));
-                            oddInfo.setClOddAm(Double.parseDouble(cop.get(2).text()));
+                            oddInfo.setCwOddAm(cop.get(0).text());
+                            oddInfo.setCdOddAm(cop.get(1).text());
+                            oddInfo.setClOddAm(cop.get(2).text());
 
                             //最终赔率
                             final Elements lop = cpktrs.get(1).select("td");
-                            oddInfo.setLwOddAm(Double.parseDouble(lop.get(0).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLdOddAm(Double.parseDouble(lop.get(1).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLlOddAm(Double.parseDouble(lop.get(2).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLwOddAm(lop.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLdOddAm(lop.get(1).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLlOddAm(lop.get(2).text().replace("↑", "").replace("↓", ""));
 
 
                             //凯利指数
                             final Elements klktrs = pks.get(3).select("tbody>tr");
                             //初始凯利指数
                             final Elements ckl = klktrs.get(0).select("td");
-                            oddInfo.setCwKlAm(Double.parseDouble(ckl.get(0).text()));
-                            oddInfo.setCdKlAm(Double.parseDouble(ckl.get(1).text()));
-                            oddInfo.setClKlAm(Double.parseDouble(ckl.get(2).text()));
+                            oddInfo.setCwKlAm(ckl.get(0).text());
+                            oddInfo.setCdKlAm(ckl.get(1).text());
+                            oddInfo.setClKlAm(ckl.get(2).text());
 
                             //最终凯利指数
                             final Elements lkl = klktrs.get(1).select("td");
-                            oddInfo.setLwKlAm(Double.parseDouble(lkl.get(0).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLdKlAm(Double.parseDouble(lkl.get(1).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLlKlAm(Double.parseDouble(lkl.get(2).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLwKlAm(lkl.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLdKlAm(lkl.get(1).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLlKlAm(lkl.get(2).text().replace("↑", "").replace("↓", ""));
                         } else if (optr.attr("id").equals("2")) {
                             //立博赔率信息
                             final Elements pks = optr.select(".pl_table_data");
                             final Elements cpktrs = pks.get(0).select("tbody>tr");
                             //初始赔率
                             final Elements cop = cpktrs.get(0).select("td");
-                            oddInfo.setCwOddLb(Double.parseDouble(cop.get(0).text()));
-                            oddInfo.setCdOddLb(Double.parseDouble(cop.get(1).text()));
-                            oddInfo.setClOddLb(Double.parseDouble(cop.get(2).text()));
+                            oddInfo.setCwOddLb(cop.get(0).text());
+                            oddInfo.setCdOddLb(cop.get(1).text());
+                            oddInfo.setClOddLb(cop.get(2).text());
 
                             //最终赔率
                             final Elements lop = cpktrs.get(1).select("td");
-                            oddInfo.setLwOddLb(Double.parseDouble(lop.get(0).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLdOddLb(Double.parseDouble(lop.get(1).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLlOddLb(Double.parseDouble(lop.get(2).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLwOddLb(lop.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLdOddLb(lop.get(1).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLlOddLb(lop.get(2).text().replace("↑", "").replace("↓", ""));
 
 
                             //凯利指数
                             final Elements klktrs = pks.get(3).select("tbody>tr");
                             //初始凯利指数
                             final Elements ckl = klktrs.get(0).select("td");
-                            oddInfo.setCwKlLb(Double.parseDouble(ckl.get(0).text()));
-                            oddInfo.setCdKlLb(Double.parseDouble(ckl.get(1).text()));
-                            oddInfo.setClKlLb(Double.parseDouble(ckl.get(2).text()));
+                            oddInfo.setCwKlLb(ckl.get(0).text());
+                            oddInfo.setCdKlLb(ckl.get(1).text());
+                            oddInfo.setClKlLb(ckl.get(2).text());
 
                             //最终凯利指数
                             final Elements lkl = klktrs.get(1).select("td");
-                            oddInfo.setLwKlLb(Double.parseDouble(lkl.get(0).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLdKlLb(Double.parseDouble(lkl.get(1).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLlKlLb(Double.parseDouble(lkl.get(2).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLwKlLb(lkl.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLdKlLb(lkl.get(1).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLlKlLb(lkl.get(2).text().replace("↑", "").replace("↓", ""));
                         } else if (optr.attr("id").equals("293")) {
                             //威廉希尔赔率信息
                             final Elements pks = optr.select(".pl_table_data");
                             final Elements cpktrs = pks.get(0).select("tbody>tr");
                             //初始赔率
                             final Elements cop = cpktrs.get(0).select("td");
-                            oddInfo.setCwOddWl(Double.parseDouble(cop.get(0).text()));
-                            oddInfo.setCdOddWl(Double.parseDouble(cop.get(1).text()));
-                            oddInfo.setClOddWl(Double.parseDouble(cop.get(2).text()));
+                            oddInfo.setCwOddWl(cop.get(0).text());
+                            oddInfo.setCdOddWl(cop.get(1).text());
+                            oddInfo.setClOddWl(cop.get(2).text());
 
                             //最终赔率
                             final Elements lop = cpktrs.get(1).select("td");
-                            oddInfo.setLwOddWl(Double.parseDouble(lop.get(0).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLdOddWl(Double.parseDouble(lop.get(1).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLlOddWl(Double.parseDouble(lop.get(2).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLwOddWl(lop.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLdOddWl(lop.get(1).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLlOddWl(lop.get(2).text().replace("↑", "").replace("↓", ""));
 
 
                             //凯利指数
                             final Elements klktrs = pks.get(3).select("tbody>tr");
                             //初始凯利指数
                             final Elements ckl = klktrs.get(0).select("td");
-                            oddInfo.setCwKlWl(Double.parseDouble(ckl.get(0).text()));
-                            oddInfo.setCdKlWl(Double.parseDouble(ckl.get(1).text()));
-                            oddInfo.setClKlWl(Double.parseDouble(ckl.get(2).text()));
+                            oddInfo.setCwKlWl(ckl.get(0).text());
+                            oddInfo.setCdKlWl(ckl.get(1).text());
+                            oddInfo.setClKlWl(ckl.get(2).text());
 
                             //最终凯利指数
                             final Elements lkl = klktrs.get(1).select("td");
-                            oddInfo.setLwKlWl(Double.parseDouble(lkl.get(0).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLdKlWl(Double.parseDouble(lkl.get(1).text().replace("↑", "").replace("↓", "")));
-                            oddInfo.setLlKlWl(Double.parseDouble(lkl.get(2).text().replace("↑", "").replace("↓", "")));
+                            oddInfo.setLwKlWl(lkl.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLdKlWl(lkl.get(1).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setLlKlWl(lkl.get(2).text().replace("↑", "").replace("↓", ""));
                         }
                     }
                     oddInfos.add(oddInfo);
                 }
 
-                /*if (count == 10) {
-                    final int size = lotteryOddsDao.batchInsert(entity500s);
+                if (count == 5) {
+                    final int size = lotteryOddsDao.batchInsertOddInfo(oddInfos);
                     oddInfos.clear();
                     count = 0;
-                    System.out.println("保存10天的数据,共" + size + "条");
+                    System.out.println("保存5天的数据,共" + size + "条");
                 }
 
                 //前一天数据
-                beginDate = beginDate.minusDays(1);*/
+                beginDate = beginDate.minusDays(1);
             } catch (IOException e) {
                 e.printStackTrace();
             }
         }
 
-        System.out.println(oddInfos);
-        /*if (oddInfos.size() > 0) {
-            final int size = lotteryOddsDao.batchInsert(entity500s);
+        if (oddInfos.size() > 0) {
+            final int size = lotteryOddsDao.batchInsertOddInfo(oddInfos);
             System.out.println("保存剩余数据,共" + size + "条");
-        }*/
+        }
 
     }
 

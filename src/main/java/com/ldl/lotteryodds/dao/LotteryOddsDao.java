@@ -1,6 +1,7 @@
 package com.ldl.lotteryodds.dao;
 
 import com.ldl.lotteryodds.entity.Entity500;
+import com.ldl.lotteryodds.entity.OddInfo;
 import org.springframework.jdbc.core.JdbcTemplate;
 
 import java.sql.ResultSet;
@@ -95,6 +96,42 @@ public class LotteryOddsDao {
             final Object[] args = {entity500.getMatchid(), entity500.getContent(), entity500.getHwOdd(),
                     entity500.getHdOdd(), entity500.getHlOdd(), entity500.getRhwOdd(), entity500.getRhdOdd(),
                     entity500.getRhlOdd(), entity500.getDate()};
+            batchArgs.add(args);
+        }
+        return jdbcTemplate.batchUpdate(sql, batchArgs).length;
+    }
+
+    /**
+     * 批量插入
+     *
+     * @param oddInfos 实体
+     */
+    public int batchInsertOddInfo(List<OddInfo> oddInfos) {
+        final String sql = "insert into lotteryoddsnew(matchId,result,zscore,kscore,cwOddAm,cdOddAm,clOddAm,lwOddAm,ldOddAm," +
+                "llOddAm,cwKlAm,cdKlAm,clKlAm,lwKlAm,ldKlAm,llKlAm,cwOddWl,cdOddWl,clOddWl,lwOddWl,ldOddWl,llOddWl" +
+                ",cwKlWl,cdKlWl,clKlWl,lwKlWl,ldKlWl,llKlWl,cwOddLb,cdOddLb,clOddLb,lwOddLb,ldOddLb,llOddLb,cwKlLb," +
+                "cdKlLb,clKlLb,lwKlLb,ldKlLb,llKlLb,scwOdd,scdOdd,sclOdd,slwOdd,sldOdd,sllOdd,scwKl,scdKl,sclKl," +
+                "slwKl,sldKl,sllKl,czWaterAm,cpAm,ckWaterAm,lzWaterAm,lpAm,lkWaterAm,czWaterLb,cpLb,ckWaterLb," +
+                "lzWaterLb,lpLb,lkWaterLb,sczWater,scp,sckWater,slzWater,slp,slkWater,date)values(?,?,?,?,?,?,?,?,?,?" +
+                ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
+                "?,?,?,?,?,?,?,?,?,?,?)";
+        final List<Object[]> batchArgs = new ArrayList<>();
+        for (OddInfo oddInfo : oddInfos) {
+            final Object[] args = {oddInfo.getMatchId(), oddInfo.getResult(), oddInfo.getZscore(),
+                    oddInfo.getKscore(), oddInfo.getCwOddAm(), oddInfo.getCdOddAm(), oddInfo.getClOddAm(),
+                    oddInfo.getLwOddAm(), oddInfo.getLdOddAm(), oddInfo.getLlOddAm(), oddInfo.getCwKlAm(), oddInfo.getCdKlAm(),
+                    oddInfo.getClKlAm(), oddInfo.getLwKlAm(), oddInfo.getLdKlAm(), oddInfo.getLlKlAm(), oddInfo.getCwOddWl(),
+                    oddInfo.getCdOddWl(), oddInfo.getClOddWl(), oddInfo.getLwOddWl(), oddInfo.getLdOddWl(), oddInfo.getLlOddWl(),
+                    oddInfo.getCwKlWl(), oddInfo.getCdKlWl(), oddInfo.getClKlWl(), oddInfo.getLwKlWl(), oddInfo.getLdKlWl(), oddInfo.getLlKlWl(),
+                    oddInfo.getCwOddLb(), oddInfo.getCdOddLb(), oddInfo.getClOddLb(), oddInfo.getLwOddLb(), oddInfo.getLdOddLb(),
+                    oddInfo.getLlOddLb(), oddInfo.getCwKlLb(), oddInfo.getCdKlLb(), oddInfo.getClKlLb(), oddInfo.getLwKlLb(),
+                    oddInfo.getLdKlLb(), oddInfo.getLlKlLb(), oddInfo.getScwOdd(), oddInfo.getScdOdd(), oddInfo.getSclOdd(),
+                    oddInfo.getSlwOdd(), oddInfo.getSldOdd(), oddInfo.getSllOdd(), oddInfo.getScwKl(), oddInfo.getScdKl(),
+                    oddInfo.getSclKl(), oddInfo.getSlwKl(), oddInfo.getSldKl(), oddInfo.getSllKl(), oddInfo.getCzWaterAm(),
+                    oddInfo.getCpAm(), oddInfo.getCkWaterAm(), oddInfo.getLzWaterAm(), oddInfo.getLpAm(), oddInfo.getLkWaterAm(),
+                    oddInfo.getCzWaterLb(), oddInfo.getCpLb(), oddInfo.getCkWaterLb(), oddInfo.getLzWaterLb(), oddInfo.getLpLb(),
+                    oddInfo.getLkWaterLb(), oddInfo.getSczWater(), oddInfo.getScp(), oddInfo.getSckWater(), oddInfo.getSlzWater(),
+                    oddInfo.getSlp(), oddInfo.getSlkWater(),oddInfo.getDate()};
             batchArgs.add(args);
         }
         return jdbcTemplate.batchUpdate(sql, batchArgs).length;

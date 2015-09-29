@@ -39,55 +39,53 @@ public class OddInfo {
     /**
      * 初始主胜赔率澳门
      */
-    private double cwOddAm;
+    private String cwOddAm;
     /**
      * 初始主平赔率澳门
      */
-    private double cdOddAm;
+    private String cdOddAm;
     /**
      * 初始主负赔率澳门
      */
-    private double clOddAm;
+    private String clOddAm;
 
     /**
      * 最终主胜赔率澳门
      */
-    private double lwOddAm;
+    private String lwOddAm;
     /**
      * 最终主平赔率澳门
      */
-    private double ldOddAm;
+    private String ldOddAm;
     /**
      * 最终主负赔率澳门
      */
-    private double llOddAm;
+    private String llOddAm;
 
     /**
      * 初始主胜凯利指数澳门
      */
-    private double cwKlAm;
+    private String cwKlAm;
     /**
      * 初始主平凯利指数澳门
      */
-    private double cdKlAm;
+    private String cdKlAm;
     /**
      * 初始主负凯利指数澳门
      */
-    private double clKlAm;
+    private String clKlAm;
     /**
      * 最终主胜凯利指数澳门
      */
-    private double lwKlAm;
+    private String lwKlAm;
     /**
      * 最终主平凯利指数澳门
      */
-    private double ldKlAm;
+    private String ldKlAm;
     /**
      * 最终主负凯利指数澳门
      */
-    private double llKlAm;
-
-
+    private String llKlAm;
 
 
     /** 威廉希尔 */
@@ -95,55 +93,53 @@ public class OddInfo {
     /**
      * 初始主胜赔率威廉希尔
      */
-    private double cwOddWl;
+    private String cwOddWl;
     /**
      * 初始主平赔率威廉希尔
      */
-    private double cdOddWl;
+    private String cdOddWl;
     /**
      * 初始主负赔率威廉希尔
      */
-    private double clOddWl;
+    private String clOddWl;
 
     /**
      * 最终主胜赔率威廉希尔
      */
-    private double lwOddWl;
+    private String lwOddWl;
     /**
      * 最终主平赔率威廉希尔
      */
-    private double ldOddWl;
+    private String ldOddWl;
     /**
      * 最终主负赔率威廉希尔
      */
-    private double llOddWl;
+    private String llOddWl;
 
     /**
      * 初始主胜凯利指数威廉希尔
      */
-    private double cwKlWl;
+    private String cwKlWl;
     /**
      * 初始主平凯利指数威廉希尔
      */
-    private double cdKlWl;
+    private String cdKlWl;
     /**
      * 初始主负凯利指数威廉希尔
      */
-    private double clKlWl;
+    private String clKlWl;
     /**
      * 最终主胜凯利指数威廉希尔
      */
-    private double lwKlWl;
+    private String lwKlWl;
     /**
      * 最终主平凯利指数威廉希尔
      */
-    private double ldKlWl;
+    private String ldKlWl;
     /**
      * 最终主负凯利指数威廉希尔
      */
-    private double llKlWl;
-
-
+    private String llKlWl;
 
 
     /** 立博 */
@@ -151,108 +147,106 @@ public class OddInfo {
     /**
      * 初始主胜赔率立博
      */
-    private double cwOddLb;
+    private String cwOddLb;
     /**
      * 初始主平赔率立博
      */
-    private double cdOddLb;
+    private String cdOddLb;
     /**
      * 初始主负赔率立博
      */
-    private double clOddLb;
+    private String clOddLb;
 
     /**
      * 最终主胜赔率立博
      */
-    private double lwOddLb;
+    private String lwOddLb;
     /**
      * 最终主平赔率立博
      */
-    private double ldOddLb;
+    private String ldOddLb;
     /**
      * 最终主负赔率立博
      */
-    private double llOddLb;
+    private String llOddLb;
 
     /**
      * 初始主胜凯利指数立博
      */
-    private double cwKlLb;
+    private String cwKlLb;
     /**
      * 初始主平凯利指数立博
      */
-    private double cdKlLb;
+    private String cdKlLb;
     /**
      * 初始主负凯利指数立博
      */
-    private double clKlLb;
+    private String clKlLb;
     /**
      * 最终主胜凯利指数立博
      */
-    private double lwKlLb;
+    private String lwKlLb;
     /**
      * 最终主平凯利指数立博
      */
-    private double ldKlLb;
+    private String ldKlLb;
     /**
      * 最终主负凯利指数立博
      */
-    private double llKlLb;
-
+    private String llKlLb;
 
 
     /**
      * 初始平均主胜赔率
      */
-    private double scwOdd;
+    private String scwOdd;
     /**
      * 初始平均主平赔率
      */
-    private double scdOdd;
+    private String scdOdd;
     /**
      * 初始平均主负赔率
      */
-    private double sclOdd;
+    private String sclOdd;
 
     /**
      * 最终平均主胜赔率
      */
-    private double slwOdd;
+    private String slwOdd;
     /**
      * 最终平均主平赔率
      */
-    private double sldOdd;
+    private String sldOdd;
     /**
      * 最终平均主负赔率
      */
-    private double sllOdd;
+    private String sllOdd;
 
 
     /**
      * 初始平均主胜凯利指数
      */
-    private double scwKl;
+    private String scwKl;
     /**
      * 初始平均主平凯利指数
      */
-    private double scdKl;
+    private String scdKl;
     /**
      * 初始平均主负凯利指数
      */
-    private double sclKl;
+    private String sclKl;
     /**
      * 最终平均主胜凯利指数
      */
-    private double slwKl;
+    private String slwKl;
     /**
      * 最终平均主平凯利指数
      */
-    private double sldKl;
+    private String sldKl;
     /**
      * 最终平均主负凯利指数
      */
-    private double sllKl;
-
+    private String sllKl;
 
 
     /** 澳门 */
@@ -260,28 +254,28 @@ public class OddInfo {
     /**
      * 初始主水位澳门
      */
-    private double czWaterAm;
+    private String czWaterAm;
     /**
      * 初始盘口澳门
      */
-    private double cpAm;
+    private String cpAm;
     /**
      * 初始客水位澳门
      */
-    private double ckWaterAm;
+    private String ckWaterAm;
 
     /**
      * 最终主水位澳门
      */
-    private double lzWaterAm;
+    private String lzWaterAm;
     /**
      * 最终盘口澳门
      */
-    private double lpAm;
+    private String lpAm;
     /**
      * 最终客水位澳门
      */
-    private double lkWaterAm;
+    private String lkWaterAm;
 
 
     /** 立博 */
@@ -289,55 +283,60 @@ public class OddInfo {
     /**
      * 初始主水位立博
      */
-    private double czWaterLb;
+    private String czWaterLb;
     /**
      * 初始盘口立博
      */
-    private double cpLb;
+    private String cpLb;
     /**
      * 初始客水位立博
      */
-    private double ckWaterLb;
+    private String ckWaterLb;
 
     /**
      * 最终主水位立博
      */
-    private double lzWaterLb;
+    private String lzWaterLb;
     /**
      * 最终盘口立博
      */
-    private double lpLb;
+    private String lpLb;
     /**
      * 最终客水位立博
      */
-    private double lkWaterLb;
+    private String lkWaterLb;
 
 
     /**
      * 平均初始主水位
      */
-    private double sczWater;
+    private String sczWater;
     /**
      * 平均初始盘口
      */
-    private double scp;
+    private String scp;
     /**
      * 平均初始客水位
      */
-    private double sckWater;
+    private String sckWater;
 
     /**
      * 平均最终主水位
      */
-    private double slzWater;
+    private String slzWater;
     /**
      * 平均最终盘口
      */
-    private double slp;
+    private String slp;
     /**
      * 平均最终客水位
      */
-    private double slkWater;
+    private String slkWater;
+
+    /**
+     * 比赛时间
+     */
+    private String date;
 
     public String getMatchId() {
         return matchId;
@@ -347,499 +346,499 @@ public class OddInfo {
         this.matchId = matchId;
     }
 
-    public double getCwOddAm() {
+    public String getCwOddAm() {
         return cwOddAm;
     }
 
-    public void setCwOddAm(double cwOddAm) {
+    public void setCwOddAm(String cwOddAm) {
         this.cwOddAm = cwOddAm;
     }
 
-    public double getCdOddAm() {
+    public String getCdOddAm() {
         return cdOddAm;
     }
 
-    public void setCdOddAm(double cdOddAm) {
+    public void setCdOddAm(String cdOddAm) {
         this.cdOddAm = cdOddAm;
     }
 
-    public double getClOddAm() {
+    public String getClOddAm() {
         return clOddAm;
     }
 
-    public void setClOddAm(double clOddAm) {
+    public void setClOddAm(String clOddAm) {
         this.clOddAm = clOddAm;
     }
 
-    public double getLwOddAm() {
+    public String getLwOddAm() {
         return lwOddAm;
     }
 
-    public void setLwOddAm(double lwOddAm) {
+    public void setLwOddAm(String lwOddAm) {
         this.lwOddAm = lwOddAm;
     }
 
-    public double getLdOddAm() {
+    public String getLdOddAm() {
         return ldOddAm;
     }
 
-    public void setLdOddAm(double ldOddAm) {
+    public void setLdOddAm(String ldOddAm) {
         this.ldOddAm = ldOddAm;
     }
 
-    public double getLlOddAm() {
+    public String getLlOddAm() {
         return llOddAm;
     }
 
-    public void setLlOddAm(double llOddAm) {
+    public void setLlOddAm(String llOddAm) {
         this.llOddAm = llOddAm;
     }
 
-    public double getCwKlAm() {
+    public String getCwKlAm() {
         return cwKlAm;
     }
 
-    public void setCwKlAm(double cwKlAm) {
+    public void setCwKlAm(String cwKlAm) {
         this.cwKlAm = cwKlAm;
     }
 
-    public double getCdKlAm() {
+    public String getCdKlAm() {
         return cdKlAm;
     }
 
-    public void setCdKlAm(double cdKlAm) {
+    public void setCdKlAm(String cdKlAm) {
         this.cdKlAm = cdKlAm;
     }
 
-    public double getClKlAm() {
+    public String getClKlAm() {
         return clKlAm;
     }
 
-    public void setClKlAm(double clKlAm) {
+    public void setClKlAm(String clKlAm) {
         this.clKlAm = clKlAm;
     }
 
-    public double getLdKlAm() {
+    public String getLdKlAm() {
         return ldKlAm;
     }
 
-    public void setLdKlAm(double ldKlAm) {
+    public void setLdKlAm(String ldKlAm) {
         this.ldKlAm = ldKlAm;
     }
 
-    public double getLlKlAm() {
+    public String getLlKlAm() {
         return llKlAm;
     }
 
-    public void setLlKlAm(double llKlAm) {
+    public void setLlKlAm(String llKlAm) {
         this.llKlAm = llKlAm;
     }
 
-    public double getCwOddWl() {
+    public String getCwOddWl() {
         return cwOddWl;
     }
 
-    public void setCwOddWl(double cwOddWl) {
+    public void setCwOddWl(String cwOddWl) {
         this.cwOddWl = cwOddWl;
     }
 
-    public double getCdOddWl() {
+    public String getCdOddWl() {
         return cdOddWl;
     }
 
-    public void setCdOddWl(double cdOddWl) {
+    public void setCdOddWl(String cdOddWl) {
         this.cdOddWl = cdOddWl;
     }
 
-    public double getClOddWl() {
+    public String getClOddWl() {
         return clOddWl;
     }
 
-    public void setClOddWl(double clOddWl) {
+    public void setClOddWl(String clOddWl) {
         this.clOddWl = clOddWl;
     }
 
-    public double getLwOddWl() {
+    public String getLwOddWl() {
         return lwOddWl;
     }
 
-    public void setLwOddWl(double lwOddWl) {
+    public void setLwOddWl(String lwOddWl) {
         this.lwOddWl = lwOddWl;
     }
 
-    public double getLdOddWl() {
+    public String getLdOddWl() {
         return ldOddWl;
     }
 
-    public void setLdOddWl(double ldOddWl) {
+    public void setLdOddWl(String ldOddWl) {
         this.ldOddWl = ldOddWl;
     }
 
-    public double getLlOddWl() {
+    public String getLlOddWl() {
         return llOddWl;
     }
 
-    public void setLlOddWl(double llOddWl) {
+    public void setLlOddWl(String llOddWl) {
         this.llOddWl = llOddWl;
     }
 
-    public double getCwKlWl() {
+    public String getCwKlWl() {
         return cwKlWl;
     }
 
-    public void setCwKlWl(double cwKlWl) {
+    public void setCwKlWl(String cwKlWl) {
         this.cwKlWl = cwKlWl;
     }
 
-    public double getCdKlWl() {
+    public String getCdKlWl() {
         return cdKlWl;
     }
 
-    public void setCdKlWl(double cdKlWl) {
+    public void setCdKlWl(String cdKlWl) {
         this.cdKlWl = cdKlWl;
     }
 
-    public double getClKlWl() {
+    public String getClKlWl() {
         return clKlWl;
     }
 
-    public void setClKlWl(double clKlWl) {
+    public void setClKlWl(String clKlWl) {
         this.clKlWl = clKlWl;
     }
 
-    public double getLdKlWl() {
+    public String getLdKlWl() {
         return ldKlWl;
     }
 
-    public void setLdKlWl(double ldKlWl) {
+    public void setLdKlWl(String ldKlWl) {
         this.ldKlWl = ldKlWl;
     }
 
-    public double getLlKlWl() {
+    public String getLlKlWl() {
         return llKlWl;
     }
 
-    public void setLlKlWl(double llKlWl) {
+    public void setLlKlWl(String llKlWl) {
         this.llKlWl = llKlWl;
     }
 
-    public double getCwOddLb() {
+    public String getCwOddLb() {
         return cwOddLb;
     }
 
-    public void setCwOddLb(double cwOddLb) {
+    public void setCwOddLb(String cwOddLb) {
         this.cwOddLb = cwOddLb;
     }
 
-    public double getCdOddLb() {
+    public String getCdOddLb() {
         return cdOddLb;
     }
 
-    public void setCdOddLb(double cdOddLb) {
+    public void setCdOddLb(String cdOddLb) {
         this.cdOddLb = cdOddLb;
     }
 
-    public double getClOddLb() {
+    public String getClOddLb() {
         return clOddLb;
     }
 
-    public void setClOddLb(double clOddLb) {
+    public void setClOddLb(String clOddLb) {
         this.clOddLb = clOddLb;
     }
 
-    public double getLwOddLb() {
+    public String getLwOddLb() {
         return lwOddLb;
     }
 
-    public void setLwOddLb(double lwOddLb) {
+    public void setLwOddLb(String lwOddLb) {
         this.lwOddLb = lwOddLb;
     }
 
-    public double getLdOddLb() {
+    public String getLdOddLb() {
         return ldOddLb;
     }
 
-    public void setLdOddLb(double ldOddLb) {
+    public void setLdOddLb(String ldOddLb) {
         this.ldOddLb = ldOddLb;
     }
 
-    public double getLlOddLb() {
+    public String getLlOddLb() {
         return llOddLb;
     }
 
-    public void setLlOddLb(double llOddLb) {
+    public void setLlOddLb(String llOddLb) {
         this.llOddLb = llOddLb;
     }
 
-    public double getCwKlLb() {
+    public String getCwKlLb() {
         return cwKlLb;
     }
 
-    public void setCwKlLb(double cwKlLb) {
+    public void setCwKlLb(String cwKlLb) {
         this.cwKlLb = cwKlLb;
     }
 
-    public double getCdKlLb() {
+    public String getCdKlLb() {
         return cdKlLb;
     }
 
-    public void setCdKlLb(double cdKlLb) {
+    public void setCdKlLb(String cdKlLb) {
         this.cdKlLb = cdKlLb;
     }
 
-    public double getClKlLb() {
+    public String getClKlLb() {
         return clKlLb;
     }
 
-    public void setClKlLb(double clKlLb) {
+    public void setClKlLb(String clKlLb) {
         this.clKlLb = clKlLb;
     }
 
-    public double getLdKlLb() {
+    public String getLdKlLb() {
         return ldKlLb;
     }
 
-    public void setLdKlLb(double ldKlLb) {
+    public void setLdKlLb(String ldKlLb) {
         this.ldKlLb = ldKlLb;
     }
 
-    public double getLlKlLb() {
+    public String getLlKlLb() {
         return llKlLb;
     }
 
-    public void setLlKlLb(double llKlLb) {
+    public void setLlKlLb(String llKlLb) {
         this.llKlLb = llKlLb;
     }
 
-    public double getScwOdd() {
+    public String getScwOdd() {
         return scwOdd;
     }
 
-    public void setScwOdd(double scwOdd) {
+    public void setScwOdd(String scwOdd) {
         this.scwOdd = scwOdd;
     }
 
-    public double getScdOdd() {
+    public String getScdOdd() {
         return scdOdd;
     }
 
-    public void setScdOdd(double scdOdd) {
+    public void setScdOdd(String scdOdd) {
         this.scdOdd = scdOdd;
     }
 
-    public double getSclOdd() {
+    public String getSclOdd() {
         return sclOdd;
     }
 
-    public void setSclOdd(double sclOdd) {
+    public void setSclOdd(String sclOdd) {
         this.sclOdd = sclOdd;
     }
 
-    public double getSlwOdd() {
+    public String getSlwOdd() {
         return slwOdd;
     }
 
-    public void setSlwOdd(double slwOdd) {
+    public void setSlwOdd(String slwOdd) {
         this.slwOdd = slwOdd;
     }
 
-    public double getSldOdd() {
+    public String getSldOdd() {
         return sldOdd;
     }
 
-    public void setSldOdd(double sldOdd) {
+    public void setSldOdd(String sldOdd) {
         this.sldOdd = sldOdd;
     }
 
-    public double getSllOdd() {
+    public String getSllOdd() {
         return sllOdd;
     }
 
-    public void setSllOdd(double sllOdd) {
+    public void setSllOdd(String sllOdd) {
         this.sllOdd = sllOdd;
     }
 
-    public double getScwKl() {
+    public String getScwKl() {
         return scwKl;
     }
 
-    public void setScwKl(double scwKl) {
+    public void setScwKl(String scwKl) {
         this.scwKl = scwKl;
     }
 
-    public double getScdKl() {
+    public String getScdKl() {
         return scdKl;
     }
 
-    public void setScdKl(double scdKl) {
+    public void setScdKl(String scdKl) {
         this.scdKl = scdKl;
     }
 
-    public double getSclKl() {
+    public String getSclKl() {
         return sclKl;
     }
 
-    public void setSclKl(double sclKl) {
+    public void setSclKl(String sclKl) {
         this.sclKl = sclKl;
     }
 
-    public double getSldKl() {
+    public String getSldKl() {
         return sldKl;
     }
 
-    public void setSldKl(double sldKl) {
+    public void setSldKl(String sldKl) {
         this.sldKl = sldKl;
     }
 
-    public double getSllKl() {
+    public String getSllKl() {
         return sllKl;
     }
 
-    public void setSllKl(double sllKl) {
+    public void setSllKl(String sllKl) {
         this.sllKl = sllKl;
     }
 
-    public double getCzWaterAm() {
+    public String getCzWaterAm() {
         return czWaterAm;
     }
 
-    public void setCzWaterAm(double czWaterAm) {
+    public void setCzWaterAm(String czWaterAm) {
         this.czWaterAm = czWaterAm;
     }
 
-    public double getCpAm() {
+    public String getCpAm() {
         return cpAm;
     }
 
-    public void setCpAm(double cpAm) {
+    public void setCpAm(String cpAm) {
         this.cpAm = cpAm;
     }
 
-    public double getCkWaterAm() {
+    public String getCkWaterAm() {
         return ckWaterAm;
     }
 
-    public void setCkWaterAm(double ckWaterAm) {
+    public void setCkWaterAm(String ckWaterAm) {
         this.ckWaterAm = ckWaterAm;
     }
 
-    public double getLzWaterAm() {
+    public String getLzWaterAm() {
         return lzWaterAm;
     }
 
-    public void setLzWaterAm(double lzWaterAm) {
+    public void setLzWaterAm(String lzWaterAm) {
         this.lzWaterAm = lzWaterAm;
     }
 
-    public double getLpAm() {
+    public String getLpAm() {
         return lpAm;
     }
 
-    public void setLpAm(double lpAm) {
+    public void setLpAm(String lpAm) {
         this.lpAm = lpAm;
     }
 
-    public double getLkWaterAm() {
+    public String getLkWaterAm() {
         return lkWaterAm;
     }
 
-    public void setLkWaterAm(double lkWaterAm) {
+    public void setLkWaterAm(String lkWaterAm) {
         this.lkWaterAm = lkWaterAm;
     }
 
-    public double getCzWaterLb() {
+    public String getCzWaterLb() {
         return czWaterLb;
     }
 
-    public void setCzWaterLb(double czWaterLb) {
+    public void setCzWaterLb(String czWaterLb) {
         this.czWaterLb = czWaterLb;
     }
 
-    public double getCpLb() {
+    public String getCpLb() {
         return cpLb;
     }
 
-    public void setCpLb(double cpLb) {
+    public void setCpLb(String cpLb) {
         this.cpLb = cpLb;
     }
 
-    public double getCkWaterLb() {
+    public String getCkWaterLb() {
         return ckWaterLb;
     }
 
-    public void setCkWaterLb(double ckWaterLb) {
+    public void setCkWaterLb(String ckWaterLb) {
         this.ckWaterLb = ckWaterLb;
     }
 
-    public double getLzWaterLb() {
+    public String getLzWaterLb() {
         return lzWaterLb;
     }
 
-    public void setLzWaterLb(double lzWaterLb) {
+    public void setLzWaterLb(String lzWaterLb) {
         this.lzWaterLb = lzWaterLb;
     }
 
-    public double getLpLb() {
+    public String getLpLb() {
         return lpLb;
     }
 
-    public void setLpLb(double lpLb) {
+    public void setLpLb(String lpLb) {
         this.lpLb = lpLb;
     }
 
-    public double getLkWaterLb() {
+    public String getLkWaterLb() {
         return lkWaterLb;
     }
 
-    public void setLkWaterLb(double lkWaterLb) {
+    public void setLkWaterLb(String lkWaterLb) {
         this.lkWaterLb = lkWaterLb;
     }
 
-    public double getSczWater() {
+    public String getSczWater() {
         return sczWater;
     }
 
-    public void setSczWater(double sczWater) {
+    public void setSczWater(String sczWater) {
         this.sczWater = sczWater;
     }
 
-    public double getScp() {
+    public String getScp() {
         return scp;
     }
 
-    public void setScp(double scp) {
+    public void setScp(String scp) {
         this.scp = scp;
     }
 
-    public double getSckWater() {
+    public String getSckWater() {
         return sckWater;
     }
 
-    public void setSckWater(double sckWater) {
+    public void setSckWater(String sckWater) {
         this.sckWater = sckWater;
     }
 
-    public double getSlzWater() {
+    public String getSlzWater() {
         return slzWater;
     }
 
-    public void setSlzWater(double slzWater) {
+    public void setSlzWater(String slzWater) {
         this.slzWater = slzWater;
     }
 
-    public double getSlp() {
+    public String getSlp() {
         return slp;
     }
 
-    public void setSlp(double slp) {
+    public void setSlp(String slp) {
         this.slp = slp;
     }
 
-    public double getSlkWater() {
+    public String getSlkWater() {
         return slkWater;
     }
 
-    public void setSlkWater(double slkWater) {
+    public void setSlkWater(String slkWater) {
         this.slkWater = slkWater;
     }
 
@@ -874,35 +873,80 @@ public class OddInfo {
         this.kscore = kscore;
     }
 
-    public double getLwKlAm() {
+    public String getLwKlAm() {
         return lwKlAm;
     }
 
-    public void setLwKlAm(double lwKlAm) {
+    public void setLwKlAm(String lwKlAm) {
         this.lwKlAm = lwKlAm;
     }
 
-    public double getLwKlLb() {
+    public String getLwKlLb() {
         return lwKlLb;
     }
 
-    public void setLwKlLb(double lwKlLb) {
+    public void setLwKlLb(String lwKlLb) {
         this.lwKlLb = lwKlLb;
     }
 
-    public double getSlwKl() {
+    public String getSlwKl() {
         return slwKl;
     }
 
-    public void setSlwKl(double slwKl) {
+    public void setSlwKl(String slwKl) {
         this.slwKl = slwKl;
     }
 
-    public double getLwKlWl() {
+    public String getLwKlWl() {
         return lwKlWl;
     }
 
-    public void setLwKlWl(double lwKlWl) {
+    public void setLwKlWl(String lwKlWl) {
         this.lwKlWl = lwKlWl;
+    }
+
+    @Override
+    public String toString() {
+        return "比赛Id: " + getMatchId() + "\n" + "主队得分: " + getZscore() + "\n"
+                + "客队得分: " + getKscore() + "\n" + "结果: " + getResult()
+
+                + "\n澳门初盘主胜欧赔: " + getCwOddAm() + "\n澳门初盘平局欧赔: " + getCdOddAm()
+                + "\n澳门初盘主负欧赔: " + getClOddAm() + "\n澳门终盘主胜欧赔: " + getLwOddAm()
+                + "\n澳门终盘平局欧赔: " + getLdOddAm() + "\n澳门终盘主负欧赔: " + getLlOddAm()
+                + "\n澳门初盘主胜凯利指数: " + getCwKlAm() + "\n澳门初盘平局凯利指数: " + getCdKlAm()
+                + "\n澳门初盘主负凯利指数: " + getClKlAm() + "\n澳门终盘主胜凯利指数: " + getLwKlAm() + "\n澳门终盘平局凯利指数: " + getLdKlAm()
+                + "\n澳门终盘主负凯利指数: " + getLlKlAm()
+
+                + "\n立博初盘主胜欧赔: " + getCwOddLb() + "\n立博初盘平局欧赔: " + getCdOddLb()
+                + "\n立博初盘主负欧赔: " + getClOddLb() + "\n立博终盘主胜欧赔: " + getLwOddLb()
+                + "\n立博终盘平局欧赔: " + getLdOddLb() + "\n立博终盘主负欧赔: " + getLlOddLb()
+                + "\n立博初盘主胜凯利指数: " + getCwKlLb() + "\n立博初盘平局凯利指数: " + getCdKlLb()
+                + "\n立博初盘主负凯利指数: " + getClKlLb() + "\n立博终盘主胜凯利指数: " + getLwKlLb() + "\n立博终盘平局凯利指数: " + getLdKlLb()
+                + "\n立博终盘主负凯利指数: " + getLlKlLb()
+
+                + "\n威廉希尔初盘主胜欧赔: " + getCwOddWl() + "\n威廉希尔初盘平局欧赔: " + getCdOddWl()
+                + "\n威廉希尔初盘主负欧赔: " + getClOddWl() + "\n威廉希尔终盘主胜欧赔: " + getLwOddWl()
+                + "\n威廉希尔终盘平局欧赔: " + getLdOddWl() + "\n威廉希尔终盘主负欧赔: " + getLlOddWl()
+                + "\n威廉希尔初盘主胜凯利指数: " + getCwKlWl() + "\n威廉希尔初盘平局凯利指数: " + getCdKlWl()
+                + "\n威廉希尔初盘主负凯利指数: " + getClKlWl() + "\n威廉希尔终盘主胜凯利指数: " + getLwKlWl() + "\n威廉希尔终盘平局凯利指数: " + getLdKlWl()
+                + "\n威廉希尔终盘主负凯利指数: " + getLlKlWl()
+
+
+                + "\n澳门初盘主胜水位: " + getCzWaterAm() + "\n澳门初盘盘口: " + getCpAm()
+                + "\n澳门初盘主负水位: " + getCkWaterAm() + "\n澳门终盘主胜水位: " + getLzWaterAm()
+                + "\n澳门终盘盘口: " + getLpAm() + "\n澳门终盘主负水位: " + getLkWaterAm()
+
+                + "\n立博初盘主胜水位: " + getCzWaterLb() + "\n立博初盘盘口: " + getCpLb()
+                + "\n立博初盘主负水位: " + getCkWaterLb() + "\n立博终盘主胜水位: " + getLzWaterLb()
+                + "\n立博终盘盘口: " + getLpLb() + "\n立博终盘主负水位: " + getLkWaterLb();
+
+    }
+
+    public String getDate() {
+        return date;
+    }
+
+    public void setDate(String date) {
+        this.date = date;
     }
 }
