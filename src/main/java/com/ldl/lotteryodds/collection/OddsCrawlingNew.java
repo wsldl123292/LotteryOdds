@@ -34,8 +34,17 @@ public class OddsCrawlingNew {
     public static void main(String[] args) {
 
         //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2014, 9, 12);
-        final LocalDate endDate = LocalDate.of(2011, 7, 21);
+        /*LocalDate beginDate = LocalDate.of(2011, 7, 21);
+        final LocalDate endDate = LocalDate.of(2011, 7, 20);*/
+
+        LocalDate beginDate = LocalDate.of(2014, 1, 1);
+        final LocalDate endDate = LocalDate.of(2013, 12, 31);
+
+        /*LocalDate beginDate = LocalDate.of(2013, 1, 1);
+        final LocalDate endDate = LocalDate.of(2012, 12, 31);*/
+
+        /*LocalDate beginDate = LocalDate.of(2012, 1, 1);
+        final LocalDate endDate = LocalDate.of(2011, 12, 31);*/
         int count = 0;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
