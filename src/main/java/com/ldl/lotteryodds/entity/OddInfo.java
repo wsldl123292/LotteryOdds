@@ -856,6 +856,10 @@ public class OddInfo {
         }
     }
 
+    public void setResult(int result) {
+        this.result = result;
+    }
+
 
     public int getZscore() {
         return zscore;
