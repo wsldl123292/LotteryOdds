@@ -29,11 +29,11 @@ import java.util.Map;
  * 说明: 生成待预测文本
  * 时间: 2015/10/1 20:51
  */
-public class TestAMText {
+public class TestText {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 9, 30);
-
+        LocalDate beginDate = LocalDate.of(2015, 10, 1);
+        int size = 26;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -92,8 +92,9 @@ public class TestAMText {
 
             //解析每个tr转换为实体
             final Elements trs = tableMatch.select("tbody>tr");
-            for (Object tr : trs) {
-                final Element element = (Element) tr;
+            for (int i = 0; i < trs.size(); i++) {
+            //for (Object tr : trs) {
+                final Element element = trs.get(i);
                 if (!element.attr("parentid").trim().equals("")) {
                     continue;
                 }
@@ -265,7 +266,7 @@ public class TestAMText {
         }
 
         if (oddInfos.size() > 0) {
-            final StringBuilder stringBuffer = new StringBuilder();
+            StringBuilder stringBuffer = new StringBuilder();
             for (OddInfo oddInfo : oddInfos) {
                 stringBuffer.append(oddInfo.getCwOddAm()).append("\t")
                         .append(oddInfo.getCdOddAm()).append("\t")
@@ -287,6 +288,49 @@ public class TestAMText {
                         .append(oddInfo.getLkWaterAm()).append("\t").append(oddInfo.getResult()).append("\n");
             }
             Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_am.txt"), Charsets.UTF_8);
+
+
+            stringBuffer = new StringBuilder();
+            for (OddInfo oddInfo : oddInfos) {
+                stringBuffer.append(oddInfo.getCwOddLb()).append("\t")
+                        .append(oddInfo.getCdOddLb()).append("\t")
+                        .append(oddInfo.getClOddLb()).append("\t")
+                        .append(oddInfo.getLwOddLb()).append("\t")
+                        .append(oddInfo.getLdOddLb()).append("\t")
+                        .append(oddInfo.getLlOddLb()).append("\t")
+                        .append(oddInfo.getCwKlLb()).append("\t")
+                        .append(oddInfo.getCdKlLb()).append("\t")
+                        .append(oddInfo.getClKlLb()).append("\t")
+                        .append(oddInfo.getLwKlLb()).append("\t")
+                        .append(oddInfo.getLdKlLb()).append("\t")
+                        .append(oddInfo.getLlKlLb()).append("\t")
+                        .append(oddInfo.getCzWaterLb()).append("\t")
+                        .append(oddInfo.getCpLb()).append("\t")
+                        .append(oddInfo.getCkWaterLb()).append("\t")
+                        .append(oddInfo.getLzWaterLb()).append("\t")
+                        .append(oddInfo.getLpLb()).append("\t")
+                        .append(oddInfo.getLkWaterLb()).append("\t").append(oddInfo.getResult()).append("\n");
+            }
+            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_lb.txt"), Charsets.UTF_8);
+
+
+            stringBuffer = new StringBuilder();
+            for (OddInfo oddInfo : oddInfos) {
+                stringBuffer.append(oddInfo.getCwOddWl()).append("\t")
+                        .append(oddInfo.getCdOddWl()).append("\t")
+                        .append(oddInfo.getClOddWl()).append("\t")
+                        .append(oddInfo.getLwOddWl()).append("\t")
+                        .append(oddInfo.getLdOddWl()).append("\t")
+                        .append(oddInfo.getLlOddWl()).append("\t")
+                        .append(oddInfo.getCwKlWl()).append("\t")
+                        .append(oddInfo.getCdKlWl()).append("\t")
+                        .append(oddInfo.getClKlWl()).append("\t")
+                        .append(oddInfo.getLwKlWl()).append("\t")
+                        .append(oddInfo.getLdKlWl()).append("\t")
+                        .append(oddInfo.getLlKlWl()).append("\t")
+                        .append(oddInfo.getResult()).append("\n");
+            }
+            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_wl.txt"), Charsets.UTF_8);
         }
     }
 }
