@@ -20,13 +20,15 @@ object TrainRandomForestClassification {
         val trainDataAm = trainRecordsAm.map{ r=>
             val trimmed = r.map(_.replaceAll("\"",""))
             val label = trimmed(r.size-1).toInt
-            val features = trimmed.slice(0,r.size-1).map(d=> d.toDouble)
+            val features = trimmed.slice(0,r.size-1).map(d => if(d =="") 0.00 else d.toDouble)
             LabeledPoint(label,Vectors.dense(features))
         }
+
         trainDataAm.cache()
 
 
-        /*val trainRowDataLb = sc.textFile("F:\\data\\lotteryodds\\train_lb.txt")
+
+        val trainRowDataLb = sc.textFile("F:\\data\\lotteryodds\\train_lb.txt")
         val trainRecordsLb = trainRowDataLb.map(line=>line.split("\t"))
         val trainDataLb = trainRecordsLb.map{ r=>
             val trimmed = r.map(_.replaceAll("\"",""))
@@ -45,7 +47,7 @@ object TrainRandomForestClassification {
             val features = trimmed.slice(0,r.size-1).map(d=> d.toDouble)
             LabeledPoint(label,Vectors.dense(features))
         }
-        trainDataWl.cache()*/
+        trainDataWl.cache()
 
         /** 测试数据 */
         /*val testRowData = sc.textFile("F:\\test_am.txt")
@@ -62,25 +64,26 @@ object TrainRandomForestClassification {
         /** 分类 */
         val numClasses = 4
         val categoricalFeaturesInfo = Map[Int, Int]()
-        val numTrees = 30 // Use more in practice.
+        val numTrees = 20 // Use more in practice.
         val featureSubsetStrategy = "auto" // Let the algorithm choose.
         val impurity = "gini"
         val maxDepth = 20
         val maxBins = 32
 
+
         val modelAm = RandomForest.trainClassifier(trainDataAm, numClasses, categoricalFeaturesInfo,
             numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins)
 
-        /*val modelLb = RandomForest.trainClassifier(trainDataLb, numClasses, categoricalFeaturesInfo,
+        val modelLb = RandomForest.trainClassifier(trainDataLb, numClasses, categoricalFeaturesInfo,
             numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins)
 
         val modelWl = RandomForest.trainClassifier(trainDataWl, numClasses, categoricalFeaturesInfo,
-            numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins)*/
+            numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins)
 
 
         modelAm.save(sc,"F:\\data\\lotteryodds\\model\\RandomForest\\am")
-        //modelLb.save(sc,"F:\\data\\lotteryodds\\model\\RandomForest\\lb")
-        //modelWl.save(sc,"F:\\data\\lotteryodds\\model\\RandomForest\\wl")
+        modelLb.save(sc,"F:\\data\\lotteryodds\\model\\RandomForest\\lb")
+        modelWl.save(sc,"F:\\data\\lotteryodds\\model\\RandomForest\\wl")
         sc.stop()
     }
 }

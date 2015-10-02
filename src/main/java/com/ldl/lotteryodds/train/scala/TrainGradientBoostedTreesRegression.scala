@@ -1,6 +1,7 @@
 package com.ldl.lotteryodds.train.scala
 
 import org.apache.spark.SparkContext
+import org.apache.spark.mllib.feature.Normalizer
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.mllib.tree.model.GradientBoostedTreesModel
@@ -14,6 +15,7 @@ object TrainGradientBoostedTreesRegression {
     def main(args: Array[String]) {
         System.setProperty( "hadoop.home.dir", "F:\\data\\hadoop-common-2.2.0-bin-master" )
         val sc = new SparkContext("local[4]", "am")
+        val no  = new Normalizer()
         /** 训练数据 */
         /*val trainRowDataAm = sc.textFile("F:\\data\\lotteryodds\\train_am.txt")
         val trainRecordsAm = trainRowDataAm.map(line=>line.split("\t"))
@@ -21,7 +23,7 @@ object TrainGradientBoostedTreesRegression {
             val trimmed = r.map(_.replaceAll("\"",""))
             val label = trimmed(r.size-1).toInt
             val features = trimmed.slice(0,r.size-1).map(d=> d.toDouble)
-            LabeledPoint(label,Vectors.dense(features))
+            LabeledPoint(label,no.transform(Vectors.dense(features)))
         }
         trainDataAm.cache()*/
 
@@ -54,7 +56,7 @@ object TrainGradientBoostedTreesRegression {
             val trimmed = r.map(_.replaceAll("\"",""))
             val label = trimmed(r.size-1).toInt
             val features = trimmed.slice(0,r.size-1).map(d=> d.toDouble)
-            LabeledPoint(label,Vectors.dense(features))
+            LabeledPoint(label,no.transform(Vectors.dense(features)))
         }
         testData.cache()
 
@@ -64,9 +66,9 @@ object TrainGradientBoostedTreesRegression {
         boostingStrategy.numIterations = 10 // Note: Use more iterations in practice.
         boostingStrategy.treeStrategy.maxDepth = 5
         //  Empty categoricalFeaturesInfo indicates all features are continuous.
-        boostingStrategy.treeStrategy.categoricalFeaturesInfo = Map[Int, Int]()*/
+        boostingStrategy.treeStrategy.categoricalFeaturesInfo = Map[Int, Int]()
 
-        //val model = GradientBoostedTrees.train(trainDataAm, boostingStrategy)
+        val model = GradientBoostedTrees.train(trainDataAm, boostingStrategy)*/
         val model = GradientBoostedTreesModel.load(sc, "F:\\data\\lotteryodds\\model\\GradientBoostedTreesRegression")
 
         // Evaluate model on test instances and compute test error

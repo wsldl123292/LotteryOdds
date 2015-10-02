@@ -53,7 +53,7 @@ public class TrainText {
 
 
         /** 立博 */
-        /*final List<OddInfo> oddInfosLb = lotteryOddsDao.getOddInfos("select * from lb");
+        final List<OddInfo> oddInfosLb = lotteryOddsDao.getOddInfos("select * from lb");
         final StringBuilder stringBufferLb = new StringBuilder();
         for (OddInfo oddInfo : oddInfosLb) {
             stringBufferLb.append(oddInfo.getCwOddLb()).append("\t")
@@ -75,13 +75,13 @@ public class TrainText {
                     .append(oddInfo.getLpLb()).append("\t")
                     .append(oddInfo.getLkWaterLb()).append("\t").append(oddInfo.getResult()).append("\n");
         }
-        Files.write(stringBufferLb.toString(), new File("F:\\data\\lotteryodds\\train_lb.txt"), Charsets.UTF_8);*/
+        Files.write(stringBufferLb.toString(), new File("F:\\data\\lotteryodds\\train_lb.txt"), Charsets.UTF_8);
 
 
 
 
         /** 威廉希尔 */
-        /*final List<OddInfo> oddInfosWl = lotteryOddsDao.getOddInfos("select * from wl");
+        final List<OddInfo> oddInfosWl = lotteryOddsDao.getOddInfos("select * from wl");
         final StringBuilder stringBufferWl = new StringBuilder();
         for (OddInfo oddInfo : oddInfosWl) {
             stringBufferWl.append(oddInfo.getCwOddWl()).append("\t")
@@ -98,7 +98,7 @@ public class TrainText {
                     .append(oddInfo.getLlKlWl()).append("\t")
                     .append(oddInfo.getResult()).append("\n");
         }
-        Files.write(stringBufferWl.toString(), new File("F:\\data\\lotteryodds\\train_wl.txt"), Charsets.UTF_8);*/
+        Files.write(stringBufferWl.toString(), new File("F:\\data\\lotteryodds\\train_wl.txt"), Charsets.UTF_8);
 
     }
 }

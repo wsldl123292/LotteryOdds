@@ -32,8 +32,8 @@ import java.util.Map;
 public class TestText {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 10, 1);
-        int size = 26;
+        LocalDate beginDate = LocalDate.of(2015, 10, 2);
+        int size = 34;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -92,7 +92,7 @@ public class TestText {
 
             //解析每个tr转换为实体
             final Elements trs = tableMatch.select("tbody>tr");
-            for (int i = 0; i < trs.size(); i++) {
+            for (int i = 0; i < size; i++) {
             //for (Object tr : trs) {
                 final Element element = trs.get(i);
                 if (!element.attr("parentid").trim().equals("")) {
@@ -290,7 +290,7 @@ public class TestText {
             Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_am.txt"), Charsets.UTF_8);
 
 
-            /*stringBuffer = new StringBuilder();
+            stringBuffer = new StringBuilder();
             for (OddInfo oddInfo : oddInfos) {
                 stringBuffer.append(oddInfo.getCwOddLb()).append("\t")
                         .append(oddInfo.getCdOddLb()).append("\t")
@@ -330,7 +330,7 @@ public class TestText {
                         .append(oddInfo.getLlKlWl()).append("\t")
                         .append(oddInfo.getResult()).append("\n");
             }
-            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_wl.txt"), Charsets.UTF_8);*/
+            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_wl.txt"), Charsets.UTF_8);
         }
     }
 }
