@@ -290,7 +290,7 @@ public class TestText {
             Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_am.txt"), Charsets.UTF_8);
 
 
-            stringBuffer = new StringBuilder();
+            /*stringBuffer = new StringBuilder();
             for (OddInfo oddInfo : oddInfos) {
                 stringBuffer.append(oddInfo.getCwOddLb()).append("\t")
                         .append(oddInfo.getCdOddLb()).append("\t")
@@ -330,7 +330,7 @@ public class TestText {
                         .append(oddInfo.getLlKlWl()).append("\t")
                         .append(oddInfo.getResult()).append("\n");
             }
-            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_wl.txt"), Charsets.UTF_8);
+            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_wl.txt"), Charsets.UTF_8);*/
         }
     }
 }
