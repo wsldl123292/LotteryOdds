@@ -56,7 +56,8 @@ public class OddsCrawlingNew {
         final String yapanUrl = "http://odds.500.com/fenxi/yazhi-";
         /** 欧赔地址 */
         final String oupeiUrl = "http://odds.500.com/fenxi/ouzhi-";
-
+        /** 数据地址 */
+        final String shujuUrl = "http://odds.500.com/fenxi/shuju-";
         String url;
 
         final List<OddInfo> oddInfos = new ArrayList<>();
@@ -281,6 +282,67 @@ public class OddsCrawlingNew {
                             oddInfo.setLdKlWl(lkl.get(1).text().replace("↑", "").replace("↓", ""));
                             oddInfo.setLlKlWl(lkl.get(2).text().replace("↑", "").replace("↓", ""));
                         }
+                    }
+
+
+                    /** 采集数据地址 http://odds.500.com/fenxi/shuju-331954.shtml */
+                    url = shujuUrl + fid + ".shtml";
+                    get = new HttpGet(url);
+                    get.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
+                    response = client.execute(get);
+                    final String shujunBody = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
+                    final Document shuju = Jsoup.parse(shujunBody);
+                    //获取双方交战记录
+                    final Elements hits = shuju.select(".his_info");
+                    Element hit = hits.first();
+                    Elements f16 = hit.select(".f16");
+                    if (f16 != null && f16.size() > 0) {
+                        oddInfo.setWin(f16.select(".red").get(0).text().replace("胜", ""));
+                        oddInfo.setDown(f16.select(".green").get(0).text().replace("平", ""));
+                        oddInfo.setLose(f16.select(".blue").get(0).text().replace("负", ""));
+                    }
+                    //双方战绩
+                    final Elements zhanjis = shuju.select(".bottom_info");
+                    /** 主队近10场 */
+                    Elements z = zhanjis.get(0).select(".mar_left20");
+                    if (z != null && z.size() > 0) {
+                        oddInfo.setZwin(z.get(0).select(".ying").get(0).text().replace("胜", ""));
+                        oddInfo.setZdown(z.get(0).select(".ping").get(0).text().replace("平", ""));
+                        oddInfo.setZlose(z.get(0).select(".shu").get(0).text().replace("负", ""));
+
+                        oddInfo.setZjscore(Integer.parseInt(z.get(1).select(".ying").get(0).text().replace("球", "")));
+                        oddInfo.setZlscore(Integer.parseInt(z.get(1).select(".shu").get(0).text().replace("球", "")));
+                    }
+                    /** 客队近10场 */
+                    Elements k = zhanjis.get(1).select(".mar_left20");
+                    if (k != null && k.size() > 0) {
+                        oddInfo.setKwin(k.get(0).select(".ying").get(0).text().replace("胜", ""));
+                        oddInfo.setKdown(k.get(0).select(".ping").get(0).text().replace("平", ""));
+                        oddInfo.setKlose(k.get(0).select(".shu").get(0).text().replace("负", ""));
+
+                        oddInfo.setKjscore(Integer.parseInt(k.get(1).select(".ying").get(0).text().replace("球", "")));
+                        oddInfo.setKlscore(Integer.parseInt(k.get(1).select(".shu").get(0).text().replace("球", "")));
+                    }
+                    /** 主队近10主场 */
+                    Elements zz = zhanjis.get(2).select(".mar_left20");
+                    if (zz != null && zz.size() > 0) {
+                        oddInfo.setZzwin(zz.get(0).select(".ying").get(0).text().replace("胜", ""));
+                        oddInfo.setZzdown(zz.get(0).select(".ping").get(0).text().replace("平", ""));
+                        oddInfo.setZzlose(zz.get(0).select(".shu").get(0).text().replace("负", ""));
+
+                        oddInfo.setZzjscore(Integer.parseInt(zz.get(1).select(".ying").get(0).text().replace("球", "")));
+                        oddInfo.setZzlscore(Integer.parseInt(zz.get(1).select(".shu").get(0).text().replace("球", "")));
+                    }
+
+                    /** 客队近10客场 */
+                    Elements kk = zhanjis.get(3).select(".mar_left20");
+                    if (kk != null && kk.size() > 0) {
+                        oddInfo.setKkwin(kk.get(0).select(".ying").get(0).text().replace("胜", ""));
+                        oddInfo.setKkdown(kk.get(0).select(".ping").get(0).text().replace("平", ""));
+                        oddInfo.setKklose(kk.get(0).select(".shu").get(0).text().replace("负", ""));
+
+                        oddInfo.setKkjscore(Integer.parseInt(kk.get(1).select(".ying").get(0).text().replace("球", "")));
+                        oddInfo.setKklsocre(Integer.parseInt(kk.get(1).select(".shu").get(0).text().replace("球", "")));
                     }
                     oddInfos.add(oddInfo);
                 }

@@ -313,6 +313,51 @@ public class LotteryOddsDao {
                 if (arr.contains("date")) {
                     m.setDate(resultSet.getString("date"));
                 }
+                if (arr.contains("win")) {
+                    m.setWin(resultSet.getString("win"));
+                }
+                if (arr.contains("down")) {
+                    m.setDown(resultSet.getString("down"));
+                }
+                if (arr.contains("lose")) {
+                    m.setLose(resultSet.getString("lose"));
+                }
+                if (arr.contains("zwin")) {
+                    m.setZwin(resultSet.getString("zwin"));
+                }
+                if (arr.contains("zdown")) {
+                    m.setZdown(resultSet.getString("zdown"));
+                }
+                if (arr.contains("zlose")) {
+                    m.setZlose(resultSet.getString("zlose"));
+                }
+                if (arr.contains("kwin")) {
+                    m.setKwin(resultSet.getString("kwin"));
+                }
+                if (arr.contains("kdown")) {
+                    m.setKdown(resultSet.getString("kdown"));
+                }
+                if (arr.contains("klose")) {
+                    m.setKlose(resultSet.getString("klose"));
+                }
+                if (arr.contains("zzwin")) {
+                    m.setZzwin(resultSet.getString("zzwin"));
+                }
+                if (arr.contains("zzdown")) {
+                    m.setZzdown(resultSet.getString("zzdown"));
+                }
+                if (arr.contains("zzlose")) {
+                    m.setZzlose(resultSet.getString("zzlose"));
+                }
+                if (arr.contains("kkwin")) {
+                    m.setKkwin(resultSet.getString("kkwin"));
+                }
+                if (arr.contains("kkdown")) {
+                    m.setKkdown(resultSet.getString("kkdown"));
+                }
+                if (arr.contains("kklose")) {
+                    m.setKklose(resultSet.getString("kklose"));
+                }
 
                 list.add(m);
             }
@@ -358,9 +403,10 @@ public class LotteryOddsDao {
                 ",cwKlWl,cdKlWl,clKlWl,lwKlWl,ldKlWl,llKlWl,cwOddLb,cdOddLb,clOddLb,lwOddLb,ldOddLb,llOddLb,cwKlLb," +
                 "cdKlLb,clKlLb,lwKlLb,ldKlLb,llKlLb,scwOdd,scdOdd,sclOdd,slwOdd,sldOdd,sllOdd,scwKl,scdKl,sclKl," +
                 "slwKl,sldKl,sllKl,czWaterAm,cpAm,ckWaterAm,lzWaterAm,lpAm,lkWaterAm,czWaterLb,cpLb,ckWaterLb," +
-                "lzWaterLb,lpLb,lkWaterLb,sczWater,scp,sckWater,slzWater,slp,slkWater,date)values(?,?,?,?,?,?,?,?,?,?" +
+                "lzWaterLb,lpLb,lkWaterLb,sczWater,scp,sckWater,slzWater,slp,slkWater,date,win ,down ,lose,zwin,zdown," +
+                "zlose,kwin,kdown,klose,zjscore,zlscore,kjscore,klscore,zzwin,zzdown,zzlose,zzjscore,zzlscore,kkwin,kkdown,kklose,kkjscore,kklscore)values(?,?,?,?,?,?,?,?,?,?" +
                 ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
-                "?,?,?,?,?,?,?,?,?,?,?)";
+                "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         final List<Object[]> batchArgs = new ArrayList<>();
         for (OddInfo oddInfo : oddInfos) {
             final Object[] args = {oddInfo.getMatchId(), oddInfo.getResult(), oddInfo.getZscore(),
@@ -377,7 +423,32 @@ public class LotteryOddsDao {
                     oddInfo.getCpAm(), oddInfo.getCkWaterAm(), oddInfo.getLzWaterAm(), oddInfo.getLpAm(), oddInfo.getLkWaterAm(),
                     oddInfo.getCzWaterLb(), oddInfo.getCpLb(), oddInfo.getCkWaterLb(), oddInfo.getLzWaterLb(), oddInfo.getLpLb(),
                     oddInfo.getLkWaterLb(), oddInfo.getSczWater(), oddInfo.getScp(), oddInfo.getSckWater(), oddInfo.getSlzWater(),
-                    oddInfo.getSlp(), oddInfo.getSlkWater(), oddInfo.getDate()};
+                    oddInfo.getSlp(), oddInfo.getSlkWater(), oddInfo.getDate(), oddInfo.getWin(), oddInfo.getDown(), oddInfo.getLose(),
+                    oddInfo.getZwin(), oddInfo.getZdown(), oddInfo.getZlose(), oddInfo.getKwin(),
+                    oddInfo.getKdown(), oddInfo.getKlose(), oddInfo.getZjscore(), oddInfo.getZlscore(),
+                    oddInfo.getKjscore(), oddInfo.getKlscore(), oddInfo.getZzwin(), oddInfo.getZzdown(),
+                    oddInfo.getZzlose(), oddInfo.getZzjscore(), oddInfo.getZzlscore(), oddInfo.getKkwin(),
+                    oddInfo.getKkdown(), oddInfo.getKklose(), oddInfo.getKkjscore(), oddInfo.getKklsocre()};
+            batchArgs.add(args);
+        }
+        return jdbcTemplate.batchUpdate(sql, batchArgs).length;
+    }
+
+
+    /**
+     * 批量更新
+     *
+     * @param oddInfos 实体
+     */
+    public int batchUpdateOddInfo(List<OddInfo> oddInfos) {
+        final String sql = "update lotteryoddsnew set win = ?,down = ?,lose=?,zwin=?,zdown=?,zlose=?,kwin=?,kdown=?,klose=?,zjscore=?,zlscore=?,kjscore=?,klscore=?," +
+                "zzwin=?,zzdown=?,zzlose=?,zzjscore=?,zzlscore=?,kkwin=?,kkdown=?,kklose=?,kkjscore=?,kklscore=? where matchId=?";
+        final List<Object[]> batchArgs = new ArrayList<>();
+        for (OddInfo oddInfo : oddInfos) {
+            final Object[] args = {oddInfo.getWin(), oddInfo.getDown(), oddInfo.getLose(), oddInfo.getZwin(), oddInfo.getZdown(), oddInfo.getZlose(), oddInfo.getKwin(),
+                    oddInfo.getKdown(), oddInfo.getKlose(), oddInfo.getZjscore(), oddInfo.getZlscore(), oddInfo.getKjscore(), oddInfo.getKlscore(), oddInfo.getZzwin(), oddInfo.getZzdown(),
+                    oddInfo.getZzlose(), oddInfo.getZzjscore(), oddInfo.getZzlscore(), oddInfo.getKkwin(), oddInfo.getKkdown(), oddInfo.getKklose(), oddInfo.getKkjscore(), oddInfo.getKklsocre(),
+                    oddInfo.getMatchId()};
             batchArgs.add(args);
         }
         return jdbcTemplate.batchUpdate(sql, batchArgs).length;
@@ -407,6 +478,7 @@ public class LotteryOddsDao {
 
     /**
      * 查询oddinfo结果
+     *
      * @param sql sql语句
      * @return list
      */

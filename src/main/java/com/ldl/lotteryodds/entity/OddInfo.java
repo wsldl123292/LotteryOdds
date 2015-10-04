@@ -338,6 +338,164 @@ public class OddInfo {
      */
     private String date;
 
+    /**
+     * 主队胜
+     */
+    private String win;
+    /**
+     * 平
+     */
+    private String down;
+    /**
+     * 负
+     */
+    private String lose;
+    /**
+     * 主队近10场胜
+     */
+    private String zwin;
+    /**
+     * 主队近10场平
+     */
+    private String zdown;
+    /**
+     * 主队近10场负
+     */
+    private String zlose;
+    /**
+     * 客队近10场胜
+     */
+    private String kwin;
+    /**
+     * 客队近10场平
+     */
+    private String kdown;
+    /**
+     * 客队近10场负
+     */
+    private String klose;
+    /**
+     * 主队主场胜
+     */
+    private String zzwin;
+    /**
+     * 主队主场平
+     */
+    private String zzdown;
+    /**
+     * 主队主场负
+     */
+    private String zzlose;
+    /**
+     * 客队客场胜
+     */
+    private String kkwin;
+    /**
+     * 客队客场平
+     */
+    private String kkdown;
+    /**
+     * 客队客场负
+     */
+    private String kklose;
+
+    /**
+     * 主队近10场进球
+     */
+    private int zjscore;
+    /**
+     * 主队近10场丢球
+     */
+    private int zlscore;
+    /**
+     * 客队近10场进球
+     */
+    private int kjscore;
+    /**
+     * 客队近10场丢球
+     */
+    private int klscore;
+    /**
+     * 主队近10场主场进球
+     */
+    private int zzjscore;
+    /**
+     * 主队近10场主场丢球
+     */
+    private int zzlscore;
+    /**
+     * 客队近10场客场进球
+     */
+    private int kkjscore;
+    /**
+     * 客队近10场客场丢球
+     */
+    private int kklsocre;
+
+    public int getZjscore() {
+        return zjscore;
+    }
+
+    public void setZjscore(int zjscore) {
+        this.zjscore = zjscore;
+    }
+
+    public int getZlscore() {
+        return zlscore;
+    }
+
+    public void setZlscore(int zlscore) {
+        this.zlscore = zlscore;
+    }
+
+    public int getKjscore() {
+        return kjscore;
+    }
+
+    public void setKjscore(int kjscore) {
+        this.kjscore = kjscore;
+    }
+
+    public int getKlscore() {
+        return klscore;
+    }
+
+    public void setKlscore(int klscore) {
+        this.klscore = klscore;
+    }
+
+    public int getZzjscore() {
+        return zzjscore;
+    }
+
+    public void setZzjscore(int zzjscore) {
+        this.zzjscore = zzjscore;
+    }
+
+    public int getZzlscore() {
+        return zzlscore;
+    }
+
+    public void setZzlscore(int zzlscore) {
+        this.zzlscore = zzlscore;
+    }
+
+    public int getKkjscore() {
+        return kkjscore;
+    }
+
+    public void setKkjscore(int kkjscore) {
+        this.kkjscore = kkjscore;
+    }
+
+    public int getKklsocre() {
+        return kklsocre;
+    }
+
+    public void setKklsocre(int kklsocre) {
+        this.kklsocre = kklsocre;
+    }
+
     public String getMatchId() {
         return matchId;
     }
@@ -907,6 +1065,126 @@ public class OddInfo {
 
     public void setLwKlWl(String lwKlWl) {
         this.lwKlWl = lwKlWl;
+    }
+
+    public String getWin() {
+        return win;
+    }
+
+    public void setWin(String win) {
+        this.win = win;
+    }
+
+    public String getDown() {
+        return down;
+    }
+
+    public void setDown(String down) {
+        this.down = down;
+    }
+
+    public String getLose() {
+        return lose;
+    }
+
+    public void setLose(String lose) {
+        this.lose = lose;
+    }
+
+    public String getZwin() {
+        return zwin;
+    }
+
+    public void setZwin(String zwin) {
+        this.zwin = zwin;
+    }
+
+    public String getZdown() {
+        return zdown;
+    }
+
+    public void setZdown(String zdown) {
+        this.zdown = zdown;
+    }
+
+    public String getZlose() {
+        return zlose;
+    }
+
+    public void setZlose(String zlose) {
+        this.zlose = zlose;
+    }
+
+    public String getKwin() {
+        return kwin;
+    }
+
+    public void setKwin(String kwin) {
+        this.kwin = kwin;
+    }
+
+    public String getKdown() {
+        return kdown;
+    }
+
+    public void setKdown(String kdown) {
+        this.kdown = kdown;
+    }
+
+    public String getKlose() {
+        return klose;
+    }
+
+    public void setKlose(String klose) {
+        this.klose = klose;
+    }
+
+    public String getZzwin() {
+        return zzwin;
+    }
+
+    public void setZzwin(String zzwin) {
+        this.zzwin = zzwin;
+    }
+
+    public String getZzdown() {
+        return zzdown;
+    }
+
+    public void setZzdown(String zzdown) {
+        this.zzdown = zzdown;
+    }
+
+    public String getZzlose() {
+        return zzlose;
+    }
+
+    public void setZzlose(String zzlose) {
+        this.zzlose = zzlose;
+    }
+
+    public String getKkwin() {
+        return kkwin;
+    }
+
+    public void setKkwin(String kkwin) {
+        this.kkwin = kkwin;
+    }
+
+    public String getKkdown() {
+        return kkdown;
+    }
+
+    public void setKkdown(String kkdown) {
+        this.kkdown = kkdown;
+    }
+
+    public String getKklose() {
+        return kklose;
+    }
+
+    public void setKklose(String kklose) {
+        this.kklose = kklose;
     }
 
     @Override
