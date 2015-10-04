@@ -32,8 +32,8 @@ import java.util.Map;
 public class TestTextNew {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 10, 3);
-        int size = 52;
+        LocalDate beginDate = LocalDate.of(2015, 10, 4);
+        int size = 12;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -93,7 +93,7 @@ public class TestTextNew {
 
             //解析每个tr转换为实体
             final Elements trs = tableMatch.select("tbody>tr");
-            for (int i = 42; i < size; i++) {
+            for (int i = 76; i < trs.size(); i++) {
             //for (Object tr : trs) {
                 final Element element = trs.get(i);
                 if (!element.attr("parentid").trim().equals("")) {

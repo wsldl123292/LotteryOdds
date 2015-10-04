@@ -64,10 +64,10 @@ object TrainRandomForestClassificationNew {
         /** 分类 */
         val numClasses = 4
         val categoricalFeaturesInfo = Map[Int, Int]()
-        val numTrees = 20 // Use more in practice.
+        val numTrees = 25 // Use more in practice.
         val featureSubsetStrategy = "auto" // Let the algorithm choose.
         val impurity = "gini"
-        val maxDepth = 10
+        val maxDepth = 20
         val maxBins = 100
 
 
