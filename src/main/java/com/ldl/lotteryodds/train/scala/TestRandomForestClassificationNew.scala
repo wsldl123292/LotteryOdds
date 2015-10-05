@@ -113,9 +113,6 @@ object TestRandomForestClassificationNew {
         }
         writerAll.close()
 
-        /*for ((elem, count) <- predictions.collect().toList.zipWithIndex){
-            println(s"element $count is $elem")
-        }*/
         sc.stop( )
     }
 }

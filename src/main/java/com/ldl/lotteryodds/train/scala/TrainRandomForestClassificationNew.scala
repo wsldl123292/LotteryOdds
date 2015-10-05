@@ -49,16 +49,6 @@ object TrainRandomForestClassificationNew {
         }
         trainDataWl.cache()
 
-        /** 测试数据 */
-        /*val testRowData = sc.textFile("F:\\test_am.txt")
-        val testRecords = testRowData.map(line=>line.split("\t"))
-        val testData = testRecords.map{ r=>
-            val trimmed = r.map(_.replaceAll("\"",""))
-            val label = trimmed(r.size-1).toInt
-            val features = trimmed.slice(0,r.size-1).map(d=> d.toDouble)
-            LabeledPoint(label,Vectors.dense(features))
-        }
-        testData.cache()*/
 
 
         /** 分类 */

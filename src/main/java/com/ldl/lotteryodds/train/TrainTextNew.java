@@ -26,7 +26,7 @@ public class TrainTextNew {
         final LotteryOddsDao lotteryOddsDao = (LotteryOddsDao) context.getBean("lotteryOddsDao");
 
         /** 澳门 */
-        final List<OddInfo> oddInfosAm = lotteryOddsDao.getOddInfos("select * from amnew");
+        final List<OddInfo> oddInfosAm = lotteryOddsDao.getOddInfos("select * from amnew ");/*order BY result ASC LIMIT 0,31151*/
         final StringBuilder stringBufferAm = new StringBuilder();
         for (OddInfo oddInfo : oddInfosAm) {
             stringBufferAm.append(oddInfo.getCwOddAm()).append("\t")
@@ -69,7 +69,7 @@ public class TrainTextNew {
 
 
         /** 立博 */
-        final List<OddInfo> oddInfosLb = lotteryOddsDao.getOddInfos("select * from lbnew");
+        final List<OddInfo> oddInfosLb = lotteryOddsDao.getOddInfos("select * from lbnew ");/*order BY result ASC LIMIT 0,21611*/
         final StringBuilder stringBufferLb = new StringBuilder();
         for (OddInfo oddInfo : oddInfosLb) {
             stringBufferLb.append(oddInfo.getCwOddLb()).append("\t")
@@ -113,7 +113,7 @@ public class TrainTextNew {
 
 
         /** 威廉希尔 */
-        final List<OddInfo> oddInfosWl = lotteryOddsDao.getOddInfos("select * from wlnew");
+        final List<OddInfo> oddInfosWl = lotteryOddsDao.getOddInfos("select * from wlnew ");/*order BY result ASC LIMIT 0,31052*/
         final StringBuilder stringBufferWl = new StringBuilder();
         for (OddInfo oddInfo : oddInfosWl) {
             stringBufferWl.append(oddInfo.getCwOddWl()).append("\t")
