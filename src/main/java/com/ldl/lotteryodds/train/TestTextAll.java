@@ -29,7 +29,7 @@ import java.util.Map;
  * 说明: 生成待预测文本新版
  * 时间: 2015/10/1 20:51
  */
-public class TestTextNew {
+public class TestTextAll {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
         LocalDate beginDate = LocalDate.of(2015, 10, 5);
@@ -348,29 +348,7 @@ public class TestTextNew {
                         .append(oddInfo.getLzWaterAm()).append("\t")
                         .append(oddInfo.getLpAm()).append("\t")
                         .append(oddInfo.getLkWaterAm()).append("\t")
-                        .append(oddInfo.getWin()).append("\t")
-                        .append(oddInfo.getDown()).append("\t")
-                        .append(oddInfo.getLose()).append("\t")
-                        .append(oddInfo.getZwin()).append("\t")
-                        .append(oddInfo.getZdown()).append("\t")
-                        .append(oddInfo.getZlose()).append("\t")
-                        .append(oddInfo.getKwin()).append("\t")
-                        .append(oddInfo.getKdown()).append("\t")
-                        .append(oddInfo.getKlose()).append("\t")
-                        .append(oddInfo.getZzwin()).append("\t")
-                        .append(oddInfo.getZzdown()).append("\t")
-                        .append(oddInfo.getZzlose()).append("\t")
-                        .append(oddInfo.getKkwin()).append("\t")
-                        .append(oddInfo.getKkdown()).append("\t")
-                        .append(oddInfo.getKklose()).append("\t")
-                        .append(oddInfo.getResult()).append("\n");
-            }
-            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_am_new.txt"), Charsets.UTF_8);
-
-
-            stringBuffer = new StringBuilder();
-            for (OddInfo oddInfo : oddInfos) {
-                stringBuffer.append(oddInfo.getCwOddLb()).append("\t")
+                        .append(oddInfo.getCwOddLb()).append("\t")
                         .append(oddInfo.getCdOddLb()).append("\t")
                         .append(oddInfo.getClOddLb()).append("\t")
                         .append(oddInfo.getLwOddLb()).append("\t")
@@ -388,29 +366,7 @@ public class TestTextNew {
                         .append(oddInfo.getLzWaterLb()).append("\t")
                         .append(oddInfo.getLpLb()).append("\t")
                         .append(oddInfo.getLkWaterLb()).append("\t")
-                        .append(oddInfo.getWin()).append("\t")
-                        .append(oddInfo.getDown()).append("\t")
-                        .append(oddInfo.getLose()).append("\t")
-                        .append(oddInfo.getZwin()).append("\t")
-                        .append(oddInfo.getZdown()).append("\t")
-                        .append(oddInfo.getZlose()).append("\t")
-                        .append(oddInfo.getKwin()).append("\t")
-                        .append(oddInfo.getKdown()).append("\t")
-                        .append(oddInfo.getKlose()).append("\t")
-                        .append(oddInfo.getZzwin()).append("\t")
-                        .append(oddInfo.getZzdown()).append("\t")
-                        .append(oddInfo.getZzlose()).append("\t")
-                        .append(oddInfo.getKkwin()).append("\t")
-                        .append(oddInfo.getKkdown()).append("\t")
-                        .append(oddInfo.getKklose()).append("\t")
-                        .append(oddInfo.getResult()).append("\n");
-            }
-            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_lb_new.txt"), Charsets.UTF_8);
-
-
-            stringBuffer = new StringBuilder();
-            for (OddInfo oddInfo : oddInfos) {
-                stringBuffer.append(oddInfo.getCwOddWl()).append("\t")
+                        .append(oddInfo.getCwOddWl()).append("\t")
                         .append(oddInfo.getCdOddWl()).append("\t")
                         .append(oddInfo.getClOddWl()).append("\t")
                         .append(oddInfo.getLwOddWl()).append("\t")
@@ -439,7 +395,8 @@ public class TestTextNew {
                         .append(oddInfo.getKklose()).append("\t")
                         .append(oddInfo.getResult()).append("\n");
             }
-            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_wl_new.txt"), Charsets.UTF_8);
+            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_all.txt"), Charsets.UTF_8);
+
         }
     }
 }
