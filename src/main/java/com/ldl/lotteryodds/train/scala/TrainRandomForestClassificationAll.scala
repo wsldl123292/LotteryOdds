@@ -17,16 +17,16 @@ object TrainRandomForestClassificationAll {
         /** 训练数据 */
         val trainRowDataAll = sc.textFile("F:\\data\\lotteryodds\\train_all.txt")
         val trainRecordsAll = trainRowDataAll.map(line=>line.split("\t"))
-        val trainDataAll = trainRecordsAll.map{ r=>
+        val trainingData = trainRecordsAll.map{ r=>
             val trimmed = r.map(_.replaceAll("\"",""))
             val label = trimmed(r.size-1).toInt
             val features = trimmed.slice(0,r.size-1).map(d => if(d =="") 0.00 else d.toDouble)
             LabeledPoint(label,Vectors.dense(features))
         }
 
-        val splits = trainDataAll.randomSplit(Array(0.9, 0.1))
+        /*val splits = trainDataAll.randomSplit(Array(0.9, 0.1))
         val (trainingData, testData) = (splits(0), splits(1))
-        trainingData.cache()
+        trainingData.cache()*/
 
 
         /** 分类 */

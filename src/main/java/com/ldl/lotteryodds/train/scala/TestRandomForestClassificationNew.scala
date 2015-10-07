@@ -1,6 +1,6 @@
 package com.ldl.lotteryodds.train.scala
 
-import java.io.{File, PrintWriter}
+import java.io.{PrintWriter, File}
 
 import org.apache.spark.SparkContext
 import org.apache.spark.mllib.linalg.Vectors

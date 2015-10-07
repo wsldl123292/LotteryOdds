@@ -50,14 +50,15 @@ object TrainRandomForestClassificationNew {
         trainDataWl.cache()
 
 
-
+        /*val splits = trainDataAll.randomSplit(Array(0.9, 0.1))
+                val (trainingData, testData) = (splits(0), splits(1))*/
         /** 分类 */
         val numClasses = 4
         val categoricalFeaturesInfo = Map[Int, Int]()
-        val numTrees = 25 // Use more in practice.
+        val numTrees = 50 // Use more in practice.
         val featureSubsetStrategy = "auto" // Let the algorithm choose.
         val impurity = "gini"
-        val maxDepth = 20
+        val maxDepth = 15
         val maxBins = 100
 
 
@@ -74,6 +75,15 @@ object TrainRandomForestClassificationNew {
         modelAm.save(sc,"F:\\data\\lotteryodds\\model\\RandomForestNew\\am")
         modelLb.save(sc,"F:\\data\\lotteryodds\\model\\RandomForestNew\\lb")
         modelWl.save(sc,"F:\\data\\lotteryodds\\model\\RandomForestNew\\wl")
+
+
+        /*val labelAndPreds = testData.map { point =>
+            val prediction = modelWl.predict(point.features)
+            (point.label, prediction)
+        }
+        print("label : ",labelAndPreds.collect().toList)
+        val testErr = labelAndPreds.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
+        println("Test Error = " + testErr)*/
         sc.stop()
     }
 }
