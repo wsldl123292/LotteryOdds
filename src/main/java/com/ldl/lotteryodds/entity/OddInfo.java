@@ -1231,4 +1231,20 @@ public class OddInfo {
     public void setDate(String date) {
         this.date = date;
     }
+
+
+    private int type;
+
+    public int getType() {
+        if(getResult()==3) {
+            return 0;
+        }else if(getResult()==0||getResult()==1) {
+            return 1;
+        }
+        return 2;
+    }
+
+    public void setType(int type) {
+        this.type = type;
+    }
 }

@@ -29,11 +29,11 @@ import java.util.Map;
  * 说明: 生成待预测文本新版
  * 时间: 2015/10/1 20:51
  */
-public class TestTextAll {
+public class TestTextBinary {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
         LocalDate beginDate = LocalDate.of(2015, 10, 3);
-        int size = 16;
+        int size = 4;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -330,7 +330,7 @@ public class TestTextAll {
         if (oddInfos.size() > 0) {
             StringBuilder stringBuffer = new StringBuilder();
             for (OddInfo oddInfo : oddInfos) {
-                stringBuffer.append(oddInfo.getCwOddAm()).append("\t")
+                stringBuffer/*.append(oddInfo.getCwOddAm()).append("\t")
                         .append(oddInfo.getCdOddAm()).append("\t")
                         .append(oddInfo.getClOddAm()).append("\t")
                         .append(oddInfo.getLwOddAm()).append("\t")
@@ -365,7 +365,7 @@ public class TestTextAll {
                         .append(oddInfo.getCkWaterLb()).append("\t")
                         .append(oddInfo.getLzWaterLb()).append("\t")
                         .append(oddInfo.getLpLb()).append("\t")
-                        .append(oddInfo.getLkWaterLb()).append("\t")
+                        .append(oddInfo.getLkWaterLb()).append("\t")*/
                         .append(oddInfo.getCwOddWl()).append("\t")
                         .append(oddInfo.getCdOddWl()).append("\t")
                         .append(oddInfo.getClOddWl()).append("\t")
@@ -393,9 +393,9 @@ public class TestTextAll {
                         .append(oddInfo.getKkwin()).append("\t")
                         .append(oddInfo.getKkdown()).append("\t")
                         .append(oddInfo.getKklose()).append("\t")
-                        .append(oddInfo.getResult()).append("\n");
+                        .append(oddInfo.getType()).append("\n");
             }
-            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_all.txt"), Charsets.UTF_8);
+            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_all_binary.txt"), Charsets.UTF_8);
 
         }
     }
