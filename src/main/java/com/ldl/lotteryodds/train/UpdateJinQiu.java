@@ -26,26 +26,29 @@ import java.util.Map;
 
 /**
  * 作者: LDL
- * 说明: 补充战绩数据
+ * 说明: 补充大小指数数据
  * 时间: 2015/9/28 17:44
  */
-public class UpdateZhanji {
+public class UpdateJinQiu {
 
     public static void main(String[] args) {
 
         //采集开始时间2011-07-21
 
-        /*LocalDate beginDate = LocalDate.of(2015, 1, 1);
+        /*LocalDate beginDate = LocalDate.of(2015, 10, 4);
         final LocalDate endDate = LocalDate.of(2014, 12, 31);*/
 
-        /*LocalDate beginDate = LocalDate.of(2013, 1, 1);
+        /*LocalDate beginDate = LocalDate.of(2013, 12, 31);
         final LocalDate endDate = LocalDate.of(2012, 12, 31);*/
 
-        LocalDate beginDate = LocalDate.of(2012, 1, 1);
+        LocalDate beginDate = LocalDate.of(2012, 7, 3);
         final LocalDate endDate = LocalDate.of(2011, 12, 31);
 
-        /*LocalDate beginDate = LocalDate.of(2014, 1, 1);
+        /*LocalDate beginDate = LocalDate.of(2014, 12, 31);
         final LocalDate endDate = LocalDate.of(2013, 12, 31);*/
+
+        /*LocalDate beginDate = LocalDate.of(2011, 12, 31);
+        final LocalDate endDate = LocalDate.of(2011, 7, 20);*/
         int count = 0;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
@@ -53,8 +56,8 @@ public class UpdateZhanji {
 
         /** 列表地址 */
         final String baseurl = "http://live.500.com/?e=";
-        /** 数据地址 */
-        final String shujuUrl = "http://odds.500.com/fenxi/shuju-";
+        /** 大小指数数据地址 */
+        final String shujuUrl = "http://odds.500.com/fenxi/daxiao-";
 
         String url;
 
@@ -126,73 +129,60 @@ public class UpdateZhanji {
                     final OddInfo oddInfo = new OddInfo(fid);
                     oddInfo.setDate(beginDate.toString());
 
-                    /** 比分 *//*
-                    final Elements socre = element.select(".pk");
-                    *//** 避免出现无比分情况 *//*
-                    if (!socre.select(".clt1").text().trim().equals("")) {
-                        oddInfo.setZscore(Integer.parseInt(socre.select(".clt1").text()));
-                        oddInfo.setKscore(Integer.parseInt(socre.select(".clt3").text()));
-                        oddInfo.setResult(oddInfo.getZscore(), oddInfo.getKscore());
-                    }*/
-
-                    /** 采集数据地址 http://odds.500.com/fenxi/shuju-331954.shtml */
+                    /** 采集数据地址 http://odds.500.com/fenxi/daxiao-331954.shtml */
                     url = shujuUrl + fid + ".shtml";
                     get = new HttpGet(url);
                     get.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
                     response = client.execute(get);
-                    final String shujunBody = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
-                    final Document shuju = Jsoup.parse(shujunBody);
-                    //获取双方交战记录
-                    final Elements hits = shuju.select(".his_info");
-                    Element hit = hits.first();
-                    Elements f16 = hit.select(".f16");
-                    if (f16 != null && f16.size() > 0) {
-                        oddInfo.setWin(f16.select(".red").get(0).text().replace("胜", ""));
-                        oddInfo.setDown(f16.select(".green").get(0).text().replace("平", ""));
-                        oddInfo.setLose(f16.select(".blue").get(0).text().replace("负", ""));
-                    }
-                    //双方战绩
-                    final Elements zhanjis = shuju.select(".bottom_info");
-                    /** 主队近10场 */
-                    Elements z = zhanjis.get(0).select(".mar_left20");
-                    if (z != null && z.size() > 0) {
-                        oddInfo.setZwin(z.get(0).select(".ying").get(0).text().replace("胜", ""));
-                        oddInfo.setZdown(z.get(0).select(".ping").get(0).text().replace("平", ""));
-                        oddInfo.setZlose(z.get(0).select(".shu").get(0).text().replace("负", ""));
+                    final String body = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
+                    final Document bodyContent = Jsoup.parse(body);
+                    //获取数据表格
+                    final Element datatb = bodyContent.getElementById("datatb");
+                    final Elements dxtrs = datatb.select("tbody>tr").select("[xls=row]");
+                    for (Element dxtr : dxtrs) {
+                        if (dxtr.attr("id").equals("5")) {
+                            //澳门盘口信息
+                            final Elements pks = dxtr.select(".pl_table_data");
+                            //最终盘口
+                            final Elements lpktds = pks.get(0).select("tbody>tr>td");
+                            oddInfo.setlDWaterAm(lpktds.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setlPDXAm(lpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setlXWaterAm(lpktds.get(2).text().replace("↑", "").replace("↓", ""));
 
-                        oddInfo.setZjscore(Integer.parseInt(z.get(1).select(".ying").get(0).text().replace("球", "")));
-                        oddInfo.setZlscore(Integer.parseInt(z.get(1).select(".shu").get(0).text().replace("球", "")));
-                    }
-                    /** 客队近10场 */
-                    Elements k = zhanjis.get(1).select(".mar_left20");
-                    if (k != null && k.size() > 0) {
-                        oddInfo.setKwin(k.get(0).select(".ying").get(0).text().replace("胜", ""));
-                        oddInfo.setKdown(k.get(0).select(".ping").get(0).text().replace("平", ""));
-                        oddInfo.setKlose(k.get(0).select(".shu").get(0).text().replace("负", ""));
+                            //初始盘口
+                            final Elements cpktds = pks.get(1).select("tbody>tr>td");
+                            oddInfo.setcDWaterAm(cpktds.get(0).text());
+                            oddInfo.setcPDXAm(cpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setcXWaterAm(cpktds.get(2).text());
+                        } else if (dxtr.attr("id").equals("2")) {
+                            //立博盘口信息
+                            final Elements pks = dxtr.select(".pl_table_data");
+                            //最终盘口
+                            final Elements lpktds = pks.get(0).select("tbody>tr>td");
+                            oddInfo.setlDWaterLb(lpktds.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setlPDXLb(lpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setlXWaterLb(lpktds.get(2).text().replace("↑", "").replace("↓", ""));
 
-                        oddInfo.setKjscore(Integer.parseInt(k.get(1).select(".ying").get(0).text().replace("球", "")));
-                        oddInfo.setKlscore(Integer.parseInt(k.get(1).select(".shu").get(0).text().replace("球", "")));
-                    }
-                    /** 主队近10主场 */
-                    Elements zz = zhanjis.get(2).select(".mar_left20");
-                    if (zz != null && zz.size() > 0) {
-                        oddInfo.setZzwin(zz.get(0).select(".ying").get(0).text().replace("胜", ""));
-                        oddInfo.setZzdown(zz.get(0).select(".ping").get(0).text().replace("平", ""));
-                        oddInfo.setZzlose(zz.get(0).select(".shu").get(0).text().replace("负", ""));
+                            //初始盘口
+                            final Elements cpktds = pks.get(1).select("tbody>tr>td");
+                            oddInfo.setcDWaterLb(cpktds.get(0).text());
+                            oddInfo.setcPDXLb(cpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setcXWaterLb(cpktds.get(2).text());
+                        }else if (dxtr.attr("id").equals("293")) {
+                            //威廉希尔盘口信息
+                            final Elements pks = dxtr.select(".pl_table_data");
+                            //最终盘口
+                            final Elements lpktds = pks.get(0).select("tbody>tr>td");
+                            oddInfo.setlDWaterWl(lpktds.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setlPDXWl(lpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setlXWaterWl(lpktds.get(2).text().replace("↑", "").replace("↓", ""));
 
-                        oddInfo.setZzjscore(Integer.parseInt(zz.get(1).select(".ying").get(0).text().replace("球", "")));
-                        oddInfo.setZzlscore(Integer.parseInt(zz.get(1).select(".shu").get(0).text().replace("球", "")));
-                    }
-
-                    /** 客队近10客场 */
-                    Elements kk = zhanjis.get(3).select(".mar_left20");
-                    if (kk != null && kk.size() > 0) {
-                        oddInfo.setKkwin(kk.get(0).select(".ying").get(0).text().replace("胜", ""));
-                        oddInfo.setKkdown(kk.get(0).select(".ping").get(0).text().replace("平", ""));
-                        oddInfo.setKklose(kk.get(0).select(".shu").get(0).text().replace("负", ""));
-
-                        oddInfo.setKkjscore(Integer.parseInt(kk.get(1).select(".ying").get(0).text().replace("球", "")));
-                        oddInfo.setKklsocre(Integer.parseInt(kk.get(1).select(".shu").get(0).text().replace("球", "")));
+                            //初始盘口
+                            final Elements cpktds = pks.get(1).select("tbody>tr>td");
+                            oddInfo.setcDWaterWl(cpktds.get(0).text());
+                            oddInfo.setcPDXWl(cpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setcXWaterWl(cpktds.get(2).text());
+                        }
                     }
                     oddInfos.add(oddInfo);
                 }

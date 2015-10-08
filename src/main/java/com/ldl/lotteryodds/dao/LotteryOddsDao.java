@@ -441,13 +441,24 @@ public class LotteryOddsDao {
      * @param oddInfos 实体
      */
     public int batchUpdateOddInfo(List<OddInfo> oddInfos) {
-        final String sql = "update lotteryoddsnew set win = ?,down = ?,lose=?,zwin=?,zdown=?,zlose=?,kwin=?,kdown=?,klose=?,zjscore=?,zlscore=?,kjscore=?,klscore=?," +
+        /*final String sql = "update lotteryoddsnew set win = ?,down = ?,lose=?,zwin=?,zdown=?,zlose=?,kwin=?,kdown=?,klose=?,zjscore=?,zlscore=?,kjscore=?,klscore=?," +
                 "zzwin=?,zzdown=?,zzlose=?,zzjscore=?,zzlscore=?,kkwin=?,kkdown=?,kklose=?,kkjscore=?,kklscore=? where matchId=?";
         final List<Object[]> batchArgs = new ArrayList<>();
         for (OddInfo oddInfo : oddInfos) {
             final Object[] args = {oddInfo.getWin(), oddInfo.getDown(), oddInfo.getLose(), oddInfo.getZwin(), oddInfo.getZdown(), oddInfo.getZlose(), oddInfo.getKwin(),
                     oddInfo.getKdown(), oddInfo.getKlose(), oddInfo.getZjscore(), oddInfo.getZlscore(), oddInfo.getKjscore(), oddInfo.getKlscore(), oddInfo.getZzwin(), oddInfo.getZzdown(),
                     oddInfo.getZzlose(), oddInfo.getZzjscore(), oddInfo.getZzlscore(), oddInfo.getKkwin(), oddInfo.getKkdown(), oddInfo.getKklose(), oddInfo.getKkjscore(), oddInfo.getKklsocre(),
+                    oddInfo.getMatchId()};
+            batchArgs.add(args);
+        }*/
+        final String sql = "update lotteryoddsnew set cDWaterAm = ?,cXWaterAm = ?,lDWaterAm=?,lXWaterAm=?,cPDXAm=?,lPDXAm=?,cDWaterLb=?,cXWaterLb=?,lDWaterLb=?,lXWaterLb=?" +
+                ",cPDXLb=?,lPDXLb=?,cDWaterWl=?," +
+                "cXWaterWl=?,lDWaterWl=?,lXWaterWl=?,cPDXWl=?,lPDXWl=? where matchId=?";
+        final List<Object[]> batchArgs = new ArrayList<>();
+        for (OddInfo oddInfo : oddInfos) {
+            final Object[] args = {oddInfo.getcDWaterAm(),oddInfo.getcXWaterAm(),oddInfo.getlDWaterAm(),oddInfo.getlXWaterAm(),oddInfo.getcPDXAm(),oddInfo.getlPDXAm(),
+                    oddInfo.getcDWaterLb(),oddInfo.getcXWaterLb(),oddInfo.getlDWaterLb(),oddInfo.getlXWaterLb(),oddInfo.getcPDXLb(),oddInfo.getlPDXLb(),oddInfo.getcDWaterWl(),
+                    oddInfo.getcXWaterWl(),oddInfo.getlDWaterWl(),oddInfo.getlXWaterWl(),oddInfo.getcPDXWl(),oddInfo.getlPDXWl(),
                     oddInfo.getMatchId()};
             batchArgs.add(args);
         }

@@ -9,6 +9,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -19,6 +21,10 @@ import java.util.List;
 public class TrainText {
 
     public static void main(String[] args) throws IOException {
+
+        BigDecimal a = new BigDecimal(0.02);
+        BigDecimal b = new BigDecimal(0.05);
+        System.out.println(b.subtract(a).floatValue());
         /**
          * 加载dao
          */
@@ -26,79 +32,58 @@ public class TrainText {
         final LotteryOddsDao lotteryOddsDao = (LotteryOddsDao) context.getBean("lotteryOddsDao");
 
         /** 澳门 */
-        final List<OddInfo> oddInfosAm = lotteryOddsDao.getOddInfos("select * from am");
+        final List<OddInfo> oddInfosAm = lotteryOddsDao.getOddInfos("select * from oall");/*order BY result ASC LIMIT 0,31151*/
         final StringBuilder stringBufferAm = new StringBuilder();
         for (OddInfo oddInfo : oddInfosAm) {
-            stringBufferAm.append(oddInfo.getCwOddAm()).append("\t")
-                    .append(oddInfo.getCdOddAm()).append("\t")
-                    .append(oddInfo.getClOddAm()).append("\t")
-                    .append(oddInfo.getLwOddAm()).append("\t")
-                    .append(oddInfo.getLdOddAm()).append("\t")
-                    .append(oddInfo.getLlOddAm()).append("\t")
-                    .append(oddInfo.getCwKlAm()).append("\t")
-                    .append(oddInfo.getCdKlAm()).append("\t")
-                    .append(oddInfo.getClKlAm()).append("\t")
-                    .append(oddInfo.getLwKlAm()).append("\t")
-                    .append(oddInfo.getLdKlAm()).append("\t")
-                    .append(oddInfo.getLlKlAm()).append("\t")
+            stringBufferAm
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwOddAm()) - (Double.parseDouble(oddInfo.getCwOddAm())))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdOddAm()) - (Double.parseDouble(oddInfo.getCdOddAm())))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlOddAm()) - Double.parseDouble(oddInfo.getClOddAm()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwKlAm()) - Double.parseDouble(oddInfo.getCwKlAm()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdKlAm()) - Double.parseDouble(oddInfo.getCdKlAm()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlKlAm()) - Double.parseDouble(oddInfo.getClKlAm()))).append("\t")
                     .append(oddInfo.getCzWaterAm()).append("\t")
                     .append(oddInfo.getCpAm()).append("\t")
                     .append(oddInfo.getCkWaterAm()).append("\t")
                     .append(oddInfo.getLzWaterAm()).append("\t")
                     .append(oddInfo.getLpAm()).append("\t")
-                    .append(oddInfo.getLkWaterAm()).append("\t").append(oddInfo.getResult()).append("\n");
-        }
-        Files.write(stringBufferAm.toString(), new File("F:\\data\\lotteryodds\\train_am.txt"), Charsets.UTF_8);
-
-
-
-        /** 立博 */
-        final List<OddInfo> oddInfosLb = lotteryOddsDao.getOddInfos("select * from lb");
-        final StringBuilder stringBufferLb = new StringBuilder();
-        for (OddInfo oddInfo : oddInfosLb) {
-            stringBufferLb.append(oddInfo.getCwOddLb()).append("\t")
-                    .append(oddInfo.getCdOddLb()).append("\t")
-                    .append(oddInfo.getClOddLb()).append("\t")
-                    .append(oddInfo.getLwOddLb()).append("\t")
-                    .append(oddInfo.getLdOddLb()).append("\t")
-                    .append(oddInfo.getLlOddLb()).append("\t")
-                    .append(oddInfo.getCwKlLb()).append("\t")
-                    .append(oddInfo.getCdKlLb()).append("\t")
-                    .append(oddInfo.getClKlLb()).append("\t")
-                    .append(oddInfo.getLwKlLb()).append("\t")
-                    .append(oddInfo.getLdKlLb()).append("\t")
-                    .append(oddInfo.getLlKlLb()).append("\t")
+                    .append(oddInfo.getLkWaterAm()).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwOddLb()) - Double.parseDouble(oddInfo.getCwOddLb()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdOddLb()) - Double.parseDouble(oddInfo.getCdOddLb()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlOddLb()) - Double.parseDouble(oddInfo.getClOddLb()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwKlLb()) - Double.parseDouble(oddInfo.getCwKlLb()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdKlLb()) - Double.parseDouble(oddInfo.getCdKlLb()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlKlLb()) - Double.parseDouble(oddInfo.getClKlLb()))).append("\t")
                     .append(oddInfo.getCzWaterLb()).append("\t")
                     .append(oddInfo.getCpLb()).append("\t")
                     .append(oddInfo.getCkWaterLb()).append("\t")
                     .append(oddInfo.getLzWaterLb()).append("\t")
                     .append(oddInfo.getLpLb()).append("\t")
-                    .append(oddInfo.getLkWaterLb()).append("\t").append(oddInfo.getResult()).append("\n");
-        }
-        Files.write(stringBufferLb.toString(), new File("F:\\data\\lotteryodds\\train_lb.txt"), Charsets.UTF_8);
-
-
-
-
-        /** 威廉希尔 */
-        final List<OddInfo> oddInfosWl = lotteryOddsDao.getOddInfos("select * from wl");
-        final StringBuilder stringBufferWl = new StringBuilder();
-        for (OddInfo oddInfo : oddInfosWl) {
-            stringBufferWl.append(oddInfo.getCwOddWl()).append("\t")
-                    .append(oddInfo.getCdOddWl()).append("\t")
-                    .append(oddInfo.getClOddWl()).append("\t")
-                    .append(oddInfo.getLwOddWl()).append("\t")
-                    .append(oddInfo.getLdOddWl()).append("\t")
-                    .append(oddInfo.getLlOddWl()).append("\t")
-                    .append(oddInfo.getCwKlWl()).append("\t")
-                    .append(oddInfo.getCdKlWl()).append("\t")
-                    .append(oddInfo.getClKlWl()).append("\t")
-                    .append(oddInfo.getLwKlWl()).append("\t")
-                    .append(oddInfo.getLdKlWl()).append("\t")
-                    .append(oddInfo.getLlKlWl()).append("\t")
+                    .append(oddInfo.getLkWaterLb()).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwOddWl()) - Double.parseDouble(oddInfo.getCwOddWl()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdOddWl()) - Double.parseDouble(oddInfo.getCdOddWl()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlOddWl()) - Double.parseDouble(oddInfo.getClOddWl()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwKlWl()) - Double.parseDouble(oddInfo.getCwKlWl()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdKlWl()) - Double.parseDouble(oddInfo.getCdKlWl()))).append("\t")
+                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlKlWl()) - Double.parseDouble(oddInfo.getClKlWl()))).append("\t")
+                    .append(oddInfo.getWin()).append("\t")
+                    .append(oddInfo.getDown()).append("\t")
+                    .append(oddInfo.getLose()).append("\t")
+                    .append(oddInfo.getZwin()).append("\t")
+                    .append(oddInfo.getZdown()).append("\t")
+                    .append(oddInfo.getZlose()).append("\t")
+                    .append(oddInfo.getKwin()).append("\t")
+                    .append(oddInfo.getKdown()).append("\t")
+                    .append(oddInfo.getKlose()).append("\t")
+                    .append(oddInfo.getZzwin()).append("\t")
+                    .append(oddInfo.getZzdown()).append("\t")
+                    .append(oddInfo.getZzlose()).append("\t")
+                    .append(oddInfo.getKkwin()).append("\t")
+                    .append(oddInfo.getKkdown()).append("\t")
+                    .append(oddInfo.getKklose()).append("\t")
                     .append(oddInfo.getResult()).append("\n");
         }
-        Files.write(stringBufferWl.toString(), new File("F:\\data\\lotteryodds\\train_wl.txt"), Charsets.UTF_8);
+        Files.write(stringBufferAm.toString(), new File("F:\\data\\lotteryodds\\train_all.txt"), Charsets.UTF_8);
 
     }
 }

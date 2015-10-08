@@ -1236,9 +1236,9 @@ public class OddInfo {
     private int type;
 
     public int getType() {
-        if(getResult()==3) {
+        if (getResult() == 3) {
             return 0;
-        }else if(getResult()==0||getResult()==1) {
+        } else if (getResult() == 0 || getResult() == 1) {
             return 1;
         }
         return 2;
@@ -1246,5 +1246,226 @@ public class OddInfo {
 
     public void setType(int type) {
         this.type = type;
+    }
+
+
+    /**
+     * 澳门初盘大球水位
+     */
+    private String cDWaterAm;
+    /**
+     * 澳门初盘小球水位
+     */
+    private String cXWaterAm;
+    /**
+     * 澳门终盘大球水位
+     */
+    private String lDWaterAm;
+    /**
+     * 澳门终盘小球水位
+     */
+    private String lXWaterAm;
+    /**
+     * 澳门初盘盘口
+     */
+    private String cPDXAm;
+    /**
+     * 澳门终盘盘口
+     */
+    private String lPDXAm;
+
+    /**
+     * 立博初盘大球水位
+     */
+    private String cDWaterLb;
+    /**
+     * 立博初盘小球水位
+     */
+    private String cXWaterLb;
+    /**
+     * 立博终盘大球水位
+     */
+    private String lDWaterLb;
+    /**
+     * 立博终盘小球水位
+     */
+    private String lXWaterLb;
+    /**
+     * 立博初盘盘口
+     */
+    private String cPDXLb;
+    /**
+     * 立博终盘盘口
+     */
+    private String lPDXLb;
+
+
+    /**
+     * 威廉希尔初盘大球水位
+     */
+    private String cDWaterWl;
+    /**
+     * 威廉希尔初盘小球水位
+     */
+    private String cXWaterWl;
+    /**
+     * 威廉希尔终盘大球水位
+     */
+    private String lDWaterWl;
+    /**
+     * 威廉希尔终盘小球水位
+     */
+    private String lXWaterWl;
+    /**
+     * 威廉希尔初盘盘口
+     */
+    private String cPDXWl;
+    /**
+     * 威廉希尔终盘盘口
+     */
+    private String lPDXWl;
+
+    public String getcDWaterAm() {
+        return cDWaterAm;
+    }
+
+    public void setcDWaterAm(String cDWaterAm) {
+        this.cDWaterAm = cDWaterAm;
+    }
+
+    public String getcXWaterAm() {
+        return cXWaterAm;
+    }
+
+    public void setcXWaterAm(String cXWaterAm) {
+        this.cXWaterAm = cXWaterAm;
+    }
+
+    public String getlXWaterAm() {
+        return lXWaterAm;
+    }
+
+    public void setlXWaterAm(String lXWaterAm) {
+        this.lXWaterAm = lXWaterAm;
+    }
+
+    public String getcPDXAm() {
+        return cPDXAm;
+    }
+
+    public void setcPDXAm(String cPDXAm) {
+        this.cPDXAm = cPDXAm;
+    }
+
+    public String getlPDXAm() {
+        return lPDXAm;
+    }
+
+    public void setlPDXAm(String lPDXAm) {
+        this.lPDXAm = lPDXAm;
+    }
+
+    public String getcDWaterLb() {
+        return cDWaterLb;
+    }
+
+    public void setcDWaterLb(String cDWaterLb) {
+        this.cDWaterLb = cDWaterLb;
+    }
+
+    public String getcXWaterLb() {
+        return cXWaterLb;
+    }
+
+    public void setcXWaterLb(String cXWaterLb) {
+        this.cXWaterLb = cXWaterLb;
+    }
+
+    public String getlXWaterLb() {
+        return lXWaterLb;
+    }
+
+    public void setlXWaterLb(String lXWaterLb) {
+        this.lXWaterLb = lXWaterLb;
+    }
+
+    public String getcPDXLb() {
+        return cPDXLb;
+    }
+
+    public void setcPDXLb(String cPDXLb) {
+        this.cPDXLb = cPDXLb;
+    }
+
+    public String getlPDXLb() {
+        return lPDXLb;
+    }
+
+    public void setlPDXLb(String lPDXLb) {
+        this.lPDXLb = lPDXLb;
+    }
+
+    public String getcDWaterWl() {
+        return cDWaterWl;
+    }
+
+    public void setcDWaterWl(String cDWaterWl) {
+        this.cDWaterWl = cDWaterWl;
+    }
+
+    public String getcXWaterWl() {
+        return cXWaterWl;
+    }
+
+    public void setcXWaterWl(String cXWaterWl) {
+        this.cXWaterWl = cXWaterWl;
+    }
+
+    public String getlXWaterWl() {
+        return lXWaterWl;
+    }
+
+    public void setlXWaterWl(String lXWaterWl) {
+        this.lXWaterWl = lXWaterWl;
+    }
+
+    public String getcPDXWl() {
+        return cPDXWl;
+    }
+
+    public void setcPDXWl(String cPDXWl) {
+        this.cPDXWl = cPDXWl;
+    }
+
+    public String getlPDXWl() {
+        return lPDXWl;
+    }
+
+    public void setlPDXWl(String lPDXWl) {
+        this.lPDXWl = lPDXWl;
+    }
+
+    public String getlDWaterAm() {
+        return lDWaterAm;
+    }
+
+    public void setlDWaterAm(String lDWaterAm) {
+        this.lDWaterAm = lDWaterAm;
+    }
+
+    public String getlDWaterLb() {
+        return lDWaterLb;
+    }
+
+    public void setlDWaterLb(String lDWaterLb) {
+        this.lDWaterLb = lDWaterLb;
+    }
+
+    public String getlDWaterWl() {
+        return lDWaterWl;
+    }
+
+    public void setlDWaterWl(String lDWaterWl) {
+        this.lDWaterWl = lDWaterWl;
     }
 }
