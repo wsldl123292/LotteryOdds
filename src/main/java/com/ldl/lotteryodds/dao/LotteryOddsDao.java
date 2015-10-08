@@ -359,6 +359,88 @@ public class LotteryOddsDao {
                     m.setKklose(resultSet.getString("kklose"));
                 }
 
+
+
+
+                if (arr.contains("cDWaterAm")) {
+                    m.setcDWaterAm(resultSet.getString("cDWaterAm"));
+                }
+                if (arr.contains("cXWaterAm")) {
+                    m.setcXWaterAm(resultSet.getString("cXWaterAm"));
+                }
+                if (arr.contains("lDWaterAm")) {
+                    m.setlDWaterAm(resultSet.getString("lDWaterAm"));
+                }
+                if (arr.contains("lXWaterAm")) {
+                    m.setlXWaterAm(resultSet.getString("lXWaterAm"));
+                }
+                if (arr.contains("cPDXAm")) {
+                    m.setcPDXAm(resultSet.getString("cPDXAm"));
+                }
+                if (arr.contains("lPDXAm")) {
+                    m.setlPDXAm(resultSet.getString("lPDXAm"));
+                }
+                if (arr.contains("cDWaterLb")) {
+                    m.setcDWaterLb(resultSet.getString("cDWaterLb"));
+                }
+                if (arr.contains("cXWaterLb")) {
+                    m.setcXWaterLb(resultSet.getString("cXWaterLb"));
+                }
+                if (arr.contains("lDWaterLb")) {
+                    m.setlDWaterLb(resultSet.getString("lDWaterLb"));
+                }
+                if (arr.contains("lXWaterLb")) {
+                    m.setlXWaterLb(resultSet.getString("lXWaterLb"));
+                }
+                if (arr.contains("cPDXLb")) {
+                    m.setcPDXLb(resultSet.getString("cPDXLb"));
+                }
+                if (arr.contains("lPDXLb")) {
+                    m.setlPDXLb(resultSet.getString("lPDXLb"));
+                }
+                if (arr.contains("cDWaterWl")) {
+                    m.setcDWaterWl(resultSet.getString("cDWaterWl"));
+                }
+                if (arr.contains("cXWaterWl")) {
+                    m.setcXWaterWl(resultSet.getString("cXWaterWl"));
+                }
+                if (arr.contains("lDWaterWl")) {
+                    m.setlDWaterWl(resultSet.getString("lDWaterWl"));
+                }
+                if (arr.contains("lXWaterWl")) {
+                    m.setlXWaterWl(resultSet.getString("lXWaterWl"));
+                }
+                if (arr.contains("cPDXWl")) {
+                    m.setcPDXWl(resultSet.getString("cPDXWl"));
+                }
+                if (arr.contains("lPDXWl")) {
+                    m.setlPDXWl(resultSet.getString("lPDXWl"));
+                }
+                if (arr.contains("zjscore")) {
+                    m.setZjscore(resultSet.getInt("zjscore"));
+                }
+                if (arr.contains("zlscore")) {
+                    m.setZlscore(resultSet.getInt("zlscore"));
+                }
+                if (arr.contains("kjscore")) {
+                    m.setKjscore(resultSet.getInt("kjscore"));
+                }
+                if (arr.contains("klscore")) {
+                    m.setKlscore(resultSet.getInt("klscore"));
+                }
+                if (arr.contains("zzjscore")) {
+                    m.setZzjscore(resultSet.getInt("zzjscore"));
+                }
+                if (arr.contains("zzlscore")) {
+                    m.setZzlscore(resultSet.getInt("zzlscore"));
+                }
+                if (arr.contains("kkjscore")) {
+                    m.setKkjscore(resultSet.getInt("kkjscore"));
+                }
+                if (arr.contains("kklscore")) {
+                    m.setKklsocre(resultSet.getInt("kklscore"));
+                }
+
                 list.add(m);
             }
         } catch (SQLException ex) {
