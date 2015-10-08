@@ -17,6 +17,7 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,7 +34,7 @@ public class TestTextAll {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
         LocalDate beginDate = LocalDate.of(2015, 10, 8);
-        int size = 2;
+        int size = 25;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -330,7 +331,8 @@ public class TestTextAll {
         if (oddInfos.size() > 0) {
             StringBuilder stringBuffer = new StringBuilder();
             for (OddInfo oddInfo : oddInfos) {
-                stringBuffer.append(oddInfo.getCwOddAm()).append("\t")
+                stringBuffer
+                        /*.append(oddInfo.getCwOddAm()).append("\t")
                         .append(oddInfo.getCdOddAm()).append("\t")
                         .append(oddInfo.getClOddAm()).append("\t")
                         .append(oddInfo.getLwOddAm()).append("\t")
@@ -378,6 +380,60 @@ public class TestTextAll {
                         .append(oddInfo.getLwKlWl()).append("\t")
                         .append(oddInfo.getLdKlWl()).append("\t")
                         .append(oddInfo.getLlKlWl()).append("\t")
+                        .append(oddInfo.getWin()).append("\t")
+                        .append(oddInfo.getDown()).append("\t")
+                        .append(oddInfo.getLose()).append("\t")
+                        .append(oddInfo.getZwin()).append("\t")
+                        .append(oddInfo.getZdown()).append("\t")
+                        .append(oddInfo.getZlose()).append("\t")
+                        .append(oddInfo.getKwin()).append("\t")
+                        .append(oddInfo.getKdown()).append("\t")
+                        .append(oddInfo.getKlose()).append("\t")
+                        .append(oddInfo.getZzwin()).append("\t")
+                        .append(oddInfo.getZzdown()).append("\t")
+                        .append(oddInfo.getZzlose()).append("\t")
+                        .append(oddInfo.getKkwin()).append("\t")
+                        .append(oddInfo.getKkdown()).append("\t")
+                        .append(oddInfo.getKklose()).append("\t")
+                        .append(oddInfo.getResult()).append("\n");*/
+
+                        .append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdOddAm()).subtract(new BigDecimal(oddInfo.getCdOddAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlOddAm()).subtract(new BigDecimal(oddInfo.getClOddAm()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getLwKlAm()).subtract(new BigDecimal(oddInfo.getCwKlAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdKlAm()).subtract(new BigDecimal(oddInfo.getCdKlAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlKlAm()).subtract(new BigDecimal(oddInfo.getClKlAm()))).append("\t")
+
+                        .append(oddInfo.getCzWaterAm()).append("\t")
+                        .append(oddInfo.getCpAm()).append("\t")
+                        .append(oddInfo.getCkWaterAm()).append("\t")
+                        .append(oddInfo.getLzWaterAm()).append("\t")
+                        .append(oddInfo.getLpAm()).append("\t")
+                        .append(oddInfo.getLkWaterAm()).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getLwOddLb()).subtract(new BigDecimal(oddInfo.getCwOddLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdOddLb()).subtract(new BigDecimal(oddInfo.getCdOddLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlOddLb()).subtract(new BigDecimal(oddInfo.getClOddLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLwKlLb()).subtract(new BigDecimal(oddInfo.getCwKlLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdKlLb()).subtract(new BigDecimal(oddInfo.getCdKlLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlKlLb()).subtract(new BigDecimal(oddInfo.getClKlLb()))).append("\t")
+
+
+                        .append(oddInfo.getCzWaterLb()).append("\t")
+                        .append(oddInfo.getCpLb()).append("\t")
+                        .append(oddInfo.getCkWaterLb()).append("\t")
+                        .append(oddInfo.getLzWaterLb()).append("\t")
+                        .append(oddInfo.getLpLb()).append("\t")
+                        .append(oddInfo.getLkWaterLb()).append("\t")
+
+
+                        .append(new BigDecimal(oddInfo.getLwOddWl()).subtract(new BigDecimal(oddInfo.getCwOddWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdOddWl()).subtract(new BigDecimal(oddInfo.getCdOddWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlOddWl()).subtract(new BigDecimal(oddInfo.getClOddWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLwKlWl()).subtract(new BigDecimal(oddInfo.getCwKlWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdKlWl()).subtract(new BigDecimal(oddInfo.getCdKlWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlKlWl()).subtract(new BigDecimal(oddInfo.getClKlWl()))).append("\t")
                         .append(oddInfo.getWin()).append("\t")
                         .append(oddInfo.getDown()).append("\t")
                         .append(oddInfo.getLose()).append("\t")

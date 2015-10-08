@@ -30,13 +30,13 @@ object TrainRandomForestClassificationDXAll {
 
 
         /** 分类 */
-        val numClasses = 8
+        val numClasses = 6
         val categoricalFeaturesInfo = Map[Int, Int]()
-        val numTrees = 40 // Use more in practice.
+        val numTrees = 20 // Use more in practice.
         val featureSubsetStrategy = "auto" // Let the algorithm choose.
         val impurity = "gini"
-        val maxDepth = 20
-        val maxBins = 100
+        val maxDepth = 15
+        val maxBins = 32
 
 
         val model = RandomForest.trainClassifier(trainingData, numClasses, categoricalFeaturesInfo,

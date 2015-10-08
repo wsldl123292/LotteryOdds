@@ -30,6 +30,7 @@ public class TrainTextDXAll {
         final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oalldx");/*order BY result ASC LIMIT 0,31151*/
         final StringBuilder stringBuffer = new StringBuilder();
         for (OddInfo oddInfo : oddInfos) {
+            int total = oddInfo.getZscore() + oddInfo.getKscore();
             stringBuffer
                     .append(oddInfo.getcDWaterAm()).append("\t")
                     .append(oddInfo.getcXWaterAm()).append("\t")
@@ -56,8 +57,12 @@ public class TrainTextDXAll {
                     .append(oddInfo.getZzjscore()).append("\t")
                     .append(oddInfo.getZzlscore()).append("\t")
                     .append(oddInfo.getKkjscore()).append("\t")
-                    .append(oddInfo.getKklsocre()).append("\t")
-                    .append((oddInfo.getZscore() + oddInfo.getKscore()) > 7 ? 7 : oddInfo.getZscore() + oddInfo.getKscore()).append("\n");
+                    .append(oddInfo.getKklsocre()).append("\t");
+            if (total > 4 || total == 0) {
+                stringBuffer.append(5).append("\n");
+            } else {
+                stringBuffer.append(total).append("\n");
+            }
         }
         Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train_dx_all.txt"), Charsets.UTF_8);
 
