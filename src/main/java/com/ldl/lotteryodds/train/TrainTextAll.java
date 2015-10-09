@@ -9,7 +9,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -27,11 +26,11 @@ public class TrainTextAll {
         final LotteryOddsDao lotteryOddsDao = (LotteryOddsDao) context.getBean("lotteryOddsDao");
 
         /** 澳门 */
-        final List<OddInfo> oddInfosAm = lotteryOddsDao.getOddInfos("select * from oall");/*order BY result ASC LIMIT 0,31151*/
-        final StringBuilder stringBufferAm = new StringBuilder();
-        for (OddInfo oddInfo : oddInfosAm) {
-            stringBufferAm
-                    /*.append(oddInfo.getCwOddAm()).append("\t")
+        final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oall");/*order BY result ASC LIMIT 0,31151*/
+        final StringBuilder stringBuffer = new StringBuilder();
+        for (OddInfo oddInfo : oddInfos) {
+            stringBuffer
+                    .append(oddInfo.getCwOddAm()).append("\t")
                     .append(oddInfo.getCdOddAm()).append("\t")
                     .append(oddInfo.getClOddAm()).append("\t")
                     .append(oddInfo.getLwOddAm()).append("\t")
@@ -94,12 +93,12 @@ public class TrainTextAll {
                     .append(oddInfo.getKkwin()).append("\t")
                     .append(oddInfo.getKkdown()).append("\t")
                     .append(oddInfo.getKklose()).append("\t")
-                    .append(oddInfo.getResult()).append("\n");*/
+                    .append(oddInfo.getResult()).append("\n");
 
 
 
 
-                .append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm()))).append("\t")
+                /*.append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm()))).append("\t")
                         .append(new BigDecimal(oddInfo.getLdOddAm()).subtract(new BigDecimal(oddInfo.getCdOddAm()))).append("\t")
                         .append(new BigDecimal(oddInfo.getLlOddAm()).subtract(new BigDecimal(oddInfo.getClOddAm()))).append("\t")
 
@@ -151,9 +150,9 @@ public class TrainTextAll {
                         .append(oddInfo.getKkwin()).append("\t")
                         .append(oddInfo.getKkdown()).append("\t")
                         .append(oddInfo.getKklose()).append("\t")
-                        .append(oddInfo.getResult()).append("\n");
+                        .append(oddInfo.getResult()).append("\n");*/
         }
-        Files.write(stringBufferAm.toString(), new File("F:\\data\\lotteryodds\\train_all.txt"), Charsets.UTF_8);
+        Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train_all.txt"), Charsets.UTF_8);
 
     }
 }

@@ -10,7 +10,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
-import java.text.DecimalFormat;
 import java.util.List;
 
 /**
@@ -21,10 +20,6 @@ import java.util.List;
 public class TrainText {
 
     public static void main(String[] args) throws IOException {
-
-        BigDecimal a = new BigDecimal(0.02);
-        BigDecimal b = new BigDecimal(0.05);
-        System.out.println(b.subtract(a).floatValue());
         /**
          * 加载dao
          */
@@ -32,40 +27,47 @@ public class TrainText {
         final LotteryOddsDao lotteryOddsDao = (LotteryOddsDao) context.getBean("lotteryOddsDao");
 
         /** 澳门 */
-        final List<OddInfo> oddInfosAm = lotteryOddsDao.getOddInfos("select * from oall");/*order BY result ASC LIMIT 0,31151*/
-        final StringBuilder stringBufferAm = new StringBuilder();
-        for (OddInfo oddInfo : oddInfosAm) {
-            stringBufferAm
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwOddAm()) - (Double.parseDouble(oddInfo.getCwOddAm())))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdOddAm()) - (Double.parseDouble(oddInfo.getCdOddAm())))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlOddAm()) - Double.parseDouble(oddInfo.getClOddAm()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwKlAm()) - Double.parseDouble(oddInfo.getCwKlAm()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdKlAm()) - Double.parseDouble(oddInfo.getCdKlAm()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlKlAm()) - Double.parseDouble(oddInfo.getClKlAm()))).append("\t")
+        final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oall");/*order BY result ASC LIMIT 0,31151*/
+        final StringBuilder stringBuffer = new StringBuilder();
+        for (OddInfo oddInfo : oddInfos) {
+
+            stringBuffer.append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLdOddAm()).subtract(new BigDecimal(oddInfo.getCdOddAm()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLlOddAm()).subtract(new BigDecimal(oddInfo.getClOddAm()))).append("\t")
+
+                    .append(new BigDecimal(oddInfo.getLwKlAm()).subtract(new BigDecimal(oddInfo.getCwKlAm()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLdKlAm()).subtract(new BigDecimal(oddInfo.getCdKlAm()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLlKlAm()).subtract(new BigDecimal(oddInfo.getClKlAm()))).append("\t")
+
                     .append(oddInfo.getCzWaterAm()).append("\t")
                     .append(oddInfo.getCpAm()).append("\t")
                     .append(oddInfo.getCkWaterAm()).append("\t")
                     .append(oddInfo.getLzWaterAm()).append("\t")
                     .append(oddInfo.getLpAm()).append("\t")
                     .append(oddInfo.getLkWaterAm()).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwOddLb()) - Double.parseDouble(oddInfo.getCwOddLb()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdOddLb()) - Double.parseDouble(oddInfo.getCdOddLb()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlOddLb()) - Double.parseDouble(oddInfo.getClOddLb()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwKlLb()) - Double.parseDouble(oddInfo.getCwKlLb()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdKlLb()) - Double.parseDouble(oddInfo.getCdKlLb()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlKlLb()) - Double.parseDouble(oddInfo.getClKlLb()))).append("\t")
+
+                    .append(new BigDecimal(oddInfo.getLwOddLb()).subtract(new BigDecimal(oddInfo.getCwOddLb()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLdOddLb()).subtract(new BigDecimal(oddInfo.getCdOddLb()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLlOddLb()).subtract(new BigDecimal(oddInfo.getClOddLb()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLwKlLb()).subtract(new BigDecimal(oddInfo.getCwKlLb()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLdKlLb()).subtract(new BigDecimal(oddInfo.getCdKlLb()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLlKlLb()).subtract(new BigDecimal(oddInfo.getClKlLb()))).append("\t")
+
+
                     .append(oddInfo.getCzWaterLb()).append("\t")
                     .append(oddInfo.getCpLb()).append("\t")
                     .append(oddInfo.getCkWaterLb()).append("\t")
                     .append(oddInfo.getLzWaterLb()).append("\t")
                     .append(oddInfo.getLpLb()).append("\t")
                     .append(oddInfo.getLkWaterLb()).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwOddWl()) - Double.parseDouble(oddInfo.getCwOddWl()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdOddWl()) - Double.parseDouble(oddInfo.getCdOddWl()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlOddWl()) - Double.parseDouble(oddInfo.getClOddWl()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLwKlWl()) - Double.parseDouble(oddInfo.getCwKlWl()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLdKlWl()) - Double.parseDouble(oddInfo.getCdKlWl()))).append("\t")
-                    .append(new DecimalFormat("#.000").format(Double.parseDouble(oddInfo.getLlKlWl()) - Double.parseDouble(oddInfo.getClKlWl()))).append("\t")
+
+
+                    .append(new BigDecimal(oddInfo.getLwOddWl()).subtract(new BigDecimal(oddInfo.getCwOddWl()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLdOddWl()).subtract(new BigDecimal(oddInfo.getCdOddWl()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLlOddWl()).subtract(new BigDecimal(oddInfo.getClOddWl()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLwKlWl()).subtract(new BigDecimal(oddInfo.getCwKlWl()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLdKlWl()).subtract(new BigDecimal(oddInfo.getCdKlWl()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getLlKlWl()).subtract(new BigDecimal(oddInfo.getClKlWl()))).append("\t")
                     .append(oddInfo.getWin()).append("\t")
                     .append(oddInfo.getDown()).append("\t")
                     .append(oddInfo.getLose()).append("\t")
@@ -83,7 +85,7 @@ public class TrainText {
                     .append(oddInfo.getKklose()).append("\t")
                     .append(oddInfo.getResult()).append("\n");
         }
-        Files.write(stringBufferAm.toString(), new File("F:\\data\\lotteryodds\\train_all.txt"), Charsets.UTF_8);
+        Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train.txt"), Charsets.UTF_8);
 
     }
 }

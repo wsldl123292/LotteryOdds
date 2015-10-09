@@ -17,7 +17,6 @@ import org.jsoup.select.Elements;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.nio.charset.Charset;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -33,8 +32,8 @@ import java.util.Map;
 public class TestTextAll {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 10, 8);
-        int size = 25;
+        LocalDate beginDate = LocalDate.of(2015, 10, 9);
+        int size = 1;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -329,10 +328,10 @@ public class TestTextAll {
         }
 
         if (oddInfos.size() > 0) {
-            StringBuilder stringBuffer = new StringBuilder();
+            final StringBuilder stringBuffer = new StringBuilder();
             for (OddInfo oddInfo : oddInfos) {
                 stringBuffer
-                        /*.append(oddInfo.getCwOddAm()).append("\t")
+                        .append(oddInfo.getCwOddAm()).append("\t")
                         .append(oddInfo.getCdOddAm()).append("\t")
                         .append(oddInfo.getClOddAm()).append("\t")
                         .append(oddInfo.getLwOddAm()).append("\t")
@@ -395,9 +394,9 @@ public class TestTextAll {
                         .append(oddInfo.getKkwin()).append("\t")
                         .append(oddInfo.getKkdown()).append("\t")
                         .append(oddInfo.getKklose()).append("\t")
-                        .append(oddInfo.getResult()).append("\n");*/
+                        .append(oddInfo.getResult()).append("\n");
 
-                        .append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm()))).append("\t")
+                        /*.append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm()))).append("\t")
                         .append(new BigDecimal(oddInfo.getLdOddAm()).subtract(new BigDecimal(oddInfo.getCdOddAm()))).append("\t")
                         .append(new BigDecimal(oddInfo.getLlOddAm()).subtract(new BigDecimal(oddInfo.getClOddAm()))).append("\t")
 
@@ -449,7 +448,7 @@ public class TestTextAll {
                         .append(oddInfo.getKkwin()).append("\t")
                         .append(oddInfo.getKkdown()).append("\t")
                         .append(oddInfo.getKklose()).append("\t")
-                        .append(oddInfo.getResult()).append("\n");
+                        .append(oddInfo.getResult()).append("\n");*/
             }
             Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_all.txt"), Charsets.UTF_8);
 
