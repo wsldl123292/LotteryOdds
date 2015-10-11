@@ -32,8 +32,8 @@ import java.util.Map;
 public class TestTextNew {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 10, 9);
-        int size = 1;
+        LocalDate beginDate = LocalDate.of(2015, 10, 11);
+        int size = 12;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;

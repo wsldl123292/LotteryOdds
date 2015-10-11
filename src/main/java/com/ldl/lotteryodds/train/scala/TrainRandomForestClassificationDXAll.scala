@@ -17,39 +17,39 @@ object TrainRandomForestClassificationDXAll {
         /** 训练数据 */
         val trainRowDataAll = sc.textFile("F:\\data\\lotteryodds\\train_dx_all.txt")
         val trainRecordsAll = trainRowDataAll.map(line=>line.split("\t"))
-        val trainDataAll = trainRecordsAll.map{ r=>
+        val trainingData = trainRecordsAll.map{ r=>
             val trimmed = r.map(_.replaceAll("\"",""))
             val label = trimmed(r.size-1).toInt
             val features = trimmed.slice(0,r.size-1).map(d => if(d =="") 0.00 else d.toDouble)
             LabeledPoint(label,Vectors.dense(features))
         }
 
-        val splits = trainDataAll.randomSplit(Array(0.9, 0.1))
+        /*val splits = trainDataAll.randomSplit(Array(0.9, 0.1))
         val (trainingData, testData) = (splits(0), splits(1))
-        trainingData.cache()
+        trainingData.cache()*/
 
 
         /** 分类 */
-        val numClasses = 6
+        val numClasses = 2
         val categoricalFeaturesInfo = Map[Int, Int]()
         val numTrees = 20 // Use more in practice.
         val featureSubsetStrategy = "auto" // Let the algorithm choose.
         val impurity = "gini"
         val maxDepth = 15
-        val maxBins = 32
+        val maxBins = 30
 
 
         val model = RandomForest.trainClassifier(trainingData, numClasses, categoricalFeaturesInfo,
             numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins)
 
-        val labelAndPreds = testData.map { point =>
+        /*val labelAndPreds = testData.map { point =>
             val prediction = model.predict(point.features)
             (point.label, prediction)
         }
         print("label : ",labelAndPreds.collect().toList)
         val testErr = labelAndPreds.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
-        println("Test Error = " + testErr)
-        //model.save(sc,"F:\\data\\lotteryodds\\model\\RandomForestAll")
+        println("Test Error = " + testErr)*/
+        model.save(sc,"F:\\data\\lotteryodds\\model\\RandomForestDXAll")
         sc.stop()
     }
 }
