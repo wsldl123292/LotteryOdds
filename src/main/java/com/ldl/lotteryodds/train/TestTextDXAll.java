@@ -32,8 +32,8 @@ import java.util.Map;
 public class TestTextDXAll {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 10, 11);
-        int size = 12;
+        LocalDate beginDate = LocalDate.of(2015, 10, 8);
+        int size = 29;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -237,24 +237,6 @@ public class TestTextDXAll {
             for (OddInfo oddInfo : oddInfos) {
                 int total = oddInfo.getZscore() + oddInfo.getKscore();
                 stringBuffer
-                        .append(oddInfo.getcDWaterAm()).append("\t")
-                        .append(oddInfo.getcXWaterAm()).append("\t")
-                        .append(oddInfo.getlDWaterAm()).append("\t")
-                        .append(oddInfo.getlXWaterAm()).append("\t")
-                        .append(oddInfo.getcPDXAm()).append("\t")
-                        .append(oddInfo.getlPDXAm()).append("\t")
-                        .append(oddInfo.getcDWaterLb()).append("\t")
-                        .append(oddInfo.getcXWaterLb()).append("\t")
-                        .append(oddInfo.getlDWaterLb()).append("\t")
-                        .append(oddInfo.getlXWaterLb()).append("\t")
-                        .append(oddInfo.getcPDXLb()).append("\t")
-                        .append(oddInfo.getlPDXLb()).append("\t")
-                        .append(oddInfo.getcDWaterWl()).append("\t")
-                        .append(oddInfo.getcXWaterWl()).append("\t")
-                        .append(oddInfo.getlDWaterWl()).append("\t")
-                        .append(oddInfo.getlXWaterWl()).append("\t")
-                        .append(oddInfo.getcPDXWl()).append("\t")
-                        .append(oddInfo.getlPDXWl()).append("\t")
                         .append(oddInfo.getZjscore()).append("\t")
                         .append(oddInfo.getZlscore()).append("\t")
                         .append(oddInfo.getKjscore()).append("\t")
@@ -262,12 +244,52 @@ public class TestTextDXAll {
                         .append(oddInfo.getZzjscore()).append("\t")
                         .append(oddInfo.getZzlscore()).append("\t")
                         .append(oddInfo.getKkjscore()).append("\t")
-                        .append(oddInfo.getKklsocre()).append("\t");
+                        .append(oddInfo.getKklsocre()).append("\t")
+
+                        /*.append(new BigDecimal(oddInfo.getlDWaterAm() == null ? "0" : oddInfo.getlDWaterAm()).subtract(new BigDecimal(oddInfo.getcDWaterAm() == null ? "0" : oddInfo.getcDWaterAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getlXWaterAm() == null ? "0" : oddInfo.getlXWaterAm()).subtract(new BigDecimal(oddInfo.getcXWaterAm() == null ? "0" : oddInfo.getcXWaterAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getlPDXAm() == null ? "0" : oddInfo.getlPDXAm()).subtract(new BigDecimal(oddInfo.getcPDXAm() == null ? "0" : oddInfo.getcPDXAm()))).append("\t")*/
+
+                        .append(oddInfo.getcDWaterAm()).append("\t")
+                        .append(oddInfo.getcXWaterAm()).append("\t")
+                        .append(oddInfo.getlDWaterAm()).append("\t")
+                        .append(oddInfo.getlXWaterAm()).append("\t")
+                        .append(oddInfo.getcPDXAm()).append("\t")
+                        .append(oddInfo.getlPDXAm()).append("\t")
+                        /*.append(new BigDecimal(oddInfo.getlDWaterLb() == null ? "0" : oddInfo.getlDWaterLb()).subtract(new BigDecimal(oddInfo.getcDWaterLb() == null ? "0" : oddInfo.getcDWaterLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getlXWaterLb() == null ? "0" : oddInfo.getlXWaterLb()).subtract(new BigDecimal(oddInfo.getcXWaterLb() == null ? "0" : oddInfo.getcXWaterLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getlPDXLb() == null ? "0" : oddInfo.getlPDXLb()).subtract(new BigDecimal(oddInfo.getcPDXLb() == null ? "0" : oddInfo.getcPDXLb()))).append("\t")*/
+
+                        .append(oddInfo.getcDWaterLb()).append("\t")
+                        .append(oddInfo.getcXWaterLb()).append("\t")
+                        .append(oddInfo.getlDWaterLb()).append("\t")
+                        .append(oddInfo.getlXWaterLb()).append("\t")
+                        .append(oddInfo.getcPDXLb()).append("\t")
+                        .append(oddInfo.getlPDXLb()).append("\t")
+
+                        /*.append(new BigDecimal(oddInfo.getlDWaterWl() == null ? "0" : oddInfo.getlDWaterWl()).subtract(new BigDecimal(oddInfo.getcDWaterWl() == null ? "0" : oddInfo.getcDWaterWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getlXWaterWl() == null ? "0" : oddInfo.getlXWaterWl()).subtract(new BigDecimal(oddInfo.getcXWaterWl() == null ? "0" : oddInfo.getcXWaterWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getlPDXWl() == null ? "0" : oddInfo.getlPDXWl()).subtract(new BigDecimal(oddInfo.getcPDXWl() == null ? "0" : oddInfo.getcPDXWl()))).append("\t")*/
+                        .append(oddInfo.getcDWaterWl()).append("\t")
+                        .append(oddInfo.getcXWaterWl()).append("\t")
+                        .append(oddInfo.getlDWaterWl()).append("\t")
+                        .append(oddInfo.getlXWaterWl()).append("\t")
+                        .append(oddInfo.getcPDXWl()).append("\t")
+                        .append(oddInfo.getlPDXWl()).append("\t");
                 if (total < 3) {
                     stringBuffer.append(0).append("\n");
                 } else {
                     stringBuffer.append(1).append("\n");
                 }
+                /*if (total < 2) {
+                    stringBuffer.append(0).append("\n");
+                } else if (total == 2) {
+                    stringBuffer.append(1).append("\n");
+                } else if (total == 3) {
+                    stringBuffer.append(2).append("\n");
+                } else if (total > 3) {
+                    stringBuffer.append(3).append("\n");
+                }*/
             }
             Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_dx_all.txt"), Charsets.UTF_8);
 

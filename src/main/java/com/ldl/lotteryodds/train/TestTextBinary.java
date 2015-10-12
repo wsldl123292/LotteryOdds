@@ -32,7 +32,7 @@ import java.util.Map;
 public class TestTextBinary {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 10, 3);
+        LocalDate beginDate = LocalDate.of(2015, 10, 10);
         int size = 4;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
@@ -328,9 +328,9 @@ public class TestTextBinary {
         }
 
         if (oddInfos.size() > 0) {
-            StringBuilder stringBuffer = new StringBuilder();
+            final StringBuilder stringBuffer = new StringBuilder();
             for (OddInfo oddInfo : oddInfos) {
-                stringBuffer/*.append(oddInfo.getCwOddAm()).append("\t")
+                stringBuffer.append(oddInfo.getCwOddAm()).append("\t")
                         .append(oddInfo.getCdOddAm()).append("\t")
                         .append(oddInfo.getClOddAm()).append("\t")
                         .append(oddInfo.getLwOddAm()).append("\t")
@@ -365,7 +365,7 @@ public class TestTextBinary {
                         .append(oddInfo.getCkWaterLb()).append("\t")
                         .append(oddInfo.getLzWaterLb()).append("\t")
                         .append(oddInfo.getLpLb()).append("\t")
-                        .append(oddInfo.getLkWaterLb()).append("\t")*/
+                        .append(oddInfo.getLkWaterLb()).append("\t")
                         .append(oddInfo.getCwOddWl()).append("\t")
                         .append(oddInfo.getCdOddWl()).append("\t")
                         .append(oddInfo.getClOddWl()).append("\t")

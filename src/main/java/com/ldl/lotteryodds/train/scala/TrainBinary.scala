@@ -1,9 +1,10 @@
 package com.ldl.lotteryodds.train.scala
 
 import org.apache.spark.SparkContext
+import org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS
+import org.apache.spark.mllib.evaluation.MulticlassMetrics
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.regression.LabeledPoint
-import org.apache.spark.mllib.tree.RandomForest
 
 /**
  * 作者: LDL
@@ -17,7 +18,7 @@ object TrainBinary {
         /** 训练数据 */
         val trainRowDataAll = sc.textFile("F:\\data\\lotteryodds\\train_all_binary.txt")
         val trainRecordsAll = trainRowDataAll.map(line=>line.split("\t"))
-        val trainDataAll = trainRecordsAll.map{ r=>
+        val trainingData = trainRecordsAll.map{ r=>
             val trimmed = r.map(_.replaceAll("\"",""))
             val label = trimmed(r.size-1).toInt
             val features = trimmed.slice(0,r.size-1).map(d => if(d =="") 0.00 else d.toDouble)
@@ -29,7 +30,7 @@ object TrainBinary {
         trainingData.cache()*/
 
 
-        /*val testRowData = sc.textFile( "F:\\data\\lotteryodds\\test_all_binary.txt" )
+        val testRowData = sc.textFile( "F:\\data\\lotteryodds\\test_all_binary.txt" )
         val testRecords = testRowData.map( line => line.split( "\t" ) )
         val testData = testRecords.map { r =>
             val trimmed = r.map( _.replaceAll( "\"", "" ) )
@@ -37,29 +38,64 @@ object TrainBinary {
             val features = trimmed.slice( 0, r.size - 1 ).map( d => if(d == null) 0 else d.toDouble )
             LabeledPoint( label, Vectors.dense(features))
         }
-        testData.cache( )*/
+        testData.cache( )
 
 
         /** 分类 */
-        val numClasses = 2
-        val categoricalFeaturesInfo = Map[Int, Int]()
-        val numTrees = 30 // Use more in practice.
-        val featureSubsetStrategy = "auto" // Let the algorithm choose.
-        val impurity = "gini"
-        val maxDepth = 10
-        val maxBins = 32
+        val model = new LogisticRegressionWithLBFGS()
+                .setNumClasses(2)
+                .run(trainingData)
 
-        val model = RandomForest.trainClassifier(trainDataAll, numClasses, categoricalFeaturesInfo,
-            numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins)
-
-        // Evaluate model on test instances and compute test error
-        /*val labelAndPreds = testData.map { point =>
-            val prediction = model.predict(point.features)
-            (point.label, prediction)
+        val predictionAndLabels = testData.map { case LabeledPoint(label, features) =>
+            val prediction = model.predict(features)
+            (label,prediction)
         }
-        val testErr = labelAndPreds.filter(r => r._1 != r._2).count.toDouble / testData.count()
-        println("Test Error = " + testErr)*/
-        model.save(sc,"F:\\data\\lotteryodds\\model\\RandomForestBinary")
+        print("label : ",predictionAndLabels.collect().toList)
+
+        // Get evaluation metrics.
+        val metrics = new MulticlassMetrics(predictionAndLabels)
+        val auROC = metrics.precision
+
+        println("Area under ROC = " + auROC)
+
+        //model.save(sc,"F:\\data\\lotteryodds\\model\\RandomForestBinary")
+
+
+        /*val numFeatures = trainingData.take(1)(0).features.size
+        val numCorrections = 10
+        val convergenceTol = 1e-4
+        val maxNumIterations = 20
+        val regParam = 0.5
+        val initialWeightsWithIntercept = Vectors.dense(new Array[Double](numFeatures + 1))
+
+        val (weightsWithIntercept, loss) = LBFGS.runLBFGS(
+            training,
+            new LogisticGradient(),
+            new SquaredL2Updater(),
+            numCorrections,
+            convergenceTol,
+            maxNumIterations,
+            regParam,
+            initialWeightsWithIntercept)
+
+        val model = new LogisticRegressionModel(
+            Vectors.dense(weightsWithIntercept.toArray.slice(0, weightsWithIntercept.size - 1)),
+            weightsWithIntercept(weightsWithIntercept.size - 1))
+
+        // Clear the default threshold.
+        model.clearThreshold()
+
+        // Compute raw scores on the test set.
+        val scoreAndLabels = testData.map { case LabeledPoint(label, features) =>
+            val score = model.predict(features)
+            (score, label)
+        }
+        print("label : ",scoreAndLabels.collect().toList)
+        // Get evaluation metrics.
+        val metrics = new BinaryClassificationMetrics(scoreAndLabels)
+        val auROC = metrics.areaUnderPR()
+        println("Area under ROC = " + auROC)*/
+
         sc.stop()
     }
 }

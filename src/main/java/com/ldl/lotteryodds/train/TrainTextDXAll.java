@@ -27,30 +27,11 @@ public class TrainTextDXAll {
         final LotteryOddsDao lotteryOddsDao = (LotteryOddsDao) context.getBean("lotteryOddsDao");
 
         /** 澳门 */
-        final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oalldx");/*order BY result ASC LIMIT 0,31151*/
+        final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oalldx ");/*order BY result ASC LIMIT 0,31151*/
         final StringBuilder stringBuffer = new StringBuilder();
         for (OddInfo oddInfo : oddInfos) {
             int total = oddInfo.getZscore() + oddInfo.getKscore();
             stringBuffer
-                    .append(oddInfo.getcDWaterAm()).append("\t")
-                    .append(oddInfo.getcXWaterAm()).append("\t")
-                    .append(oddInfo.getlDWaterAm()).append("\t")
-                    .append(oddInfo.getlXWaterAm()).append("\t")
-                    .append(oddInfo.getcPDXAm()).append("\t")
-                    .append(oddInfo.getlPDXAm()).append("\t")
-                    .append(oddInfo.getcDWaterLb()).append("\t")
-                    .append(oddInfo.getcXWaterLb()).append("\t")
-                    .append(oddInfo.getlDWaterLb()).append("\t")
-                    .append(oddInfo.getlXWaterLb()).append("\t")
-                    .append(oddInfo.getcPDXLb()).append("\t")
-                    .append(oddInfo.getlPDXLb()).append("\t")
-                    .append(oddInfo.getcDWaterWl()).append("\t")
-                    .append(oddInfo.getcXWaterWl()).append("\t")
-                    .append(oddInfo.getlDWaterWl()).append("\t")
-                    .append(oddInfo.getlXWaterWl()).append("\t")
-                    .append(oddInfo.getcPDXWl()).append("\t")
-                    .append(oddInfo.getlPDXWl()).append("\t")
-
                     .append(oddInfo.getZjscore()).append("\t")
                     .append(oddInfo.getZlscore()).append("\t")
                     .append(oddInfo.getKjscore()).append("\t")
@@ -58,12 +39,52 @@ public class TrainTextDXAll {
                     .append(oddInfo.getZzjscore()).append("\t")
                     .append(oddInfo.getZzlscore()).append("\t")
                     .append(oddInfo.getKkjscore()).append("\t")
-                    .append(oddInfo.getKklsocre()).append("\t");
-            if (total < 3 ) {
+                    .append(oddInfo.getKklsocre()).append("\t")
+
+                    /*.append(new BigDecimal(oddInfo.getlDWaterAm()).subtract(new BigDecimal(oddInfo.getcDWaterAm()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getlXWaterAm()).subtract(new BigDecimal(oddInfo.getcXWaterAm()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getlPDXAm()).subtract(new BigDecimal(oddInfo.getcPDXAm()))).append("\t")*/
+
+                    .append(oddInfo.getcDWaterAm()).append("\t")
+                    .append(oddInfo.getcXWaterAm()).append("\t")
+                    .append(oddInfo.getlDWaterAm()).append("\t")
+                    .append(oddInfo.getlXWaterAm()).append("\t")
+                    .append(oddInfo.getcPDXAm()).append("\t")
+                    .append(oddInfo.getlPDXAm()).append("\t")
+                    /*.append(new BigDecimal(oddInfo.getlDWaterLb()).subtract(new BigDecimal(oddInfo.getcDWaterLb()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getlXWaterLb()).subtract(new BigDecimal(oddInfo.getcXWaterLb()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getlPDXLb()).subtract(new BigDecimal(oddInfo.getcPDXLb()))).append("\t")*/
+
+                    .append(oddInfo.getcDWaterLb()).append("\t")
+                    .append(oddInfo.getcXWaterLb()).append("\t")
+                    .append(oddInfo.getlDWaterLb()).append("\t")
+                    .append(oddInfo.getlXWaterLb()).append("\t")
+                    .append(oddInfo.getcPDXLb()).append("\t")
+                    .append(oddInfo.getlPDXLb()).append("\t")
+
+                    /*.append(new BigDecimal(oddInfo.getlDWaterWl()).subtract(new BigDecimal(oddInfo.getcDWaterWl()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getlXWaterWl()).subtract(new BigDecimal(oddInfo.getcXWaterWl()))).append("\t")
+                    .append(new BigDecimal(oddInfo.getlPDXWl()).subtract(new BigDecimal(oddInfo.getcPDXWl()))).append("\t")*/
+                    .append(oddInfo.getcDWaterWl()).append("\t")
+                    .append(oddInfo.getcXWaterWl()).append("\t")
+                    .append(oddInfo.getlDWaterWl()).append("\t")
+                    .append(oddInfo.getlXWaterWl()).append("\t")
+                    .append(oddInfo.getcPDXWl()).append("\t")
+                    .append(oddInfo.getlPDXWl()).append("\t");
+            if (total < 3) {
                 stringBuffer.append(0).append("\n");
             } else {
                 stringBuffer.append(1).append("\n");
             }
+            /*if (total < 2) {
+                stringBuffer.append(0).append("\n");
+            } else if (total == 2) {
+                stringBuffer.append(1).append("\n");
+            } else if (total == 3) {
+                stringBuffer.append(2).append("\n");
+            } else if (total > 3) {
+                stringBuffer.append(3).append("\n");
+            }*/
         }
         Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train_dx_all.txt"), Charsets.UTF_8);
 
