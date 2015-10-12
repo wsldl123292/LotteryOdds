@@ -34,8 +34,8 @@ public class TestText {
 
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 10, 10);
-        int size = 38;
+        LocalDate beginDate = LocalDate.of(2015, 10, 12);
+        int size = 11;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -95,7 +95,7 @@ public class TestText {
 
             //解析每个tr转换为实体
             final Elements trs = tableMatch.select("tbody>tr");
-            for (int i = trs.size() - 1; i > trs.size() - size; i--) {
+            for (int i = 0; i < size; i++) {
                 //for (Object tr : trs) {
                 final Element element = trs.get(i);
                 if (!element.attr("parentid").trim().equals("")) {

@@ -58,7 +58,7 @@ object TrainBinary {
 
         println("Area under ROC = " + auROC)
 
-        //model.save(sc,"F:\\data\\lotteryodds\\model\\RandomForestBinary")
+        model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionBinary")
 
 
         /*val numFeatures = trainingData.take(1)(0).features.size
