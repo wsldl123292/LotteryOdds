@@ -50,6 +50,7 @@ public class TrainTextDXAll {
                     .append(oddInfo.getlXWaterWl()).append("\t")
                     .append(oddInfo.getcPDXWl()).append("\t")
                     .append(oddInfo.getlPDXWl()).append("\t")
+
                     .append(oddInfo.getZjscore()).append("\t")
                     .append(oddInfo.getZlscore()).append("\t")
                     .append(oddInfo.getKjscore()).append("\t")
@@ -58,10 +59,10 @@ public class TrainTextDXAll {
                     .append(oddInfo.getZzlscore()).append("\t")
                     .append(oddInfo.getKkjscore()).append("\t")
                     .append(oddInfo.getKklsocre()).append("\t");
-            if (total > 4 || total == 0) {
-                stringBuffer.append(5).append("\n");
+            if (total < 3 ) {
+                stringBuffer.append(0).append("\n");
             } else {
-                stringBuffer.append(total).append("\n");
+                stringBuffer.append(1).append("\n");
             }
         }
         Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train_dx_all.txt"), Charsets.UTF_8);
