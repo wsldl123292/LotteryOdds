@@ -30,13 +30,13 @@ object TestRandomForestClassification {
 
         val model = RandomForestModel.load( sc, "F:\\data\\lotteryodds\\model\\RandomForest" )
 
-        /*val labelAndPredsAm = testDataAm.map { point =>
-            val prediction = modelAm.predict(point.features)
+        val labelAndPreds = testData.map { point =>
+            val prediction = model.predict(point.features)
             (point.label, prediction)
         }
-        print("labelam : ",labelAndPredsAm.collect().toList)
-        val testErrAm = labelAndPredsAm.filter( r => r._1 != r._2 ).count().toDouble / testDataAm.count()
-        println("Test Error Am = " + testErrAm)*/
+        print("label : ",labelAndPreds.collect().toList)
+        val testErr = labelAndPreds.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
+        println("Test Error = " + testErr)
 
         val writerAm = new PrintWriter(new File("F:\\data\\lotteryodds\\result.txt" ))
         val predictionsAm = testData.map { point => model.predict( point.features ) }

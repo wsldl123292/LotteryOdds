@@ -1,6 +1,6 @@
 package com.ldl.lotteryodds.train.scala
 
-import java.io.{PrintWriter, File}
+import java.io.{File, PrintWriter}
 
 import org.apache.spark.SparkContext
 import org.apache.spark.mllib.linalg.Vectors
@@ -30,13 +30,13 @@ object TestRandomForestClassificationNew {
 
         val modelAm = RandomForestModel.load( sc, "F:\\data\\lotteryodds\\model\\RandomForestNew\\am" )
 
-        /*val labelAndPredsAm = testDataAm.map { point =>
+        val labelAndPredsAm = testDataAm.map { point =>
             val prediction = modelAm.predict(point.features)
             (point.label, prediction)
         }
         print("labelam : ",labelAndPredsAm.collect().toList)
         val testErrAm = labelAndPredsAm.filter( r => r._1 != r._2 ).count().toDouble / testDataAm.count()
-        println("Test Error Am = " + testErrAm)*/
+        println("Test Error Am = " + testErrAm)
 
         val writerAm = new PrintWriter(new File("F:\\data\\lotteryodds\\result_am_new.txt" ))
         val predictionsAm = testDataAm.map { point => modelAm.predict( point.features ) }
@@ -59,13 +59,13 @@ object TestRandomForestClassificationNew {
 
         val modelLb = RandomForestModel.load( sc, "F:\\data\\lotteryodds\\model\\RandomForestNew\\lb" )
 
-        /*val labelAndPredsLb = testDataLb.map { point =>
+        val labelAndPredsLb = testDataLb.map { point =>
             val prediction = modelLb.predict(point.features)
             (point.label, prediction)
         }
         print("labellb : ",labelAndPredsLb.collect().toList)
         val testErrLb = labelAndPredsLb.filter( r => r._1 != r._2 ).count().toDouble / testDataLb.count()
-        println("Test Error Lb = " + testErrLb)*/
+        println("Test Error Lb = " + testErrLb)
 
         val writerLb = new PrintWriter(new File("F:\\data\\lotteryodds\\result_lb_new.txt" ))
         val predictionsLb = testDataLb.map { point => modelLb.predict( point.features ) }
@@ -87,13 +87,13 @@ object TestRandomForestClassificationNew {
         testDataWl.cache( )
         val modelWl = RandomForestModel.load( sc, "F:\\data\\lotteryodds\\model\\RandomForestNew\\wl" )
 
-        /*val labelAndPredsWl = testDataWl.map { point =>
+        val labelAndPredsWl = testDataWl.map { point =>
             val prediction = modelWl.predict(point.features)
             (point.label, prediction)
         }
-        print("labelwl : ",labelAndPredsWl.collect().toList)
+        println("labelwl : ",labelAndPredsWl.collect().toList)
         val testErrWl = labelAndPredsWl.filter( r => r._1 != r._2 ).count().toDouble / testDataWl.count()
-        println("Test Error Wl = " + testErrWl)*/
+        println("Test Error Wl = " + testErrWl)
 
         val writerWl = new PrintWriter(new File("F:\\data\\lotteryodds\\result_wl_new.txt" ))
         val predictionsWl = testDataWl.map { point => modelWl.predict( point.features ) }
