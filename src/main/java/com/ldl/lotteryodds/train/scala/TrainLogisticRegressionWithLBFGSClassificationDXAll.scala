@@ -39,20 +39,6 @@ object TrainLogisticRegressionWithLBFGSClassificationDXAll {
         }
         testData.cache( )*/
 
-        /*val model = new LogisticRegressionWithLBFGS()
-                .setNumClasses(2)
-                .run(trainingData)
-
-        val predictionAndLabels = testData.map { case LabeledPoint(label, features) =>
-            val prediction = model.predict(features)
-            (label,prediction)
-        }
-        print("label : ",predictionAndLabels.collect().toList)
-
-        val metrics = new MulticlassMetrics(predictionAndLabels)
-        val auROC = metrics.precision
-
-        println("Area under ROC = " + auROC)*/
         val numFeatures = trainingData.take(1)(0).features.size
         val training = trainingData.map(x => (x.label, MLUtils.appendBias(x.features))).cache()
         val numCorrections = 10
@@ -75,16 +61,14 @@ object TrainLogisticRegressionWithLBFGSClassificationDXAll {
             Vectors.dense(weightsWithIntercept.toArray.slice(0, weightsWithIntercept.size - 1)),
             weightsWithIntercept(weightsWithIntercept.size - 1))
 
-        //model.clearThreshold()
         /*model.setThreshold(0.5)
-        val scoreAndLabels = testData.map { point =>
-            val score = model.predict(point.features)
-            (score, point.label)
+        val labelAndPreds = testData.map { point =>
+            val prediction = model.predict(point.features)
+            (point.label, prediction)
         }
-        print("label : ",scoreAndLabels.collect().toList)
-        val metrics = new BinaryClassificationMetrics(scoreAndLabels)
-        val auROC = metrics.areaUnderROC()
-        println("Area under ROC = " + auROC)*/
+        print("label : ",labelAndPreds.collect().toList)
+        val testErr = labelAndPreds.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
+        println("Test Error = " + testErr)*/
         model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionWithLBFGSDXAll")
         sc.stop()
     }
