@@ -32,8 +32,8 @@ import java.util.Map;
 public class TestTextDXAll {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 10, 12);
-        int size = 11;
+        LocalDate beginDate = LocalDate.of(2015, 10, 13);
+        int size = 2;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -276,12 +276,12 @@ public class TestTextDXAll {
                         .append(oddInfo.getlXWaterWl()).append("\t")
                         .append(oddInfo.getcPDXWl()).append("\t")
                         .append(oddInfo.getlPDXWl()).append("\t");
-                /*if (total < 3) {
+                if (total < 3) {
                     stringBuffer.append(0).append("\n");
                 } else {
                     stringBuffer.append(1).append("\n");
-                }*/
-                stringBuffer.append(2).append("\n");
+                }
+                //stringBuffer.append(2).append("\n");
                 /*if (total < 2) {
                     stringBuffer.append(0).append("\n");
                 } else if (total == 2) {

@@ -29,6 +29,8 @@ object TestLogisticRegressionWithLBFGSClassificationDXAll {
 
         val model = LogisticRegressionModel.load( sc, "F:\\data\\lotteryodds\\model\\LogisticRegressionWithLBFGSDXAll" )
 
+        model.setThreshold(0.5)
+
         val labelAndPreds = testData.map { point =>
             val prediction = model.predict(point.features)
             (point.label, prediction)

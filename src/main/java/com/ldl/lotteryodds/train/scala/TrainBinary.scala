@@ -1,10 +1,11 @@
 package com.ldl.lotteryodds.train.scala
 
 import org.apache.spark.SparkContext
-import org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS
-import org.apache.spark.mllib.evaluation.MulticlassMetrics
+import org.apache.spark.mllib.classification.LogisticRegressionModel
 import org.apache.spark.mllib.linalg.Vectors
+import org.apache.spark.mllib.optimization.{LBFGS, LogisticGradient, SquaredL2Updater}
 import org.apache.spark.mllib.regression.LabeledPoint
+import org.apache.spark.mllib.util.MLUtils
 
 /**
  * 作者: LDL
@@ -30,7 +31,7 @@ object TrainBinary {
         trainingData.cache()*/
 
 
-        val testRowData = sc.textFile( "F:\\data\\lotteryodds\\test_all_binary.txt" )
+        /*val testRowData = sc.textFile( "F:\\data\\lotteryodds\\test_all_binary.txt" )
         val testRecords = testRowData.map( line => line.split( "\t" ) )
         val testData = testRecords.map { r =>
             val trimmed = r.map( _.replaceAll( "\"", "" ) )
@@ -38,11 +39,11 @@ object TrainBinary {
             val features = trimmed.slice( 0, r.size - 1 ).map( d => if(d == null) 0 else d.toDouble )
             LabeledPoint( label, Vectors.dense(features))
         }
-        testData.cache( )
+        testData.cache( )*/
 
 
         /** 分类 */
-        val model = new LogisticRegressionWithLBFGS()
+        /*val model = new LogisticRegressionWithLBFGS()
                 .setNumClasses(2)
                 .run(trainingData)
 
@@ -52,20 +53,19 @@ object TrainBinary {
         }
         print("label : ",predictionAndLabels.collect().toList)
 
-        // Get evaluation metrics.
         val metrics = new MulticlassMetrics(predictionAndLabels)
         val auROC = metrics.precision
 
         println("Area under ROC = " + auROC)
 
-        model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionBinary")
+        model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionBinary")*/
 
-
-        /*val numFeatures = trainingData.take(1)(0).features.size
+        val training = trainingData.map(x => (x.label, MLUtils.appendBias(x.features))).cache()
+        val numFeatures = trainingData.take(1)(0).features.size
         val numCorrections = 10
         val convergenceTol = 1e-4
-        val maxNumIterations = 20
-        val regParam = 0.5
+        val maxNumIterations = 40
+        val regParam = 0.001
         val initialWeightsWithIntercept = Vectors.dense(new Array[Double](numFeatures + 1))
 
         val (weightsWithIntercept, loss) = LBFGS.runLBFGS(
@@ -82,20 +82,16 @@ object TrainBinary {
             Vectors.dense(weightsWithIntercept.toArray.slice(0, weightsWithIntercept.size - 1)),
             weightsWithIntercept(weightsWithIntercept.size - 1))
 
-        // Clear the default threshold.
-        model.clearThreshold()
-
-        // Compute raw scores on the test set.
+        /*model.setThreshold(0.56)
         val scoreAndLabels = testData.map { case LabeledPoint(label, features) =>
             val score = model.predict(features)
-            (score, label)
+            (label,score)
         }
         print("label : ",scoreAndLabels.collect().toList)
         // Get evaluation metrics.
-        val metrics = new BinaryClassificationMetrics(scoreAndLabels)
-        val auROC = metrics.areaUnderPR()
-        println("Area under ROC = " + auROC)*/
-
+        val testErr = scoreAndLabels.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
+        println("Test Error = " + testErr)*/
+        model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionBinary")
         sc.stop()
     }
 }

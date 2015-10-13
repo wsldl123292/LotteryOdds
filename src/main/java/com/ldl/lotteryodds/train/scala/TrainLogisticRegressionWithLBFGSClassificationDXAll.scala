@@ -1,9 +1,11 @@
 package com.ldl.lotteryodds.train.scala
 
 import org.apache.spark.SparkContext
-import org.apache.spark.mllib.classification.LogisticRegressionWithLBFGS
+import org.apache.spark.mllib.classification.LogisticRegressionModel
 import org.apache.spark.mllib.linalg.Vectors
+import org.apache.spark.mllib.optimization.{LBFGS, LogisticGradient, SquaredL2Updater}
 import org.apache.spark.mllib.regression.LabeledPoint
+import org.apache.spark.mllib.util.MLUtils
 
 /**
  * 作者: LDL
@@ -24,7 +26,7 @@ object TrainLogisticRegressionWithLBFGSClassificationDXAll {
             LabeledPoint(label,Vectors.dense(features))
         }
 
-        /*val splits = trainDataAll.randomSplit(Array(0.9, 0.1),seed = 1L)
+        /*val splits = trainDataAll.randomSplit(Array(0.9, 0.1),seed = 11L)
         val (trainingData, testData) = (splits(0), splits(1))
         trainingData.cache()*/
         /*val testRowData = sc.textFile( "F:\\data\\lotteryodds\\test_dx_all.txt" )
@@ -37,20 +39,51 @@ object TrainLogisticRegressionWithLBFGSClassificationDXAll {
         }
         testData.cache( )*/
 
-        val model = new LogisticRegressionWithLBFGS()
+        /*val model = new LogisticRegressionWithLBFGS()
                 .setNumClasses(2)
                 .run(trainingData)
 
-        /*val predictionAndLabels = testData.map { case LabeledPoint(label, features) =>
+        val predictionAndLabels = testData.map { case LabeledPoint(label, features) =>
             val prediction = model.predict(features)
             (label,prediction)
         }
         print("label : ",predictionAndLabels.collect().toList)
 
-        // Get evaluation metrics.
         val metrics = new MulticlassMetrics(predictionAndLabels)
         val auROC = metrics.precision
 
+        println("Area under ROC = " + auROC)*/
+        val numFeatures = trainingData.take(1)(0).features.size
+        val training = trainingData.map(x => (x.label, MLUtils.appendBias(x.features))).cache()
+        val numCorrections = 10
+        val convergenceTol = 1e-4
+        val maxNumIterations = 20
+        val regParam = 0.001
+        val initialWeightsWithIntercept = Vectors.dense(new Array[Double](numFeatures + 1))
+
+        val (weightsWithIntercept, loss) = LBFGS.runLBFGS(
+            training,
+            new LogisticGradient(),
+            new SquaredL2Updater(),
+            numCorrections,
+            convergenceTol,
+            maxNumIterations,
+            regParam,
+            initialWeightsWithIntercept)
+
+        val model = new LogisticRegressionModel(
+            Vectors.dense(weightsWithIntercept.toArray.slice(0, weightsWithIntercept.size - 1)),
+            weightsWithIntercept(weightsWithIntercept.size - 1))
+
+        //model.clearThreshold()
+        /*model.setThreshold(0.5)
+        val scoreAndLabels = testData.map { point =>
+            val score = model.predict(point.features)
+            (score, point.label)
+        }
+        print("label : ",scoreAndLabels.collect().toList)
+        val metrics = new BinaryClassificationMetrics(scoreAndLabels)
+        val auROC = metrics.areaUnderROC()
         println("Area under ROC = " + auROC)*/
         model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionWithLBFGSDXAll")
         sc.stop()
