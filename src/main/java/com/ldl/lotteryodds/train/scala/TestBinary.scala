@@ -29,7 +29,7 @@ object TestBinary {
         testData.cache( )
 
         val model = LogisticRegressionModel.load( sc, "F:\\data\\lotteryodds\\model\\LogisticRegressionBinary" )
-
+        model.setThreshold(0.56)
         val labelAndPreds = testData.map { point =>
             val prediction = model.predict(point.features)
             (point.label, prediction)

@@ -29,7 +29,7 @@ object TrainLogisticRegressionWithLBFGSClassificationDXAll {
         /*val splits = trainDataAll.randomSplit(Array(0.9, 0.1),seed = 11L)
         val (trainingData, testData) = (splits(0), splits(1))
         trainingData.cache()*/
-        /*val testRowData = sc.textFile( "F:\\data\\lotteryodds\\test_dx_all.txt" )
+        val testRowData = sc.textFile( "F:\\data\\lotteryodds\\test_dx_all.txt" )
         val testRecords = testRowData.map( line => line.split( "\t" ) )
         val testData = testRecords.map { r =>
             val trimmed = r.map( _.replaceAll( "\"", "" ) )
@@ -37,13 +37,13 @@ object TrainLogisticRegressionWithLBFGSClassificationDXAll {
             val features = trimmed.slice( 0, r.size - 1 ).map( d => if(d == null) 0 else d.toDouble )
             LabeledPoint( label, Vectors.dense(features))
         }
-        testData.cache( )*/
+        testData.cache( )
 
         val numFeatures = trainingData.take(1)(0).features.size
         val training = trainingData.map(x => (x.label, MLUtils.appendBias(x.features))).cache()
         val numCorrections = 10
         val convergenceTol = 1e-4
-        val maxNumIterations = 20
+        val maxNumIterations = 30
         val regParam = 0.001
         val initialWeightsWithIntercept = Vectors.dense(new Array[Double](numFeatures + 1))
 
@@ -61,7 +61,8 @@ object TrainLogisticRegressionWithLBFGSClassificationDXAll {
             Vectors.dense(weightsWithIntercept.toArray.slice(0, weightsWithIntercept.size - 1)),
             weightsWithIntercept(weightsWithIntercept.size - 1))
 
-        /*model.setThreshold(0.5)
+
+        /*model.setThreshold(0.49)
         val labelAndPreds = testData.map { point =>
             val prediction = model.predict(point.features)
             (point.label, prediction)
