@@ -93,7 +93,7 @@ public class TestTextAll {
 
             //解析每个tr转换为实体
             final Elements trs = tableMatch.select("tbody>tr");
-            for (int i = 0; i < size; i++) {
+            for (int i = 0; i < trs.size(); i++) {
             //for (Object tr : trs) {
                 final Element element = trs.get(i);
                 if (!element.attr("parentid").trim().equals("")) {

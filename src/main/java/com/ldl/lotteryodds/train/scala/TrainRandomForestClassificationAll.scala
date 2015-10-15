@@ -58,7 +58,7 @@ object TrainRandomForestClassificationAll {
         print("label : ",labelAndPreds.collect().toList)
         val testErr = labelAndPreds.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
         println("Test Error = " + testErr)
-        //model.save(sc,"F:\\data\\lotteryodds\\model\\RandomForestAll")
+        model.save(sc,"F:\\data\\lotteryodds\\model\\RandomForestAll")
         sc.stop()
     }
 }

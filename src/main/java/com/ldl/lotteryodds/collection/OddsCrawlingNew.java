@@ -37,8 +37,8 @@ public class OddsCrawlingNew {
         /*LocalDate beginDate = LocalDate.of(2011, 7, 21);
         final LocalDate endDate = LocalDate.of(2011, 7, 20);*/
 
-        LocalDate beginDate = LocalDate.of(2015, 10, 5);
-        final LocalDate endDate = LocalDate.of(2015, 9, 30);
+        LocalDate beginDate = LocalDate.of(2015, 10, 12);
+        final LocalDate endDate = LocalDate.of(2015, 10, 5);
 
         /*LocalDate beginDate = LocalDate.of(2013, 1, 1);
         final LocalDate endDate = LocalDate.of(2012, 12, 31);*/
@@ -58,6 +58,8 @@ public class OddsCrawlingNew {
         final String oupeiUrl = "http://odds.500.com/fenxi/ouzhi-";
         /** 数据地址 */
         final String shujuUrl = "http://odds.500.com/fenxi/shuju-";
+        /** 大小指数数据地址 */
+        final String dxUrl = "http://odds.500.com/fenxi/daxiao-";
         String url;
 
         final List<OddInfo> oddInfos = new ArrayList<>();
@@ -344,6 +346,64 @@ public class OddsCrawlingNew {
                         oddInfo.setKkjscore(Integer.parseInt(kk.get(1).select(".ying").get(0).text().replace("球", "")));
                         oddInfo.setKklsocre(Integer.parseInt(kk.get(1).select(".shu").get(0).text().replace("球", "")));
                     }
+
+
+                    /** 采集数据地址 http://odds.500.com/fenxi/daxiao-331954.shtml */
+                    url = dxUrl + fid + ".shtml";
+                    get = new HttpGet(url);
+                    get.setHeader("User-Agent", "Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/44.0.2403.69 Safari/537.36 QQBrowser/9.1.4060.400");
+                    response = client.execute(get);
+                    final String body = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
+                    final Document bodyContent = Jsoup.parse(body);
+                    //获取数据表格
+                    final Element datatb = bodyContent.getElementById("datatb");
+                    final Elements dxtrs = datatb.select("tbody>tr").select("[xls=row]");
+                    for (Element dxtr : dxtrs) {
+                        if (dxtr.attr("id").equals("5")) {
+                            //澳门盘口信息
+                            final Elements pks = dxtr.select(".pl_table_data");
+                            //最终盘口
+                            final Elements lpktds = pks.get(0).select("tbody>tr>td");
+                            oddInfo.setlDWaterAm(lpktds.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setlPDXAm(lpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setlXWaterAm(lpktds.get(2).text().replace("↑", "").replace("↓", ""));
+
+                            //初始盘口
+                            final Elements cpktds = pks.get(1).select("tbody>tr>td");
+                            oddInfo.setcDWaterAm(cpktds.get(0).text());
+                            oddInfo.setcPDXAm(cpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setcXWaterAm(cpktds.get(2).text());
+                        } else if (dxtr.attr("id").equals("2")) {
+                            //立博盘口信息
+                            final Elements pks = dxtr.select(".pl_table_data");
+                            //最终盘口
+                            final Elements lpktds = pks.get(0).select("tbody>tr>td");
+                            oddInfo.setlDWaterLb(lpktds.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setlPDXLb(lpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setlXWaterLb(lpktds.get(2).text().replace("↑", "").replace("↓", ""));
+
+                            //初始盘口
+                            final Elements cpktds = pks.get(1).select("tbody>tr>td");
+                            oddInfo.setcDWaterLb(cpktds.get(0).text());
+                            oddInfo.setcPDXLb(cpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setcXWaterLb(cpktds.get(2).text());
+                        } else if (dxtr.attr("id").equals("293")) {
+                            //威廉希尔盘口信息
+                            final Elements pks = dxtr.select(".pl_table_data");
+                            //最终盘口
+                            final Elements lpktds = pks.get(0).select("tbody>tr>td");
+                            oddInfo.setlDWaterWl(lpktds.get(0).text().replace("↑", "").replace("↓", ""));
+                            oddInfo.setlPDXWl(lpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setlXWaterWl(lpktds.get(2).text().replace("↑", "").replace("↓", ""));
+
+                            //初始盘口
+                            final Elements cpktds = pks.get(1).select("tbody>tr>td");
+                            oddInfo.setcDWaterWl(cpktds.get(0).text());
+                            oddInfo.setcPDXWl(cpktds.get(1).attr("ref").replace("-", ""));
+                            oddInfo.setcXWaterWl(cpktds.get(2).text());
+                        }
+                    }
+
                     oddInfos.add(oddInfo);
                 }
 
