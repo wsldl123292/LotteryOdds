@@ -26,6 +26,10 @@ public class TrainTextDXAll {
         final ApplicationContext context = new ClassPathXmlApplicationContext("classpath:application.xml");
         final LotteryOddsDao lotteryOddsDao = (LotteryOddsDao) context.getBean("lotteryOddsDao");
 
+        //1、计算出双方对应主客场的得失球平均值。
+        // 2、计算两队的大概进球范围。主队进球数=主队平均进球数+客队平均失球数。客队进球数=客队平均进球数+主队平均失球数。
+        // 3、二者相加即为总进球数的大概范围。
+        // 4、根据双方以往交锋情况缩小范围
         /** 澳门 */
         final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oalldx ");/*order BY result ASC LIMIT 0,31151*/
         final StringBuilder stringBuffer = new StringBuilder();
@@ -71,6 +75,7 @@ public class TrainTextDXAll {
                     .append(oddInfo.getlXWaterWl()).append("\t")
                     .append(oddInfo.getcPDXWl()).append("\t")
                     .append(oddInfo.getlPDXWl()).append("\t");
+
             if (total < 3) {
                 stringBuffer.append(0).append("\n");
             } else {

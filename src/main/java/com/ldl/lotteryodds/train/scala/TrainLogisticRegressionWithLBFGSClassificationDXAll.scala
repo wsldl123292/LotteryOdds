@@ -1,5 +1,7 @@
 package com.ldl.lotteryodds.train.scala
 
+import java.io.{File, PrintWriter}
+
 import org.apache.spark.SparkContext
 import org.apache.spark.mllib.classification.LogisticRegressionModel
 import org.apache.spark.mllib.linalg.Vectors
@@ -62,15 +64,26 @@ object TrainLogisticRegressionWithLBFGSClassificationDXAll {
             weightsWithIntercept(weightsWithIntercept.size - 1))
 
 
-        /*model.setThreshold(0.49)
-        val labelAndPreds = testData.map { point =>
+        model.setThreshold(0.49)
+        /*val labelAndPreds = testData.map { point =>
             val prediction = model.predict(point.features)
             (point.label, prediction)
         }
         print("label : ",labelAndPreds.collect().toList)
         val testErr = labelAndPreds.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
         println("Test Error = " + testErr)*/
-        model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionWithLBFGSDXAll")
+
+        val writer = new PrintWriter(new File("F:\\data\\lotteryodds\\result_dx_all.txt" ))
+        val predictions = testData.map { point => model.predict( point.features ) }
+        predictions.collect().toList.foreach( p => {
+            if(p.toInt == 0){
+                writer.write("预测结果 : 小于3球\n")
+            }else if(p.toInt == 1){
+                writer.write("预测结果 : 3球或3球以上\n")
+            }
+        } )
+        writer.close()
+        //model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionWithLBFGSDXAll")
         sc.stop()
     }
 }

@@ -1,5 +1,7 @@
 package com.ldl.lotteryodds.train.scala
 
+import java.io.{File, PrintWriter}
+
 import org.apache.spark.SparkContext
 import org.apache.spark.mllib.classification.LogisticRegressionModel
 import org.apache.spark.mllib.linalg.Vectors
@@ -31,7 +33,7 @@ object TrainBinary {
         trainingData.cache()*/
 
 
-        /*val testRowData = sc.textFile( "F:\\data\\lotteryodds\\test_all_binary.txt" )
+        val testRowData = sc.textFile( "F:\\data\\lotteryodds\\test_all_binary.txt" )
         val testRecords = testRowData.map( line => line.split( "\t" ) )
         val testData = testRecords.map { r =>
             val trimmed = r.map( _.replaceAll( "\"", "" ) )
@@ -39,7 +41,7 @@ object TrainBinary {
             val features = trimmed.slice( 0, r.size - 1 ).map( d => if(d == null) 0 else d.toDouble )
             LabeledPoint( label, Vectors.dense(features))
         }
-        testData.cache( )*/
+        testData.cache( )
 
 
         /** 分类 */
@@ -82,8 +84,8 @@ object TrainBinary {
             Vectors.dense(weightsWithIntercept.toArray.slice(0, weightsWithIntercept.size - 1)),
             weightsWithIntercept(weightsWithIntercept.size - 1))
 
-        /*model.setThreshold(0.56)
-        val scoreAndLabels = testData.map { case LabeledPoint(label, features) =>
+        model.setThreshold(0.56)
+        /*val scoreAndLabels = testData.map { case LabeledPoint(label, features) =>
             val score = model.predict(features)
             (label,score)
         }
@@ -91,7 +93,18 @@ object TrainBinary {
         // Get evaluation metrics.
         val testErr = scoreAndLabels.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
         println("Test Error = " + testErr)*/
-        model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionBinary")
+
+        val writer = new PrintWriter(new File("F:\\data\\lotteryodds\\result_all_binary.txt" ))
+        val predictions = testData.map { point => model.predict( point.features ) }
+        predictions.collect().toList.foreach( p => {
+            if(p.toInt==0){
+                writer.write("预测结果 : 3 \n")
+            }else{
+                writer.write("预测结果 : 01 \n")
+            }
+        } )
+        writer.close()
+        //model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionBinary")
         sc.stop()
     }
 }
