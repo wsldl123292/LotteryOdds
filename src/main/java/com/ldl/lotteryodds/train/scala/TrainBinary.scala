@@ -66,7 +66,7 @@ object TrainBinary {
         val numFeatures = trainingData.take(1)(0).features.size
         val numCorrections = 10
         val convergenceTol = 1e-4
-        val maxNumIterations = 30
+        val maxNumIterations = 50
         val regParam = 0.001
         val initialWeightsWithIntercept = Vectors.dense(new Array[Double](numFeatures + 1))
 
@@ -85,16 +85,16 @@ object TrainBinary {
             weightsWithIntercept(weightsWithIntercept.size - 1))
 
         model.setThreshold(0.56)
-        /*val scoreAndLabels = testData.map { case LabeledPoint(label, features) =>
+        val scoreAndLabels = testData.map { case LabeledPoint(label, features) =>
             val score = model.predict(features)
             (label,score)
         }
         print("label : ",scoreAndLabels.collect().toList)
         // Get evaluation metrics.
         val testErr = scoreAndLabels.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
-        println("Test Error = " + testErr)*/
+        println("Test Error = " + testErr)
 
-        val writer = new PrintWriter(new File("F:\\data\\lotteryodds\\result_all_binary30.txt" ))
+        val writer = new PrintWriter(new File("F:\\data\\lotteryodds\\result_all_binary50.txt" ))
         val predictions = testData.map { point => model.predict( point.features ) }
         predictions.collect().toList.foreach( p => {
             if(p.toInt==0){
