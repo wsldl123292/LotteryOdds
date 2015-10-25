@@ -28,6 +28,10 @@ public class TrainTextNew {
         /** 澳门 */
         final List<OddInfo> oddInfosAm = lotteryOddsDao.getOddInfos("select * from amnew ");/*order BY result ASC LIMIT 0,31151*/
         final StringBuilder stringBufferAm = new StringBuilder();
+        for(int i=0;i<33;i++){
+            stringBufferAm.append(i).append("\t");
+        }
+        stringBufferAm.append("class \n");
         for (OddInfo oddInfo : oddInfosAm) {
             stringBufferAm.append(oddInfo.getCwOddAm()).append("\t")
                     .append(oddInfo.getCdOddAm()).append("\t")
@@ -62,7 +66,7 @@ public class TrainTextNew {
                     .append(oddInfo.getKkwin()).append("\t")
                     .append(oddInfo.getKkdown()).append("\t")
                     .append(oddInfo.getKklose()).append("\t")
-                    .append(oddInfo.getResult()).append("\n");
+                    .append(oddInfo.getType()).append("\n");
         }
         Files.write(stringBufferAm.toString(), new File("F:\\data\\lotteryodds\\train_am_new.txt"), Charsets.UTF_8);
 
@@ -105,7 +109,7 @@ public class TrainTextNew {
                     .append(oddInfo.getKkwin()).append("\t")
                     .append(oddInfo.getKkdown()).append("\t")
                     .append(oddInfo.getKklose()).append("\t")
-                    .append(oddInfo.getResult()).append("\n");
+                    .append(oddInfo.getType()).append("\n");
         }
         Files.write(stringBufferLb.toString(), new File("F:\\data\\lotteryodds\\train_lb_new.txt"), Charsets.UTF_8);
 
@@ -143,7 +147,7 @@ public class TrainTextNew {
                     .append(oddInfo.getKkwin()).append("\t")
                     .append(oddInfo.getKkdown()).append("\t")
                     .append(oddInfo.getKklose()).append("\t")
-                    .append(oddInfo.getResult()).append("\n");
+                    .append(oddInfo.getType()).append("\n");
         }
         Files.write(stringBufferWl.toString(), new File("F:\\data\\lotteryodds\\train_wl_new.txt"), Charsets.UTF_8);
 
