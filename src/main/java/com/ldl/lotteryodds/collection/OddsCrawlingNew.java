@@ -37,8 +37,8 @@ public class OddsCrawlingNew {
         /*LocalDate beginDate = LocalDate.of(2011, 7, 21);
         final LocalDate endDate = LocalDate.of(2011, 7, 20);*/
 
-        LocalDate beginDate = LocalDate.of(2015, 10, 12);
-        final LocalDate endDate = LocalDate.of(2015, 10, 5);
+        LocalDate beginDate = LocalDate.of(2015, 10, 23);
+        final LocalDate endDate = LocalDate.of(2015, 10, 12);
 
         /*LocalDate beginDate = LocalDate.of(2013, 1, 1);
         final LocalDate endDate = LocalDate.of(2012, 12, 31);*/

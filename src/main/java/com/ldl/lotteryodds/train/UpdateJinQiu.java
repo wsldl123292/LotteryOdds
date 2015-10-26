@@ -41,8 +41,8 @@ public class UpdateJinQiu {
         /*LocalDate beginDate = LocalDate.of(2013, 12, 31);
         final LocalDate endDate = LocalDate.of(2012, 12, 31);*/
 
-        LocalDate beginDate = LocalDate.of(2015, 10, 12);
-        final LocalDate endDate = LocalDate.of(2015, 10, 5);
+        LocalDate beginDate = LocalDate.of(2015, 10, 23);
+        final LocalDate endDate = LocalDate.of(2015, 10, 12);
 
         /*LocalDate beginDate = LocalDate.of(2014, 12, 31);
         final LocalDate endDate = LocalDate.of(2013, 12, 31);*/
