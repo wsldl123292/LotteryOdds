@@ -29,7 +29,7 @@ import java.util.Map;
  * 说明: 生成待预测文本新版
  * 时间: 2015/10/1 20:51
  */
-public class TestTextBinary {
+public class TestTextBinaryPython {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
         LocalDate beginDate = LocalDate.of(2015, 10, 25);
@@ -327,7 +327,7 @@ public class TestTextBinary {
             e.printStackTrace();
         }
 
-        if (oddInfos.size() > 0) {
+        if (oddInfos.size() > 0) {//getCpAm()  getLpAm()
             final StringBuilder stringBuffer = new StringBuilder();
             for (OddInfo oddInfo : oddInfos) {
                 stringBuffer
@@ -344,10 +344,10 @@ public class TestTextBinary {
                         .append(oddInfo.getLdKlAm()).append("\t")
                         .append(oddInfo.getLlKlAm()).append("\t")
                         .append(oddInfo.getCzWaterAm()).append("\t")
-                        .append(oddInfo.getCpAm()).append("\t")
+                        .append(oddInfo.getCpAm().replace("-", "")).append("\t")
                         .append(oddInfo.getCkWaterAm()).append("\t")
                         .append(oddInfo.getLzWaterAm()).append("\t")
-                        .append(oddInfo.getLpAm()).append("\t")
+                        .append(oddInfo.getLpAm().replace("-", "")).append("\t")
                         .append(oddInfo.getLkWaterAm()).append("\t")
                         .append(oddInfo.getCwOddLb()).append("\t")
                         .append(oddInfo.getCdOddLb()).append("\t")
@@ -371,9 +371,11 @@ public class TestTextBinary {
                         .append(oddInfo.getCdOddWl()).append("\t")
                         .append(oddInfo.getClOddWl()).append("\t")
                         .append(oddInfo.getLwOddWl()).append("\t")
-                        .append(oddInfo.getLdOddWl()).append("\t")
-                        .append(oddInfo.getLlOddWl()).append("\t")
-                        .append(oddInfo.getCwKlWl()).append("\t")
+                        .append(oddInfo.getLdOddWl()).append("\t")*/
+                        .append(oddInfo.getCpAm().replace("-", "")).append("\t")
+                        .append(oddInfo.getLpAm().replace("-", "")).append("\t")
+                        //.append(oddInfo.getLlOddWl()).append("\t")
+                        /*.append(oddInfo.getCwKlWl()).append("\t")
                         .append(oddInfo.getCdKlWl()).append("\t")
                         .append(oddInfo.getClKlWl()).append("\t")
                         .append(oddInfo.getLwKlWl()).append("\t")
@@ -393,10 +395,60 @@ public class TestTextBinary {
                         .append(oddInfo.getZzlose()).append("\t")
                         .append(oddInfo.getKkwin()).append("\t")
                         .append(oddInfo.getKkdown()).append("\t")
-                        .append(oddInfo.getKklose()).append("\t")*/
-                        /*.append(oddInfo.getCpAm().replace("-", "")).append("\t")
-                        .append(oddInfo.getLpAm().replace("-", "")).append("\t")*/
-                        .append(oddInfo.getLlOddWl()).append("\t")
+                        .append(oddInfo.getKklose()).append("\t")
+
+
+
+
+
+
+
+                        .append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdOddAm()).subtract(new BigDecimal(oddInfo.getCdOddAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlOddAm()).subtract(new BigDecimal(oddInfo.getClOddAm()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getLwKlAm()).subtract(new BigDecimal(oddInfo.getCwKlAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdKlAm()).subtract(new BigDecimal(oddInfo.getCdKlAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlKlAm()).subtract(new BigDecimal(oddInfo.getClKlAm()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getLzWaterAm()).subtract(new BigDecimal(oddInfo.getCzWaterAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLpAm()).subtract(new BigDecimal(oddInfo.getCpAm()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLkWaterAm()).subtract(new BigDecimal(oddInfo.getCkWaterAm()))).append("\t")
+
+
+
+                        .append(new BigDecimal(oddInfo.getLwOddLb()).subtract(new BigDecimal(oddInfo.getCwOddLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdOddLb()).subtract(new BigDecimal(oddInfo.getCdOddLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlOddLb()).subtract(new BigDecimal(oddInfo.getClOddLb()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getLwKlLb()).subtract(new BigDecimal(oddInfo.getCwKlLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdKlLb()).subtract(new BigDecimal(oddInfo.getCdKlLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlKlLb()).subtract(new BigDecimal(oddInfo.getClKlLb()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getLzWaterLb()).subtract(new BigDecimal(oddInfo.getCzWaterLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLpLb()).subtract(new BigDecimal(oddInfo.getCpLb()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLkWaterLb()).subtract(new BigDecimal(oddInfo.getCkWaterLb()))).append("\t")
+
+
+
+
+                        .append(new BigDecimal(oddInfo.getLwOddWl()).subtract(new BigDecimal(oddInfo.getCwOddWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdOddWl()).subtract(new BigDecimal(oddInfo.getCdOddWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlOddWl()).subtract(new BigDecimal(oddInfo.getClOddWl()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getLwKlWl()).subtract(new BigDecimal(oddInfo.getCwKlWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLdKlWl()).subtract(new BigDecimal(oddInfo.getCdKlWl()))).append("\t")
+                        .append(new BigDecimal(oddInfo.getLlKlWl()).subtract(new BigDecimal(oddInfo.getClKlWl()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getLose()).add(new BigDecimal(oddInfo.getDown()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getZlose()).add(new BigDecimal(oddInfo.getZdown()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getKlose()).add(new BigDecimal(oddInfo.getKdown()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getZzdown()).add(new BigDecimal(oddInfo.getZzlose()))).append("\t")
+
+                        .append(new BigDecimal(oddInfo.getKkdown()).add(new BigDecimal(oddInfo.getKklose()))).append("\t")*/
                         .append(oddInfo.getType()).append("\n");
             }
             Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_all_binary.txt"), Charsets.UTF_8);

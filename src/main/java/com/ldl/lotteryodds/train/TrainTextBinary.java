@@ -26,10 +26,11 @@ public class TrainTextBinary {
         final LotteryOddsDao lotteryOddsDao = (LotteryOddsDao) context.getBean("lotteryOddsDao");
 
         /** 澳门 */
-        final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oall");/*order BY result ASC LIMIT 0,31151*/
+        final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oall_binary");/*order BY result ASC LIMIT 0,31151*/
         final StringBuilder stringBuffer = new StringBuilder();
         for (OddInfo oddInfo : oddInfos) {
-            stringBuffer.append(oddInfo.getCwOddAm()).append("\t")
+            stringBuffer
+                    /*.append(oddInfo.getCwOddAm()).append("\t")
                     .append(oddInfo.getCdOddAm()).append("\t")
                     .append(oddInfo.getClOddAm()).append("\t")
                     .append(oddInfo.getLwOddAm()).append("\t")
@@ -91,7 +92,11 @@ public class TrainTextBinary {
                     .append(oddInfo.getZzlose()).append("\t")
                     .append(oddInfo.getKkwin()).append("\t")
                     .append(oddInfo.getKkdown()).append("\t")
-                    .append(oddInfo.getKklose()).append("\t")
+                    .append(oddInfo.getKklose()).append("\t")*/
+
+                    /*.append(oddInfo.getCpAm().replace("-", "")).append("\t")
+                    .append(oddInfo.getLpAm().replace("-", "")).append("\t")*/
+                    .append(oddInfo.getLlOddWl()).append("\t")
                     .append(oddInfo.getType()).append("\n");
         }
         Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train_all_binary.txt"), Charsets.UTF_8);
