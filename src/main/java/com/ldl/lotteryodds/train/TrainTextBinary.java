@@ -94,8 +94,6 @@ public class TrainTextBinary {
                     .append(oddInfo.getKkdown()).append("\t")
                     .append(oddInfo.getKklose()).append("\t")*/
 
-                    /*.append(oddInfo.getCpAm().replace("-", "")).append("\t")
-                    .append(oddInfo.getLpAm().replace("-", "")).append("\t")*/
                     .append(oddInfo.getLlOddWl()).append("\t")
                     .append(oddInfo.getType()).append("\n");
         }
