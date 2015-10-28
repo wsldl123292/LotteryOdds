@@ -441,6 +441,10 @@ public class LotteryOddsDao {
                     m.setKklsocre(resultSet.getInt("kklscore"));
                 }
 
+                if (arr.contains("sid")) {
+                    m.setSid(resultSet.getString("sid"));
+                }
+
                 list.add(m);
             }
         } catch (SQLException ex) {
@@ -541,6 +545,24 @@ public class LotteryOddsDao {
             final Object[] args = {oddInfo.getcDWaterAm(),oddInfo.getcXWaterAm(),oddInfo.getlDWaterAm(),oddInfo.getlXWaterAm(),oddInfo.getcPDXAm(),oddInfo.getlPDXAm(),
                     oddInfo.getcDWaterLb(),oddInfo.getcXWaterLb(),oddInfo.getlDWaterLb(),oddInfo.getlXWaterLb(),oddInfo.getcPDXLb(),oddInfo.getlPDXLb(),oddInfo.getcDWaterWl(),
                     oddInfo.getcXWaterWl(),oddInfo.getlDWaterWl(),oddInfo.getlXWaterWl(),oddInfo.getcPDXWl(),oddInfo.getlPDXWl(),
+                    oddInfo.getMatchId()};
+            batchArgs.add(args);
+        }
+        return jdbcTemplate.batchUpdate(sql, batchArgs).length;
+    }
+
+
+    /**
+     * 批量更新联赛id
+     *
+     * @param oddInfos 实体
+     */
+    public int batchUpdateSid(List<OddInfo> oddInfos) {
+
+        final String sql = "update lotteryoddsnew set sid=? where matchId=?";
+        final List<Object[]> batchArgs = new ArrayList<>();
+        for (OddInfo oddInfo : oddInfos) {
+            final Object[] args = {oddInfo.getSid(),
                     oddInfo.getMatchId()};
             batchArgs.add(args);
         }

@@ -129,7 +129,7 @@ public class OddsCrawlingNew {
                     final String fid = element.attr("fid");
                     final OddInfo oddInfo = new OddInfo(fid);
                     oddInfo.setDate(beginDate.toString());
-
+                    oddInfo.setSid(element.attr("lid"));
                     /** 比分 */
                     final Elements socre = element.select(".pk");
                     /** 避免出现无比分情况 */

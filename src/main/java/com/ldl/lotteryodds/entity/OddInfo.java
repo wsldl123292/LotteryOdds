@@ -1325,6 +1325,12 @@ public class OddInfo {
      */
     private String lPDXWl;
 
+
+    /**
+     * 联赛Id
+     */
+    private String sid;
+
     public String getcDWaterAm() {
         return cDWaterAm;
     }
@@ -1467,5 +1473,13 @@ public class OddInfo {
 
     public void setlDWaterWl(String lDWaterWl) {
         this.lDWaterWl = lDWaterWl;
+    }
+
+    public String getSid() {
+        return sid;
+    }
+
+    public void setSid(String sid) {
+        this.sid = sid;
     }
 }
