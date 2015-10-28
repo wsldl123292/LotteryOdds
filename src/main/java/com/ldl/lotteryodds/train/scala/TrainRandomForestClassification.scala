@@ -25,7 +25,7 @@ object TrainRandomForestClassification {
         }
 
         /** 测试数据 */
-        /*val testRowData = sc.textFile("F:\\data\\lotteryodds\\test.txt")
+        val testRowData = sc.textFile("F:\\data\\lotteryodds\\test.txt")
         val testRecords = testRowData.map(line=>line.split("\t"))
         val testData = testRecords.map{ r=>
             val trimmed = r.map(_.replaceAll("\"",""))
@@ -33,7 +33,7 @@ object TrainRandomForestClassification {
             val features = trimmed.slice(0,r.size-1).map(d=> d.toDouble)
             LabeledPoint(label,Vectors.dense(features))
         }
-        testData.cache()*/
+        testData.cache()
 
 
         /** 分类 */
@@ -49,15 +49,15 @@ object TrainRandomForestClassification {
         val model = RandomForest.trainClassifier(trainData, numClasses, categoricalFeaturesInfo,
             numTrees, featureSubsetStrategy, impurity, maxDepth, maxBins)
 
-        /*val labelAndPreds = testData.map { point =>
+        val labelAndPreds = testData.map { point =>
             val prediction = model.predict(point.features)
             (point.label, prediction)
         }
         print("label : ",labelAndPreds.collect().toList)
         val testErr = labelAndPreds.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
-        println("Test Error = " + testErr)*/
+        println("Test Error = " + testErr)
 
-        model.save(sc,"F:\\data\\lotteryodds\\model\\RandomForest")
+        //model.save(sc,"F:\\data\\lotteryodds\\model\\RandomForest")
         sc.stop()
     }
 }

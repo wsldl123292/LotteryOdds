@@ -9,6 +9,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -26,12 +27,12 @@ public class TrainTextBinaryPython {
         final LotteryOddsDao lotteryOddsDao = (LotteryOddsDao) context.getBean("lotteryOddsDao");
 
         /** 澳门 */
-        final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oall_binary");/*order BY result ASC LIMIT 0,31151*/
+        final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oall");/*order BY result ASC LIMIT 0,31151*/
         final StringBuilder stringBuffer = new StringBuilder();
         for (OddInfo oddInfo : oddInfos) {
             stringBuffer
 
-                    /*.append(oddInfo.getCwOddAm()).append("\t")
+                    .append(oddInfo.getCwOddAm()).append("\t")
                     .append(oddInfo.getCdOddAm()).append("\t")
                     .append(oddInfo.getClOddAm()).append("\t")
                     .append(oddInfo.getLwOddAm()).append("\t")
@@ -71,11 +72,9 @@ public class TrainTextBinaryPython {
                     .append(oddInfo.getCdOddWl()).append("\t")
                     .append(oddInfo.getClOddWl()).append("\t")
                     .append(oddInfo.getLwOddWl()).append("\t")
-                    .append(oddInfo.getLdOddWl()).append("\t")*/
-                    .append(oddInfo.getCpAm().replace("-", "")).append("\t")
-                    .append(oddInfo.getLpAm().replace("-", "")).append("\t")
-                    //.append(oddInfo.getLlOddWl()).append("\t")
-                    /*.append(oddInfo.getCwKlWl()).append("\t")
+                    .append(oddInfo.getLdOddWl()).append("\t")
+                    .append(oddInfo.getLlOddWl()).append("\t")
+                    .append(oddInfo.getCwKlWl()).append("\t")
                     .append(oddInfo.getCdKlWl()).append("\t")
                     .append(oddInfo.getClKlWl()).append("\t")
                     .append(oddInfo.getLwKlWl()).append("\t")
@@ -148,10 +147,10 @@ public class TrainTextBinaryPython {
 
                     .append(new BigDecimal(oddInfo.getZzdown()).add(new BigDecimal(oddInfo.getZzlose())).toString().replace("-", "")).append("\t")
 
-                    .append(new BigDecimal(oddInfo.getKkdown()).add(new BigDecimal(oddInfo.getKklose())).toString().replace("-", "")).append("\t")*/
-                    .append(oddInfo.getType()).append("\n");
+                    .append(new BigDecimal(oddInfo.getKkdown()).add(new BigDecimal(oddInfo.getKklose())).toString().replace("-", "")).append("\t")
+                    .append(oddInfo.getResult()).append("\n");
         }
-        Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train_all_binary.txt"), Charsets.UTF_8);
+        Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train.txt"), Charsets.UTF_8);
 
     }
 }
