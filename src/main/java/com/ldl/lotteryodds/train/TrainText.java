@@ -9,7 +9,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -27,11 +26,12 @@ public class TrainText {
         final LotteryOddsDao lotteryOddsDao = (LotteryOddsDao) context.getBean("lotteryOddsDao");
 
         /** 澳门 */
-        final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oall");/*order BY result ASC LIMIT 0,31151*/
+        final List<OddInfo> oddInfos = lotteryOddsDao.getOddInfos("select * from oall_binary order BY result ASC,date DESC LIMIT 0,33000");/*order BY result ASC LIMIT 0,31151*/
         final StringBuilder stringBuffer = new StringBuilder();
         for (OddInfo oddInfo : oddInfos) {
 
-            stringBuffer.append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm()))).append("\t")
+            stringBuffer
+                    /*.append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm()))).append("\t")
                     .append(new BigDecimal(oddInfo.getLdOddAm()).subtract(new BigDecimal(oddInfo.getCdOddAm()))).append("\t")
                     .append(new BigDecimal(oddInfo.getLlOddAm()).subtract(new BigDecimal(oddInfo.getClOddAm()))).append("\t")
 
@@ -82,7 +82,11 @@ public class TrainText {
                     .append(oddInfo.getZzlose()).append("\t")
                     .append(oddInfo.getKkwin()).append("\t")
                     .append(oddInfo.getKkdown()).append("\t")
-                    .append(oddInfo.getKklose()).append("\t")
+                    .append(oddInfo.getKklose()).append("\t")*/
+
+                    //.append(oddInfo.getCpAm().replace("-", "")).append("\t")
+                    //.append(oddInfo.getLpAm().replace("-", "")).append("\t")
+                    .append(oddInfo.getLlOddWl()).append("\t")
                     .append(oddInfo.getResult()).append("\n");
         }
         Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train.txt"), Charsets.UTF_8);

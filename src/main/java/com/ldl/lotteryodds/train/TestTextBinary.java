@@ -32,7 +32,7 @@ import java.util.Map;
 public class TestTextBinary {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 10, 25);
+        LocalDate beginDate = LocalDate.of(2015, 10, 24);
         int size = 22;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;

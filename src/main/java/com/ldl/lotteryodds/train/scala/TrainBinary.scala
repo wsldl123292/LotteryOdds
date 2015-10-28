@@ -102,6 +102,7 @@ object TrainBinary {
             }else{
                 writer.write("预测结果 : 01 \n")
             }
+            //writer.write("预测结果 : "+p+"\n")
         } )
         writer.close()
         //model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionBinary")

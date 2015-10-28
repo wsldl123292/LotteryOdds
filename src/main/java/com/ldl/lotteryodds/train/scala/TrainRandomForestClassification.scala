@@ -1,5 +1,7 @@
 package com.ldl.lotteryodds.train.scala
 
+import java.io.{File, PrintWriter}
+
 import org.apache.spark.SparkContext
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.regression.LabeledPoint
@@ -57,6 +59,12 @@ object TrainRandomForestClassification {
         val testErr = labelAndPreds.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
         println("Test Error = " + testErr)
 
+        val writer = new PrintWriter(new File("F:\\data\\lotteryodds\\result_train.txt" ))
+        val predictions = testData.map { point => model.predict( point.features ) }
+        predictions.collect().toList.foreach( p => {
+            writer.write("预测结果 : " + p.toInt +"\n")
+        } )
+        writer.close()
         //model.save(sc,"F:\\data\\lotteryodds\\model\\RandomForest")
         sc.stop()
     }
