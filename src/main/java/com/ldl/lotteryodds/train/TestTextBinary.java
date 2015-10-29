@@ -32,7 +32,7 @@ import java.util.Map;
 public class TestTextBinary {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 10, 28);
+        LocalDate beginDate = LocalDate.of(2015, 10, 26);
         int size = 26;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
@@ -93,7 +93,7 @@ public class TestTextBinary {
 
             //解析每个tr转换为实体
             final Elements trs = tableMatch.select("tbody>tr");
-            for (int i = 3; i < size; i++) {
+            for (int i = 0; i < trs.size(); i++) {
             //for (Object tr : trs) {
                 final Element element = trs.get(i);
                 if (!element.attr("parentid").trim().equals("")) {
@@ -104,6 +104,8 @@ public class TestTextBinary {
                 final OddInfo oddInfo = new OddInfo(fid);
                 oddInfo.setDate(beginDate.toString());
 
+                /** 比赛序号 */
+                oddInfo.setNumber(element.getElementsByTag("td").first().text());
                 /** 比分 */
                 final Elements socre = element.select(".pk");
                 /** 避免出现无比分情况 */
@@ -396,7 +398,8 @@ public class TestTextBinary {
                         .append(oddInfo.getKklose()).append("\t")*/
 
                         .append(oddInfo.getLlOddWl()).append("\t")
-                        .append(oddInfo.getType()).append("\n");
+                        .append(oddInfo.getType()).append("\t")
+                        .append(oddInfo.getNumber()).append("\n");
             }
             Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_all_binary.txt"), Charsets.UTF_8);
 

@@ -1331,6 +1331,12 @@ public class OddInfo {
      */
     private String sid;
 
+
+    /**
+     * 联赛序号
+     */
+    private String number;
+
     public String getcDWaterAm() {
         return cDWaterAm;
     }
@@ -1481,5 +1487,13 @@ public class OddInfo {
 
     public void setSid(String sid) {
         this.sid = sid;
+    }
+
+    public String getNumber() {
+        return number;
+    }
+
+    public void setNumber(String number) {
+        this.number = number;
     }
 }

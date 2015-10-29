@@ -9,7 +9,6 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.io.File;
 import java.io.IOException;
-import java.math.BigDecimal;
 import java.util.List;
 
 /**
@@ -32,7 +31,7 @@ public class TrainTextBinaryPython {
         for (OddInfo oddInfo : oddInfos) {
             stringBuffer
 
-                    .append(oddInfo.getCwOddAm()).append("\t")
+                    /*.append(oddInfo.getCwOddAm()).append("\t")
                     .append(oddInfo.getCdOddAm()).append("\t")
                     .append(oddInfo.getClOddAm()).append("\t")
                     .append(oddInfo.getLwOddAm()).append("\t")
@@ -94,7 +93,7 @@ public class TrainTextBinaryPython {
                     .append(oddInfo.getZzlose()).append("\t")
                     .append(oddInfo.getKkwin()).append("\t")
                     .append(oddInfo.getKkdown()).append("\t")
-                    .append(oddInfo.getKklose()).append("\t")
+                    .append(oddInfo.getKklose()).append("\t")*/
 
 
 
@@ -102,7 +101,7 @@ public class TrainTextBinaryPython {
 
 
 
-                    .append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm())).toString().replace("-", "")).append("\t")
+                    /*.append(new BigDecimal(oddInfo.getLwOddAm()).subtract(new BigDecimal(oddInfo.getCwOddAm())).toString().replace("-", "")).append("\t")
                     .append(new BigDecimal(oddInfo.getLdOddAm()).subtract(new BigDecimal(oddInfo.getCdOddAm())).toString().replace("-", "")).append("\t")
                     .append(new BigDecimal(oddInfo.getLlOddAm()).subtract(new BigDecimal(oddInfo.getClOddAm())).toString().replace("-", "")).append("\t")
 
@@ -147,8 +146,32 @@ public class TrainTextBinaryPython {
 
                     .append(new BigDecimal(oddInfo.getZzdown()).add(new BigDecimal(oddInfo.getZzlose())).toString().replace("-", "")).append("\t")
 
-                    .append(new BigDecimal(oddInfo.getKkdown()).add(new BigDecimal(oddInfo.getKklose())).toString().replace("-", "")).append("\t")
-                    .append(oddInfo.getResult()).append("\n");
+                    .append(new BigDecimal(oddInfo.getKkdown()).add(new BigDecimal(oddInfo.getKklose())).toString().replace("-", "")).append("\t")*/
+
+                    /*.append(oddInfo.getScwOdd()).append("\t")
+                    .append(oddInfo.getScdOdd()).append("\t")
+                    .append(oddInfo.getSclOdd()).append("\t")
+                    .append(oddInfo.getSlwOdd()).append("\t")
+                    .append(oddInfo.getSldOdd()).append("\t")
+                    .append(oddInfo.getSllOdd()).append("\t")
+                    .append(oddInfo.getScwKl()).append("\t")
+                    .append(oddInfo.getScdKl()).append("\t")
+                    .append(oddInfo.getSclKl()).append("\t")
+                    .append(oddInfo.getSlwKl()).append("\t")
+                    .append(oddInfo.getSldKl()).append("\t")
+                    .append(oddInfo.getSllKl()).append("\t")*/
+
+                    /*.append(new BigDecimal(oddInfo.getSlwOdd()).subtract(new BigDecimal(oddInfo.getScwOdd())).toString().replace("-", "")).append("\t")
+                    .append(new BigDecimal(oddInfo.getSldOdd()).subtract(new BigDecimal(oddInfo.getScdOdd())).toString().replace("-", "")).append("\t")
+                    .append(new BigDecimal(oddInfo.getSllOdd()).subtract(new BigDecimal(oddInfo.getSclOdd())).toString().replace("-", "")).append("\t")
+
+                    .append(new BigDecimal(oddInfo.getSlwKl()).subtract(new BigDecimal(oddInfo.getScwKl())).toString().replace("-", "")).append("\t")
+                    .append(new BigDecimal(oddInfo.getSldKl()).subtract(new BigDecimal(oddInfo.getScdKl())).toString().replace("-", "")).append("\t")
+                    .append(new BigDecimal(oddInfo.getSllKl()).subtract(new BigDecimal(oddInfo.getSclKl())).toString().replace("-", "")).append("\t")*/
+
+                    .append(oddInfo.getLlOddLb()).append("\t")
+                    .append(oddInfo.getLlOddWl()).append("\t")
+                    .append(oddInfo.getType()).append("\n");
         }
         Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train.txt"), Charsets.UTF_8);
 

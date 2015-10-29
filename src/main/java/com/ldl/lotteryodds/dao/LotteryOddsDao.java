@@ -444,6 +444,42 @@ public class LotteryOddsDao {
                 if (arr.contains("sid")) {
                     m.setSid(resultSet.getString("sid"));
                 }
+                if (arr.contains("scwOdd")) {
+                    m.setScwOdd(resultSet.getString("scwOdd"));
+                }
+                if (arr.contains("scdOdd")) {
+                    m.setScdOdd(resultSet.getString("scdOdd"));
+                }
+                if (arr.contains("sclOdd")) {
+                    m.setSclOdd(resultSet.getString("sclOdd"));
+                }
+                if (arr.contains("slwOdd")) {
+                    m.setSlwOdd(resultSet.getString("slwOdd"));
+                }
+                if (arr.contains("sldOdd")) {
+                    m.setSldOdd(resultSet.getString("sldOdd"));
+                }
+                if (arr.contains("sllOdd")) {
+                    m.setSllOdd(resultSet.getString("sllOdd"));
+                }
+                if (arr.contains("scwKl")) {
+                    m.setScwKl(resultSet.getString("scwKl"));
+                }
+                if (arr.contains("scdKl")) {
+                    m.setScdKl(resultSet.getString("scdKl"));
+                }
+                if (arr.contains("sclKl")) {
+                    m.setSclKl(resultSet.getString("sclKl"));
+                }
+                if (arr.contains("slwKl")) {
+                    m.setSlwKl(resultSet.getString("slwKl"));
+                }
+                if (arr.contains("sldKl")) {
+                    m.setSldKl(resultSet.getString("sldKl"));
+                }
+                if (arr.contains("sllKl")) {
+                    m.setSllKl(resultSet.getString("sllKl"));
+                }
 
                 list.add(m);
             }
@@ -551,6 +587,24 @@ public class LotteryOddsDao {
         return jdbcTemplate.batchUpdate(sql, batchArgs).length;
     }
 
+
+    /**
+     * 批量更新平均欧赔和凯利指数
+     *
+     * @param oddInfos 实体
+     */
+    public int batchUpdateOddInfoAvg(List<OddInfo> oddInfos) {
+        final String sql = "update lotteryoddsnew set scwOdd = ?,scdOdd = ?,sclOdd=?,slwOdd=?,sldOdd=?,sllOdd=?,scwKl=?,scdKl=?,sclKl=?,slwKl=?" +
+                ",sldKl=?,sllKl=? where matchId=?";
+        final List<Object[]> batchArgs = new ArrayList<>();
+        for (OddInfo oddInfo : oddInfos) {
+            final Object[] args = {oddInfo.getScwOdd(),oddInfo.getScdOdd(),oddInfo.getSclOdd(),oddInfo.getSlwOdd(),oddInfo.getSldOdd(),oddInfo.getSllOdd(),
+                    oddInfo.getScwKl(),oddInfo.getScdKl(),oddInfo.getSclKl(),oddInfo.getSlwKl(),oddInfo.getSldKl(),oddInfo.getSllKl(),
+                    oddInfo.getMatchId()};
+            batchArgs.add(args);
+        }
+        return jdbcTemplate.batchUpdate(sql, batchArgs).length;
+    }
 
     /**
      * 批量更新联赛id

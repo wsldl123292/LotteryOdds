@@ -6,7 +6,6 @@ import org.apache.spark.SparkContext
 import org.apache.spark.mllib.classification.LogisticRegressionModel
 import org.apache.spark.mllib.linalg.Vectors
 import org.apache.spark.mllib.optimization.{LBFGS, LogisticGradient, SquaredL2Updater}
-import org.apache.spark.mllib.regression.LabeledPoint
 import org.apache.spark.mllib.util.MLUtils
 
 /**
@@ -16,16 +15,16 @@ import org.apache.spark.mllib.util.MLUtils
  */
 object TrainBinary {
     def main(args: Array[String]) {
-        System.setProperty( "hadoop.home.dir", "F:\\data\\hadoop-common-2.2.0-bin-master" )
+        System.setProperty("hadoop.home.dir", "F:\\data\\hadoop-common-2.2.0-bin-master")
         val sc = new SparkContext("local[5]", "am")
         /** 训练数据 */
         val trainRowDataAll = sc.textFile("F:\\data\\lotteryodds\\train_all_binary.txt")
-        val trainRecordsAll = trainRowDataAll.map(line=>line.split("\t"))
-        val trainingData = trainRecordsAll.map{ r=>
-            val trimmed = r.map(_.replaceAll("\"",""))
-            val label = trimmed(r.size-1).toInt
-            val features = trimmed.slice(0,r.size-1).map(d => if(d =="") 0.00 else d.toDouble)
-            LabeledPoint(label,Vectors.dense(features))
+        val trainRecordsAll = trainRowDataAll.map(line => line.split("\t"))
+        val trainingData = trainRecordsAll.map { r =>
+            val trimmed = r.map(_.replaceAll("\"", ""))
+            val label = trimmed(r.size - 1).toInt
+            val features = trimmed.slice(0, r.size - 1).map(d => if (d == "") 0.00 else d.toDouble)
+            LabeledPointCus("", label, Vectors.dense(features))
         }
 
         /*val splits = trainDataAll.randomSplit(Array(0.9, 0.1))
@@ -33,15 +32,16 @@ object TrainBinary {
         trainingData.cache()*/
 
 
-        val testRowData = sc.textFile( "F:\\data\\lotteryodds\\test_all_binary.txt" )
-        val testRecords = testRowData.map( line => line.split( "\t" ) )
+        val testRowData = sc.textFile("F:\\data\\lotteryodds\\test_all_binary.txt")
+        val testRecords = testRowData.map(line => line.split("\t"))
         val testData = testRecords.map { r =>
-            val trimmed = r.map( _.replaceAll( "\"", "" ) )
-            val label = trimmed( r.size - 1 ).toInt
-            val features = trimmed.slice( 0, r.size - 1 ).map( d => if(d == null) 0 else d.toDouble )
-            LabeledPoint( label, Vectors.dense(features))
+            val trimmed = r.map(_.replaceAll("\"", ""))
+            val num = trimmed(r.size - 1)
+            val label = trimmed(r.size - 2).toInt
+            val features = trimmed.slice(0, r.size - 2).map(d => if (d == null) 0 else d.toDouble)
+            LabeledPointCus(num, label, Vectors.dense(features))
         }
-        testData.cache( )
+        testData.cache()
 
 
         /** 分类 */
@@ -85,26 +85,26 @@ object TrainBinary {
             weightsWithIntercept(weightsWithIntercept.size - 1))
 
         model.setThreshold(0.56)
-        val scoreAndLabels = testData.map { case LabeledPoint(label, features) =>
+
+        val writer = new PrintWriter(new File("F:\\data\\lotteryodds\\result_all_binary30.txt"))
+
+        val scoreAndLabels = testData.map { case LabeledPointCus(num, label, features) =>
             val score = model.predict(features)
-            (label,score)
+            (num, label, score)
         }
-        print("label : ",scoreAndLabels.collect().toList)
+        scoreAndLabels.collect().toList.foreach(p => {
+            if (p._3.toInt == 0) {
+                writer.write(p._1 + " : 3 \n")
+            } else {
+                writer.write(p._1 + " : 01 \n")
+            }
+        })
+        writer.close()
+
         // Get evaluation metrics.
-        val testErr = scoreAndLabels.filter( r => r._1 != r._2 ).count().toDouble / testData.count()
+        val testErr = scoreAndLabels.filter(r => r._2 != r._3).count().toDouble / testData.count()
         println("Test Error = " + testErr)
 
-        val writer = new PrintWriter(new File("F:\\data\\lotteryodds\\result_all_binary30.txt" ))
-        val predictions = testData.map { point => model.predict( point.features ) }
-        predictions.collect().toList.foreach( p => {
-            if(p.toInt==0){
-                writer.write("预测结果 : 3 \n")
-            }else{
-                writer.write("预测结果 : 01 \n")
-            }
-            //writer.write("预测结果 : "+p+"\n")
-        } )
-        writer.close()
         //model.save(sc,"F:\\data\\lotteryodds\\model\\LogisticRegressionBinary")
         sc.stop()
     }
