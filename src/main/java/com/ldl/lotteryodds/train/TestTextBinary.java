@@ -32,8 +32,8 @@ import java.util.Map;
 public class TestTextBinary {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 11, 4);
-        int size = 15;
+        LocalDate beginDate = LocalDate.of(2015, 11, 2);
+        int size = 13;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -402,7 +402,7 @@ public class TestTextBinary {
                         .append(oddInfo.getType()).append("\t")
                         .append(oddInfo.getNumber()).append("\n");
             }
-            Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\test_all_binary.txt"), Charsets.UTF_8);
+            Files.write(stringBuffer.toString(), new File("test_all_binary.txt"), Charsets.UTF_8);
 
         }
     }

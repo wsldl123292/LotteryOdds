@@ -15,10 +15,10 @@ import org.apache.spark.mllib.util.MLUtils
   */
 object TrainBinary {
     def main(args: Array[String]) {
-        System.setProperty("hadoop.home.dir", "F:\\data\\hadoop-common-2.2.0-bin-master")
-        val sc = new SparkContext("local[5]", "am")
+        //System.setProperty("hadoop.home.dir", "F:\\data\\hadoop-common-2.2.0-bin-master")
+        val sc = new SparkContext("local[3]", "am")
         /** 训练数据 */
-        val trainRowDataAll = sc.textFile("F:\\data\\lotteryodds\\train_all_binary.txt")
+        val trainRowDataAll = sc.textFile("train_all_binary.txt")
         val trainRecordsAll = trainRowDataAll.map(line => line.split("\t"))
         val trainingData = trainRecordsAll.map { r =>
             val trimmed = r.map(_.replaceAll("\"", ""))
@@ -32,7 +32,7 @@ object TrainBinary {
         trainingData.cache()*/
 
 
-        val testRowData = sc.textFile("F:\\data\\lotteryodds\\test_all_binary.txt")
+        val testRowData = sc.textFile("test_all_binary.txt")
         val testRecords = testRowData.map(line => line.split("\t"))
         val testData = testRecords.map { r =>
             val trimmed = r.map(_.replaceAll("\"", ""))
@@ -86,7 +86,7 @@ object TrainBinary {
 
         model.setThreshold(0.56)
 
-        val writer = new PrintWriter(new File("F:\\data\\lotteryodds\\result_all_binary30.txt"))
+        val writer = new PrintWriter(new File("result_all_binary30.txt"))
 
         val scoreAndLabels = testData.map { case LabeledPointCus(num, label, features) =>
             val score = model.predict(features)

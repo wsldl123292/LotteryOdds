@@ -98,7 +98,7 @@ public class TrainTextBinary {
                     //.append(oddInfo.getLlOddLb()).append("\t")
                     .append(oddInfo.getType()).append("\n");
         }
-        Files.write(stringBuffer.toString(), new File("F:\\data\\lotteryodds\\train_all_binary.txt"), Charsets.UTF_8);
+        Files.write(stringBuffer.toString(), new File("train_all_binary.txt"), Charsets.UTF_8);
 
     }
 }
