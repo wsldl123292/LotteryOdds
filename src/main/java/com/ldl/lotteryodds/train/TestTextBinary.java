@@ -33,7 +33,7 @@ public class TestTextBinary {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
         LocalDate beginDate = LocalDate.of(2015, 11, 5);
-        int size = 25;
+        int size = 26;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
