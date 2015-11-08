@@ -32,8 +32,8 @@ import java.util.Map;
 public class TestTextBinary {
     public static void main(String[] args) throws IOException {
 //采集开始时间2011-07-21
-        LocalDate beginDate = LocalDate.of(2015, 11, 5);
-        int size = 25;
+        LocalDate beginDate = LocalDate.of(2015, 11, 8);
+        int size = 24;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         HttpGet get;
@@ -93,7 +93,7 @@ public class TestTextBinary {
 
             //解析每个tr转换为实体
             final Elements trs = tableMatch.select("tbody>tr");
-            for (int i = 0; i < size; i++) {
+            for (int i = 12; i < size; i++) {
             //for (Object tr : trs) {
                 final Element element = trs.get(i);
                 if (!element.attr("parentid").trim().equals("")) {
