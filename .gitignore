@@ -13,3 +13,5 @@ hs_err_pid*
 .idea/
 target/
 *.iml
+result_all_binary30.txt
+test_all_binary.txt
