@@ -1,6 +1,7 @@
 package com.ldl.lotteryodds.dao;
 
 import com.ldl.lotteryodds.entity.Entity500;
+import com.ldl.lotteryodds.entity.InterwettenOdd;
 import com.ldl.lotteryodds.entity.OddInfo;
 import org.springframework.jdbc.core.JdbcTemplate;
 
@@ -360,8 +361,6 @@ public class LotteryOddsDao {
                 }
 
 
-
-
                 if (arr.contains("cDWaterAm")) {
                     m.setcDWaterAm(resultSet.getString("cDWaterAm"));
                 }
@@ -502,8 +501,8 @@ public class LotteryOddsDao {
      * @param entity500s 实体
      */
     public int batchInsert(List<Entity500> entity500s) {
-        final String sql = "insert into lotteryodds(matchid,content,hwOdd," +
-                "hdOdd,hlOdd,rhwOdd,rhdOdd,rhlOdd,date)values(?,?,?,?,?,?,?,?,?)";
+        final String sql = "INSERT INTO lotteryodds(matchid,content,hwOdd," +
+                "hdOdd,hlOdd,rhwOdd,rhdOdd,rhlOdd,date)VALUES(?,?,?,?,?,?,?,?,?)";
         final List<Object[]> batchArgs = new ArrayList<>();
         for (Entity500 entity500 : entity500s) {
             final Object[] args = {entity500.getMatchid(), entity500.getContent(), entity500.getHwOdd(),
@@ -520,13 +519,13 @@ public class LotteryOddsDao {
      * @param oddInfos 实体
      */
     public int batchInsertOddInfo(List<OddInfo> oddInfos) {
-        final String sql = "insert into lotteryoddsnew(matchId,result,zscore,kscore,cwOddAm,cdOddAm,clOddAm,lwOddAm,ldOddAm," +
+        final String sql = "INSERT INTO lotteryoddsnew(matchId,result,zscore,kscore,cwOddAm,cdOddAm,clOddAm,lwOddAm,ldOddAm," +
                 "llOddAm,cwKlAm,cdKlAm,clKlAm,lwKlAm,ldKlAm,llKlAm,cwOddWl,cdOddWl,clOddWl,lwOddWl,ldOddWl,llOddWl" +
                 ",cwKlWl,cdKlWl,clKlWl,lwKlWl,ldKlWl,llKlWl,cwOddLb,cdOddLb,clOddLb,lwOddLb,ldOddLb,llOddLb,cwKlLb," +
                 "cdKlLb,clKlLb,lwKlLb,ldKlLb,llKlLb,scwOdd,scdOdd,sclOdd,slwOdd,sldOdd,sllOdd,scwKl,scdKl,sclKl," +
                 "slwKl,sldKl,sllKl,czWaterAm,cpAm,ckWaterAm,lzWaterAm,lpAm,lkWaterAm,czWaterLb,cpLb,ckWaterLb," +
                 "lzWaterLb,lpLb,lkWaterLb,sczWater,scp,sckWater,slzWater,slp,slkWater,date,win ,down ,lose,zwin,zdown," +
-                "zlose,kwin,kdown,klose,zjscore,zlscore,kjscore,klscore,zzwin,zzdown,zzlose,zzjscore,zzlscore,kkwin,kkdown,kklose,kkjscore,kklscore)values(?,?,?,?,?,?,?,?,?,?" +
+                "zlose,kwin,kdown,klose,zjscore,zlscore,kjscore,klscore,zzwin,zzdown,zzlose,zzjscore,zzlscore,kkwin,kkdown,kklose,kkjscore,kklscore)VALUES(?,?,?,?,?,?,?,?,?,?" +
                 ",?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?," +
                 "?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
         final List<Object[]> batchArgs = new ArrayList<>();
@@ -573,14 +572,14 @@ public class LotteryOddsDao {
                     oddInfo.getMatchId()};
             batchArgs.add(args);
         }*/
-        final String sql = "update lotteryoddsnew set cDWaterAm = ?,cXWaterAm = ?,lDWaterAm=?,lXWaterAm=?,cPDXAm=?,lPDXAm=?,cDWaterLb=?,cXWaterLb=?,lDWaterLb=?,lXWaterLb=?" +
+        final String sql = "UPDATE lotteryoddsnew SET cDWaterAm = ?,cXWaterAm = ?,lDWaterAm=?,lXWaterAm=?,cPDXAm=?,lPDXAm=?,cDWaterLb=?,cXWaterLb=?,lDWaterLb=?,lXWaterLb=?" +
                 ",cPDXLb=?,lPDXLb=?,cDWaterWl=?," +
-                "cXWaterWl=?,lDWaterWl=?,lXWaterWl=?,cPDXWl=?,lPDXWl=? where matchId=?";
+                "cXWaterWl=?,lDWaterWl=?,lXWaterWl=?,cPDXWl=?,lPDXWl=? WHERE matchId=?";
         final List<Object[]> batchArgs = new ArrayList<>();
         for (OddInfo oddInfo : oddInfos) {
-            final Object[] args = {oddInfo.getcDWaterAm(),oddInfo.getcXWaterAm(),oddInfo.getlDWaterAm(),oddInfo.getlXWaterAm(),oddInfo.getcPDXAm(),oddInfo.getlPDXAm(),
-                    oddInfo.getcDWaterLb(),oddInfo.getcXWaterLb(),oddInfo.getlDWaterLb(),oddInfo.getlXWaterLb(),oddInfo.getcPDXLb(),oddInfo.getlPDXLb(),oddInfo.getcDWaterWl(),
-                    oddInfo.getcXWaterWl(),oddInfo.getlDWaterWl(),oddInfo.getlXWaterWl(),oddInfo.getcPDXWl(),oddInfo.getlPDXWl(),
+            final Object[] args = {oddInfo.getcDWaterAm(), oddInfo.getcXWaterAm(), oddInfo.getlDWaterAm(), oddInfo.getlXWaterAm(), oddInfo.getcPDXAm(), oddInfo.getlPDXAm(),
+                    oddInfo.getcDWaterLb(), oddInfo.getcXWaterLb(), oddInfo.getlDWaterLb(), oddInfo.getlXWaterLb(), oddInfo.getcPDXLb(), oddInfo.getlPDXLb(), oddInfo.getcDWaterWl(),
+                    oddInfo.getcXWaterWl(), oddInfo.getlDWaterWl(), oddInfo.getlXWaterWl(), oddInfo.getcPDXWl(), oddInfo.getlPDXWl(),
                     oddInfo.getMatchId()};
             batchArgs.add(args);
         }
@@ -594,12 +593,12 @@ public class LotteryOddsDao {
      * @param oddInfos 实体
      */
     public int batchUpdateOddInfoAvg(List<OddInfo> oddInfos) {
-        final String sql = "update lotteryoddsnew set scwOdd = ?,scdOdd = ?,sclOdd=?,slwOdd=?,sldOdd=?,sllOdd=?,scwKl=?,scdKl=?,sclKl=?,slwKl=?" +
-                ",sldKl=?,sllKl=? where matchId=?";
+        final String sql = "UPDATE lotteryoddsnew SET scwOdd = ?,scdOdd = ?,sclOdd=?,slwOdd=?,sldOdd=?,sllOdd=?,scwKl=?,scdKl=?,sclKl=?,slwKl=?" +
+                ",sldKl=?,sllKl=? WHERE matchId=?";
         final List<Object[]> batchArgs = new ArrayList<>();
         for (OddInfo oddInfo : oddInfos) {
-            final Object[] args = {oddInfo.getScwOdd(),oddInfo.getScdOdd(),oddInfo.getSclOdd(),oddInfo.getSlwOdd(),oddInfo.getSldOdd(),oddInfo.getSllOdd(),
-                    oddInfo.getScwKl(),oddInfo.getScdKl(),oddInfo.getSclKl(),oddInfo.getSlwKl(),oddInfo.getSldKl(),oddInfo.getSllKl(),
+            final Object[] args = {oddInfo.getScwOdd(), oddInfo.getScdOdd(), oddInfo.getSclOdd(), oddInfo.getSlwOdd(), oddInfo.getSldOdd(), oddInfo.getSllOdd(),
+                    oddInfo.getScwKl(), oddInfo.getScdKl(), oddInfo.getSclKl(), oddInfo.getSlwKl(), oddInfo.getSldKl(), oddInfo.getSllKl(),
                     oddInfo.getMatchId()};
             batchArgs.add(args);
         }
@@ -613,7 +612,7 @@ public class LotteryOddsDao {
      */
     public int batchUpdateSid(List<OddInfo> oddInfos) {
 
-        final String sql = "update lotteryoddsnew set sid=? where matchId=?";
+        final String sql = "UPDATE lotteryoddsnew SET sid=? WHERE matchId=?";
         final List<Object[]> batchArgs = new ArrayList<>();
         for (OddInfo oddInfo : oddInfos) {
             final Object[] args = {oddInfo.getSid(),
@@ -664,5 +663,20 @@ public class LotteryOddsDao {
 
     public JdbcTemplate getJdbcTemplate() {
         return jdbcTemplate;
+    }
+
+
+    public int batchInterwettenOdd(List<InterwettenOdd> oddInfos) {
+        final String sql = "INSERT INTO interwetten(matchId,result,zscore,kscore,zname,kname,cp,ww,wd,wl,dw,dd,dl,lw,ld,ll,sid" +
+                ",date)VALUES(?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?,?)";
+        final List<Object[]> batchArgs = new ArrayList<>();
+        for (InterwettenOdd oddInfo : oddInfos) {
+            final Object[] args = {oddInfo.getMatchId(), oddInfo.getResult(), oddInfo.getZscore(),oddInfo.getKscore(),
+                    oddInfo.getzName(), oddInfo.getkName(), oddInfo.getCp(), oddInfo.getWw(),
+                    oddInfo.getWd(), oddInfo.getWl(), oddInfo.getDw(), oddInfo.getDd(), oddInfo.getDl(), oddInfo.getLw(),
+                    oddInfo.getLd(), oddInfo.getLl(), oddInfo.getSid(), oddInfo.getDate()};
+            batchArgs.add(args);
+        }
+        return jdbcTemplate.batchUpdate(sql, batchArgs).length;
     }
 }
