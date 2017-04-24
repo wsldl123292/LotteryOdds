@@ -34,8 +34,7 @@ public class GameSelect {
     private static CloseableHttpResponse response;
 
     public static void main(String[] args) throws IOException {
-        //CheckBackDaCai(8800f, 8800f, 100, 100);
-        CheckBackOkooo(8800f, 8800f, 10);
+        CheckBackDaCai(8500f, 8500f, 300, 50);
     }
 
 
@@ -44,7 +43,7 @@ public class GameSelect {
         List<Game> winLoseGameList = Lists.newArrayList();
         List<Game> overUnderGameList = Lists.newArrayList();
         String bodyAsString;
-        final WebClient webClient=new WebClient(BrowserVersion.CHROME);
+        final WebClient webClient = new WebClient(BrowserVersion.CHROME);
         webClient.getOptions().setCssEnabled(false);
         webClient.getOptions().setJavaScriptEnabled(true);
         try {
@@ -54,7 +53,7 @@ public class GameSelect {
                 //response = client.execute(get);
                 //bodyAsString = EntityUtils.toString(response.getEntity(), Charset.forName("gb2312"));
 
-                final HtmlPage page=webClient.getPage(OKOOO_BASE_URL + game.getUrl());
+                final HtmlPage page = webClient.getPage(OKOOO_BASE_URL + game.getUrl());
                 //System.out.println(page.asText());
 
                 final Document document = Jsoup.parse(page.asXml());
@@ -189,7 +188,8 @@ public class GameSelect {
                 Elements trs = table.select("tr");
                 int count = 0;
                 while (count < 3) {
-                    if (compare(trs.get(count).getElementsByTag("td").get(7).text(), winningRatio)) {
+                    if (compare(trs.get(count).getElementsByTag("td").get(7).text(), winningRatio)
+                            && Integer.parseInt(trs.get(count).getElementsByTag("td").get(5).text()) > 3000) {
                         winLoseGameList.add(game);
                         break;
                     }
@@ -199,7 +199,8 @@ public class GameSelect {
                 count = 3;
                 //大小
                 while (count < 5) {
-                    if (compare(trs.get(count).getElementsByTag("td").get(7).text(), overUnderRatio)) {
+                    if (compare(trs.get(count).getElementsByTag("td").get(7).text(), overUnderRatio)
+                            && Integer.parseInt(trs.get(count).getElementsByTag("td").get(5).text()) > 3000) {
                         overUnderGameList.add(game);
                         break;
                     }
