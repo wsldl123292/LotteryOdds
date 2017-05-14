@@ -34,7 +34,7 @@ public class GameSelect {
     private static CloseableHttpResponse response;
 
     public static void main(String[] args) throws IOException {
-        CheckBackDaCai(8500f, 8500f, 300, 50);
+        CheckDaCai(8500f, 8500f, 440, 20);
     }
 
 
