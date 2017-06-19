@@ -34,7 +34,7 @@ public class GameSelect {
     private static CloseableHttpResponse response;
 
     public static void main(String[] args) throws IOException {
-        CheckBackDaCai(8500f, 8500f, 0, 80);
+        CheckDaCai(8500f, 8500f, 440, 20);
     }
 
 
@@ -97,8 +97,6 @@ public class GameSelect {
     }
 
     public static void print(List<Game> winLoseGameList, List<Game> overUnderGameList) {
-        System.out.println();
-        System.out.println();
         System.out.println("胜负符合条件比赛");
         System.out.println(winLoseGameList);
         System.out.println();
