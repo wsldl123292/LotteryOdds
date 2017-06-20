@@ -23,7 +23,7 @@ public class BCTOddsCrawling {
     public static void main(String[] args) throws IOException {
 
         final String baseurl = "https://www.3163.com/list_1_";
-        int count = 2;
+        int count = 27;
         final CloseableHttpClient client = HttpClientBuilder.create().build();
         CloseableHttpResponse response;
         String url;
@@ -61,6 +61,10 @@ public class BCTOddsCrawling {
                     right++;
                 }
                 if (result.html().contains("2.gif")) {
+                    System.out.println(match.select(".Threea").first().text() + "   " +
+                            match.select(".Foura").first().text() + "   " + match.select(".Fivea").first().text()
+                            +"   "+match.select(".Sixa").first().text()
+                            + "      " + score.text());
                     error++;
                 }
                 if (result.html().contains("3.gif")) {
