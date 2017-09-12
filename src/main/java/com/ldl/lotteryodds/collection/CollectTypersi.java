@@ -11,6 +11,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 /**
  * @描述
@@ -19,7 +20,7 @@ import java.io.IOException;
  */
 public class CollectTypersi {
 
-    private static final String BASE_URL = "http://www.typersi.com/index.php";
+    private static final String BASE_URL = "http://www.typersi.com/";
 
     private static final CloseableHttpClient client = HttpClientBuilder.create().build();
 
@@ -27,7 +28,7 @@ public class CollectTypersi {
     public static void main(String[] args) throws IOException {
         CloseableHttpResponse response;
         HttpGet get;
-        get = new HttpGet(BASE_URL);
+        get = new HttpGet(BASE_URL + "index.php");
         response = client.execute(get);
         final String bodyAsString = EntityUtils.toString(response.getEntity());
         final Document document = Jsoup.parse(bodyAsString);
@@ -37,10 +38,80 @@ public class CollectTypersi {
         Elements ranks = right.select("div").get(4).select("li");
 
 
+        ArrayList<String> urls = new ArrayList<>();
+
         for (Element rank : ranks) {
-            System.out.println(rank.select("[href]").attr("href"));
+            urls.add(rank.select("[href]").attr("href"));
         }
 
+
+        /*for (String url : urls) {
+            get = new HttpGet(BASE_URL + url);
+            response = client.execute(get);
+            String result = EntityUtils.toString(response.getEntity());
+            Document d = Jsoup.parse(result);
+            System.out.println(d.html());
+        }*/
+        get = new HttpGet(BASE_URL + urls.get(0));
+        response = client.execute(get);
+        String result = EntityUtils.toString(response.getEntity());
+        Document d = Jsoup.parse(result);
+        Element tbody = d.getElementsByTag("tbody").get(2);
+
+    }
+
+
+    class Tips {
+        private Integer day;
+
+        private String home;
+
+        private String result;
+
+        private String away;
+
+
+        public Integer getDay() {
+            return day;
+        }
+
+        public void setDay(Integer day) {
+            this.day = day;
+        }
+
+        public String getHome() {
+            return home;
+        }
+
+        public void setHome(String home) {
+            this.home = home;
+        }
+
+        public String getResult() {
+            return result;
+        }
+
+        public void setResult(String result) {
+            this.result = result;
+        }
+
+        public String getAway() {
+            return away;
+        }
+
+        public void setAway(String away) {
+            this.away = away;
+        }
+
+        @Override
+        public String toString() {
+            return "Tips{" +
+                    "day=" + day +
+                    ", home='" + home + '\'' +
+                    ", result='" + result + '\'' +
+                    ", away='" + away + '\'' +
+                    '}';
+        }
     }
 
 
