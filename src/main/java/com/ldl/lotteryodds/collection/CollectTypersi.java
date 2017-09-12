@@ -1,5 +1,6 @@
 package com.ldl.lotteryodds.collection;
 
+import com.ldl.lotteryodds.entity.Tips;
 import org.apache.http.client.methods.CloseableHttpResponse;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -12,6 +13,9 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 /**
  * @描述
@@ -43,75 +47,34 @@ public class CollectTypersi {
         for (Element rank : ranks) {
             urls.add(rank.select("[href]").attr("href"));
         }
-
-
-        /*for (String url : urls) {
+        List<Tips> tipsList = new ArrayList<>();
+        for (String url : urls) {
+            System.out.println("当前处理:" + url);
             get = new HttpGet(BASE_URL + url);
             response = client.execute(get);
             String result = EntityUtils.toString(response.getEntity());
             Document d = Jsoup.parse(result);
-            System.out.println(d.html());
-        }*/
-        get = new HttpGet(BASE_URL + urls.get(0));
-        response = client.execute(get);
-        String result = EntityUtils.toString(response.getEntity());
-        Document d = Jsoup.parse(result);
-        Element tbody = d.getElementsByTag("tbody").get(2);
+            Element tbody = d.getElementsByTag("tbody").get(2);
+            Elements trs = tbody.getElementsByTag("tr");
 
-    }
-
-
-    class Tips {
-        private Integer day;
-
-        private String home;
-
-        private String result;
-
-        private String away;
-
-
-        public Integer getDay() {
-            return day;
+            for (Element tr : trs) {
+                Tips tips = new Tips();
+                tips.setDay(Integer.valueOf(tr.getElementsByTag("td").first().text()));
+                tips.setMatch(tr.getElementsByTag("td").get(2).text());
+                tips.setResult(tr.getElementsByTag("td").get(3).getElementsByTag("a").first().text());
+                tips.setScore(tr.getElementsByTag("td").get(7).getElementsByTag("a").first().text());
+                tipsList.add(tips);
+            }
         }
 
-        public void setDay(Integer day) {
-            this.day = day;
+        Map<Tips, Integer> map = new HashMap<>();
+
+        for (Tips tips : tipsList) {
+            map.merge(tips, 1, (a, b) -> a + b);
         }
 
-        public String getHome() {
-            return home;
-        }
+        System.out.println(map);
 
-        public void setHome(String home) {
-            this.home = home;
-        }
-
-        public String getResult() {
-            return result;
-        }
-
-        public void setResult(String result) {
-            this.result = result;
-        }
-
-        public String getAway() {
-            return away;
-        }
-
-        public void setAway(String away) {
-            this.away = away;
-        }
-
-        @Override
-        public String toString() {
-            return "Tips{" +
-                    "day=" + day +
-                    ", home='" + home + '\'' +
-                    ", result='" + result + '\'' +
-                    ", away='" + away + '\'' +
-                    '}';
-        }
     }
 
 
