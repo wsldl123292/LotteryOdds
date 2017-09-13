@@ -12,6 +12,7 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -73,7 +74,13 @@ public class CollectTypersi {
             map.merge(tips, 1, (a, b) -> a + b);
         }
 
-        System.out.println(map);
+        for (Tips tips : map.keySet()) {
+            LocalDate localDate = LocalDate.now();
+            if (tips.getDay() == localDate.getDayOfMonth()) {
+                System.out.println(tips + ":" + map.get(tips));
+            }
+        }
+
 
     }
 
