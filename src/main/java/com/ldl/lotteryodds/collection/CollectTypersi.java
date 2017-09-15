@@ -27,6 +27,7 @@ public class CollectTypersi {
 
     private static final String BASE_URL = "http://www.typersi.com/";
 
+    private static final String MORE = "typerlist,dane,ranking.html?height=400&width=190";
     private static final CloseableHttpClient client = HttpClientBuilder.create().build();
 
 
@@ -39,7 +40,6 @@ public class CollectTypersi {
         final Document document = Jsoup.parse(bodyAsString);
         //获取比赛表格
         final Element right = document.getElementById("right");
-
         Elements ranks = right.select("div").get(4).select("li");
 
 
@@ -58,15 +58,30 @@ public class CollectTypersi {
             Element tbody = d.getElementsByTag("tbody").get(2);
             Elements trs = tbody.getElementsByTag("tr");
 
-            for (Element tr : trs) {
-                Tips tips = new Tips();
-                tips.setDay(Integer.valueOf(tr.getElementsByTag("td").first().text()));
-                tips.setMatch(tr.getElementsByTag("td").get(2).text());
-                tips.setResult(tr.getElementsByTag("td").get(3).getElementsByTag("a").first().text());
-                tips.setScore(tr.getElementsByTag("td").get(7).getElementsByTag("a").first().text());
-                tipsList.add(tips);
-            }
+            toList(tipsList, trs);
         }
+
+
+        System.out.println("开始更多查询");
+        get = new HttpGet(BASE_URL + MORE);
+        response = client.execute(get);
+        final Document moreDoucument = Jsoup.parse(EntityUtils.toString(response.getEntity()));
+        //获取比赛表格
+        Elements moreRanks = moreDoucument.getElementById("typerlistbox").select("ul").get(0).select("li");
+
+        for (int i = 0; i < 10; i++) {
+            String url = moreRanks.get(i).select("[href]").attr("href");
+            System.out.println("更多排序,当前处理:" + url);
+            get = new HttpGet(BASE_URL + url);
+            response = client.execute(get);
+            String result = EntityUtils.toString(response.getEntity());
+            Document d = Jsoup.parse(result);
+            Element tbody = d.getElementsByTag("tbody").get(2);
+            Elements trs = tbody.getElementsByTag("tr");
+
+            toList(tipsList, trs);
+        }
+
 
         Map<Tips, Integer> map = new HashMap<>();
 
@@ -76,12 +91,22 @@ public class CollectTypersi {
 
         for (Tips tips : map.keySet()) {
             LocalDate localDate = LocalDate.now();
-            if (tips.getDay() == localDate.getDayOfMonth()) {
+            if (tips.getDay() == localDate.getDayOfMonth() - 1) {
                 System.out.println(tips + ":" + map.get(tips));
             }
         }
 
+    }
 
+    private static void toList(List<Tips> tipsList, Elements trs) {
+        for (Element tr : trs) {
+            Tips tips = new Tips();
+            tips.setDay(Integer.valueOf(tr.getElementsByTag("td").first().text()));
+            tips.setMatch(tr.getElementsByTag("td").get(2).text());
+            tips.setResult(tr.getElementsByTag("td").get(3).getElementsByTag("a").first().text());
+            tips.setScore(tr.getElementsByTag("td").get(7).getElementsByTag("a").first().text());
+            tipsList.add(tips);
+        }
     }
 
 
