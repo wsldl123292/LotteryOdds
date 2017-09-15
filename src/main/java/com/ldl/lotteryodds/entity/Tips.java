@@ -7,6 +7,7 @@ package com.ldl.lotteryodds.entity;
  */
 public class Tips {
 
+    private String author;
     private Integer day;
 
     private String match;
@@ -61,7 +62,8 @@ public class Tips {
     @Override
     public String toString() {
         return "Tips{" +
-                "day=" + day +
+                "author='" + author + '\'' +
+                ", day=" + day +
                 ", match='" + match + '\'' +
                 ", result='" + result + '\'' +
                 ", score='" + score + '\'' +
@@ -74,6 +76,14 @@ public class Tips {
 
     public void setScore(String score) {
         this.score = score;
+    }
+
+    public String getAuthor() {
+        return author;
+    }
+
+    public void setAuthor(String author) {
+        this.author = author;
     }
 }
 

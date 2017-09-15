@@ -41,7 +41,9 @@ public class CollectTypersi {
         //获取比赛表格
         final Element right = document.getElementById("right");
         Elements ranks = right.select("div").get(4).select("li");
-
+        if (ranks == null || ranks.size() == 0) {
+            ranks = right.select("div").get(5).select("li");
+        }
 
         ArrayList<String> urls = new ArrayList<>();
 
@@ -58,7 +60,7 @@ public class CollectTypersi {
             Element tbody = d.getElementsByTag("tbody").get(2);
             Elements trs = tbody.getElementsByTag("tr");
 
-            toList(tipsList, trs);
+            toList(tipsList, trs, url);
         }
 
 
@@ -69,7 +71,7 @@ public class CollectTypersi {
         //获取比赛表格
         Elements moreRanks = moreDoucument.getElementById("typerlistbox").select("ul").get(0).select("li");
 
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < 15; i++) {
             String url = moreRanks.get(i).select("[href]").attr("href");
             System.out.println("更多排序,当前处理:" + url);
             get = new HttpGet(BASE_URL + url);
@@ -79,7 +81,7 @@ public class CollectTypersi {
             Element tbody = d.getElementsByTag("tbody").get(2);
             Elements trs = tbody.getElementsByTag("tr");
 
-            toList(tipsList, trs);
+            toList(tipsList, trs, url);
         }
 
 
@@ -91,20 +93,21 @@ public class CollectTypersi {
 
         for (Tips tips : map.keySet()) {
             LocalDate localDate = LocalDate.now();
-            if (tips.getDay() == localDate.getDayOfMonth() - 1) {
+            if (tips.getDay() == localDate.getDayOfMonth()) {
                 System.out.println(tips + ":" + map.get(tips));
             }
         }
 
     }
 
-    private static void toList(List<Tips> tipsList, Elements trs) {
+    private static void toList(List<Tips> tipsList, Elements trs, String url) {
         for (Element tr : trs) {
             Tips tips = new Tips();
             tips.setDay(Integer.valueOf(tr.getElementsByTag("td").first().text()));
             tips.setMatch(tr.getElementsByTag("td").get(2).text());
             tips.setResult(tr.getElementsByTag("td").get(3).getElementsByTag("a").first().text());
             tips.setScore(tr.getElementsByTag("td").get(7).getElementsByTag("a").first().text());
+            tips.setAuthor(url.split(",")[1]);
             tipsList.add(tips);
         }
     }
