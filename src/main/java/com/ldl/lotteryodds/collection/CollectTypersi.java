@@ -13,10 +13,7 @@ import org.jsoup.select.Elements;
 
 import java.io.IOException;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @描述
@@ -91,10 +88,14 @@ public class CollectTypersi {
             map.merge(tips, 1, (a, b) -> a + b);
         }
 
-        for (Tips tips : map.keySet()) {
+        Map<Tips, Integer> soretedMap = sortMapByValue(map);
+
+        for (Tips tips : soretedMap.keySet()) {
             LocalDate localDate = LocalDate.now();
-            if (tips.getDay() == localDate.getDayOfMonth()) {
-                System.out.println(tips + ":" + map.get(tips));
+            if (tips.getDay() == localDate.getDayOfMonth() - 1) {
+                if (soretedMap.get(tips) > 1) {
+                    System.out.println(tips + ":" + soretedMap.get(tips));
+                }
             }
         }
 
@@ -113,4 +114,30 @@ public class CollectTypersi {
     }
 
 
+    private static Map<Tips, Integer> sortMapByValue(Map<Tips, Integer> oriMap) {
+        if (oriMap == null || oriMap.isEmpty()) {
+            return null;
+        }
+        Map<Tips, Integer> sortedMap = new LinkedHashMap<>();
+        List<Map.Entry<Tips, Integer>> entryList = new ArrayList<>(
+                oriMap.entrySet());
+        entryList.sort(new MapValueComparator());
+
+        Iterator<Map.Entry<Tips, Integer>> iter = entryList.iterator();
+        Map.Entry<Tips, Integer> tmpEntry;
+        while (iter.hasNext()) {
+            tmpEntry = iter.next();
+            sortedMap.put(tmpEntry.getKey(), tmpEntry.getValue());
+        }
+        return sortedMap;
+    }
+}
+
+class MapValueComparator implements Comparator<Map.Entry<Tips, Integer>> {
+
+    @Override
+    public int compare(Map.Entry<Tips, Integer> me1, Map.Entry<Tips, Integer> me2) {
+
+        return me1.getValue().compareTo(me2.getValue());
+    }
 }
