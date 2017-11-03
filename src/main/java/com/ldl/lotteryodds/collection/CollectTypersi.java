@@ -92,7 +92,7 @@ public class CollectTypersi {
 
         for (Tips tips : soretedMap.keySet()) {
             LocalDate localDate = LocalDate.now();
-            if (tips.getDay() == localDate.getDayOfMonth() - 1) {
+            if (tips.getDay() == localDate.getDayOfMonth()-1) {
                 if (soretedMap.get(tips) > 1) {
                     System.out.println(tips + ":" + soretedMap.get(tips));
                 }
